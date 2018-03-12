@@ -657,7 +657,7 @@ namespace ConsoleApplication9
                     if (!menzen_break && !ad.istsumoagari)
                     {
                         cur_Fu += 10;
-                        fu_str += " + 面前ロン 2 ";
+                        fu_str += " + 面前ロン 10 ";
                     }
 
 
