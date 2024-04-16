@@ -907,10 +907,11 @@ namespace ConsoleApplication9
 
                 //【テンポラリ役リストを作成】
                 bool[] cur_c_YakuList = new bool[54];
-                for (int i = 0; i < cur_c_YakuList.Length; i++)
-                {
-                    cur_c_YakuList[i] = false;
-                }
+		Array.Fill(cur_c_YakuList, false);
+                //for (int i = 0; i < cur_c_YakuList.Length; i++)
+                //{
+                //    cur_c_YakuList[i] = false;
+                //}
 
 
                 //対子情報
@@ -918,10 +919,10 @@ namespace ConsoleApplication9
                 int toitsu_cnt = 0;
 
                 //テーブルを確認
-                for (int clr = 0; clr <= 3; clr++)
-                {
-                    for (int num = 1; num <= 9; num++)
-                    {
+		for (int clr = 0; clr <= 3 && toitsu_cnt != 7; clr++)
+		{
+    		　　for (int num = 1; num <= 9 && toitsu_cnt != 7; num++)
+    		　　{
                         if (pai_table[clr, num] == 2)
                         {
                             toitsu_info[toitsu_cnt] = ReturnXS(clr, num);
