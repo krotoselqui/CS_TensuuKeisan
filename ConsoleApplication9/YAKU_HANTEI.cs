@@ -303,6 +303,16 @@ namespace ConsoleApplication9
         //◎ 面子分けされた手牌（ジャグ配列）？　七対子とか国士はどうするのか
         HANYOU hy = new HANYOU();
 
+	private void InitializeTileTable(int[,] tileTable, int[] tiles) {
+    		Array.Clear(tileTable, 0, tileTable.Length);
+    		foreach (var tile in tiles) {
+    		    if (tile == 0) break;
+    		    int color = GetTileColor(tile);
+    		    int number = GetTileNumber(tile);
+     	　　　　　　tileTable[color, number]++;
+  		}
+	}
+
         public int Yaku_Keishiki(out bool[] out_AccYakuList, out SCORE_DATA out_sd, AGARI_DATA ad)
         {
             int Fan = 0;
@@ -342,7 +352,7 @@ namespace ConsoleApplication9
                 }
             }
 
-            //【晒していない手牌をテーブル化】
+            //【晒していない手牌をテーブル化】　　--TODO: REPLACE HERE WITH   InitializeTileTable(pai_table, ad.tehai); 
             int[,] pai_table = new int[4, 11];
             int tehai_maisu = 0;
 
