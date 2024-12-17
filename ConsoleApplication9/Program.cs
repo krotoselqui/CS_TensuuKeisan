@@ -243,14 +243,14 @@ namespace ConsoleApplication9
             Console.WriteLine("・゜・*:.｡..｡.:*・゜(n'∀')ηﾟ・*:.｡. .｡.:*・゜・*");
             Console.WriteLine("                        　　                      ");
             Console.WriteLine("・゜・*:.｡  よい子のための点数計算  ｡ .｡.:*・゜・*");
-            Console.WriteLine("                   [ 試用版 ]   　　              ");
+            //Console.WriteLine("                   [ 試用版 ]   　　              ");
             Console.WriteLine("                        　　                      ");
             Console.WriteLine("・゜・*:.｡..｡.:*・*:.｡. .｡.:*ﾟ・*:.｡. .｡.:*・゜・*");
             Console.WriteLine("");
 
             #region ダイアログ
 
-            mondai_suu = 1;
+            //mondai_suu = 1;
             if (mondai_suu >= 1)
             {
                 Console.WriteLine("問題数を入力 : " + mondai_suu.ToString());

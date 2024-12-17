@@ -7,6 +7,16 @@ using System.Diagnostics;
 
 namespace ConsoleApplication9
 {
+    //public static class ArrayExtensions
+    //{
+    //    public static void Fill<T>(this T[] array, T value)
+    //    {
+    //        for (int i = 0; i < array.Length; i++)
+    //        {
+    //            array[i] = value;
+    //        }
+    //    }
+    //}
     class AGARI_DATA
     {
 
@@ -307,8 +317,8 @@ namespace ConsoleApplication9
     		Array.Clear(tileTable, 0, tileTable.Length);
     		foreach (var tile in tiles) {
     		    if (tile == 0) break;
-    		    int color = GetTileColor(tile);
-    		    int number = GetTileNumber(tile);
+    		    int color = hy.tileClr(tile);
+    		    int number = hy.tileNum(tile);
      	　　　　　　tileTable[color, number]++;
   		}
 	}
@@ -917,11 +927,13 @@ namespace ConsoleApplication9
 
                 //【テンポラリ役リストを作成】
                 bool[] cur_c_YakuList = new bool[54];
-		Array.Fill(cur_c_YakuList, false);
-                //for (int i = 0; i < cur_c_YakuList.Length; i++)
-                //{
-                //    cur_c_YakuList[i] = false;
-                //}
+		        //Array.Fill(cur_c_YakuList, false);
+
+
+                for (int i = 0; i < cur_c_YakuList.Length; i++)
+                {
+                    cur_c_YakuList[i] = false;
+                }
 
 
                 //対子情報
