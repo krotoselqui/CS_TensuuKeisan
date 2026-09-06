@@ -4,6 +4,8 @@
 
 開発時は [開発規則](docs/development-rules.md) と [現行仕様・互換性の基準](docs/specification.md) を参照してください。作業エージェント向けの要点は [AGENTS.md](AGENTS.md)、基本の編集設定は `.editorconfig` にまとめています。
 
+[CI とローカル検証](docs/ci.md) に自動確認の範囲と実行手順、[リファクタリング方針](docs/refactoring-plan.md) に段階的な整理の進め方を記載しています。
+
 ## 主な機能と利用の流れ
 
 1. コンソールで問題数（1 以上）、乱数シード（ランダムは `-1`、指定する場合は 0 以上）、牌の出力形式を入力します。
