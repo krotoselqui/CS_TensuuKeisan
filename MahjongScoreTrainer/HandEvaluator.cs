@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace ConsoleApplication9
+namespace MahjongScoreTrainer
 {
     //public static class ArrayExtensions
     //{
@@ -17,189 +17,7 @@ namespace ConsoleApplication9
     //        }
     //    }
     //}
-    class AGARI_DATA
-    {
-
-
-        public int[] tehai;
-        public int[][] furotehai;
-        public int[] furotype;
-        public int agarixs;
-
-        public int bakaze;
-        public int jikaze;
-
-        public bool istsumoagari;
-
-
-        public AGARI_DATA(int[] tehai, int[][] furotehai, int[] furotype, int agarixs, int bakaze, int jikaze, bool istsumoagari)
-        {
-
-
-            this.tehai = tehai;
-            this.furotehai = furotehai;
-            this.furotype = furotype;
-            this.agarixs = agarixs;
-
-            this.bakaze = bakaze;
-            this.jikaze = jikaze;
-
-            this.istsumoagari = istsumoagari;
-
-
-        }
-    }
-
-    class SCORE_DATA
-    {
-
-        public const bool KIRIAGE = false;
-
-        public int fan;
-        public int fu;
-        public bool ykm;
-        public int level = -1;
-        public int scoresum = 0;
-        public int other_pay = 0;
-        public int dealer_pay = 0;
-        public bool oya;
-
-        private int[] level_fromFan = new int[] { 0, 0, 0, 0, 0, 1, 2, 2, 3, 3, 3, 4, 4, 5 };
-
-        private int[] sc_fromLevel = new int[]{ 0,2000,3000,4000,6000,8000,
-                                                  16000,24000,32000,40000,48000,
-                                                  56000,64000};
-
-        private string[] str_level = new string[] { "和了", "満貫", "跳満", "倍満", "三倍満", "役満", 
-                                                          "二倍役満" ,"三倍役満" ,"四倍役満" ,"五倍役満" ,"六倍役満" ,
-                                                          "七倍役満", "八倍役満" };
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="fan">飜数。役満の場合は何倍か</param>
-        /// <param name="fu">符</param>
-        /// <param name="ykm">役満か否か</param>
-        /// <param name="oya">親かどうか</param>
-        public SCORE_DATA(int fan, int fu, bool ykm, bool oya)
-        {
-            //Debug.Print("飜数 = " + fan.ToString() + " 符数 = " + fu.ToString() + " で初期化されました");
-
-            this.fan = fan;
-            this.fu = fu;
-            this.ykm = ykm;
-            this.oya = oya;
-
-            if (this.fan < 0) this.fan = 0;
-
-            if (!ykm)
-            {
-                if (this.fan >= 13)
-                {
-                    this.level = 5;
-                }
-                else
-                {
-                    this.level = level_fromFan[fan];
-                }
-            }
-            else //n倍役満
-            {
-                this.level = fan + 4;
-            }
-
-            calcScore_fromFanFu();
-
-        }
-
-        public void calcScore_fromFanFu()
-        {
-            int tmp_sc = 0;
-
-            if (this.fan < 5 && !ykm)
-            { //満貫の確認
-
-                tmp_sc = (int)Math.Pow(2, 5) * this.fu * (int)Math.Pow(2, this.fan - 1);
-                if (tmp_sc >= 8000) this.level = 1;
-
-                if (KIRIAGE && this.fan == 4 && this.fu == 30)
-                {
-                    this.level = 1;
-                }
-            }
-
-            if (this.level > 0) //満貫以上
-            {
-                if (this.oya)
-                {
-                    this.scoresum = sc_fromLevel[this.level] * 6;
-                    this.other_pay = sc_fromLevel[this.level] * 2;
-                    this.dealer_pay = 0;
-                }
-                else
-                {
-                    this.scoresum = sc_fromLevel[this.level] * 4;
-                    this.other_pay = sc_fromLevel[this.level];
-                    this.dealer_pay = sc_fromLevel[this.level] * 2;
-                }
-
-            }
-            else
-            {
-                if (this.oya)
-                {
-                    this.scoresum = (int)(tmp_sc * 1.5);
-                    this.other_pay = (int)(this.scoresum / 3);
-                    this.dealer_pay = 0;
-
-                    //10の位で切り上げ
-                    this.scoresum = ((int)((this.scoresum + 90) / 100)) * 100;
-                    this.other_pay = ((int)((this.other_pay + 90) / 100)) * 100;
-                }
-                else
-                {
-                    this.scoresum = tmp_sc;
-                    this.other_pay = (int)(this.scoresum / 4);
-                    this.dealer_pay = (int)(this.scoresum / 2);
-
-                    //10の位で切り上げ
-                    this.scoresum = ((int)((this.scoresum + 90) / 100)) * 100;
-                    this.other_pay = ((int)((this.other_pay + 90) / 100)) * 100;
-                    this.dealer_pay = ((int)((this.dealer_pay + 90) / 100)) * 100;
-                }
-
-            }
-        }
-
-
-    }
-
-    class MENZ_DATA
-    {
-
-        public int ag_type;
-        public int ag_index;
-        public int ag_nbm;
-        public int furo_suu;
-        public int[,] th_info;
-        public int[] th_typecount;
-        public bool menzenbreak;
-
-
-        public MENZ_DATA(int ag_type, int ag_index, int ag_nbm, int furo_suu, int[,] th_info, int[] th_typecount, bool menzenbreak)
-        {
-
-            this.ag_type = ag_type;
-            this.ag_index = ag_index;
-            this.ag_nbm = ag_nbm;
-            this.furo_suu = furo_suu;
-            this.th_info = th_info;
-            this.th_typecount = th_typecount;
-            this.menzenbreak = menzenbreak;
-        }
-    }
-
-    class YAKU_HANTEI
+    class HandEvaluator
     {
 
         public static int PAISTR_MODE = 1;
@@ -311,7 +129,7 @@ namespace ConsoleApplication9
 
         //◎ 役リスト
         //◎ 面子分けされた手牌（ジャグ配列）？　七対子とか国士はどうするのか
-        HANYOU hy = new HANYOU();
+        TileUtilities hy = new TileUtilities();
 
 	private void InitializeTileTable(int[,] tileTable, int[] tiles) {
     		Array.Clear(tileTable, 0, tileTable.Length);
@@ -323,7 +141,7 @@ namespace ConsoleApplication9
   		}
 	}
 
-        public int Yaku_Keishiki(out bool[] out_AccYakuList, out SCORE_DATA out_sd, AGARI_DATA ad)
+        public int Yaku_Keishiki(out bool[] out_AccYakuList, out ScoreResult out_sd, WinningHandData ad)
         {
             int Fan = 0;
             int Fu = 0;
@@ -831,7 +649,7 @@ namespace ConsoleApplication9
                         cur_YakuList[i] = false;
                     }
 
-                    MENZ_DATA md = new MENZ_DATA(ag_type, ag_index, ag_nbm, furo_suu, tmp_info, tmp_typecnt, menzen_break);
+                    HandDecomposition md = new HandDecomposition(ag_type, ag_index, ag_nbm, furo_suu, tmp_info, tmp_typecnt, menzen_break);
 
                     for (int i = 0; i < cur_YakuList.Length; i++)
                     {
@@ -874,7 +692,7 @@ namespace ConsoleApplication9
 
                     rpointstr += "  ";
 
-                    SCORE_DATA sc = new SCORE_DATA(cur_Fan, cur_Fu, ykm, isOya);
+                    ScoreResult sc = new ScoreResult(cur_Fan, cur_Fu, ykm, isOya);
 
                     if (ad.istsumoagari)
                     {
@@ -969,7 +787,7 @@ namespace ConsoleApplication9
                     //Debug.Print("cur_c_Fan = " + cur_c_Fan.ToString());
                     //Debug.Print("cur_c_Fu = " + cur_c_Fu.ToString());
 
-                    SCORE_DATA sc_c = new SCORE_DATA(cur_c_Fan, cur_c_Fu, ykm, isOya);
+                    ScoreResult sc_c = new ScoreResult(cur_c_Fan, cur_c_Fu, ykm, isOya);
 
                     #region 点みせるとき
 
@@ -1068,7 +886,7 @@ namespace ConsoleApplication9
                 bool ykm;
                 cur_k_Fan = Yaku_K_CalcFan(cur_k_YakuList, false, out ykm);
 
-                SCORE_DATA sc_k = new SCORE_DATA(cur_k_Fan, cur_k_Fu, ykm, isOya);
+                ScoreResult sc_k = new ScoreResult(cur_k_Fan, cur_k_Fu, ykm, isOya);
 
                 #region 点みせるとき
 
@@ -1115,7 +933,7 @@ namespace ConsoleApplication9
             //【国士無双  和了】ここまで===========================================================================
 
 
-            out_sd = new SCORE_DATA(MaxFan, MaxFu, Maxykm, isOya);
+            out_sd = new ScoreResult(MaxFan, MaxFu, Maxykm, isOya);
             out_AccYakuList = YakuList;
 
             return 0;
@@ -1309,7 +1127,7 @@ namespace ConsoleApplication9
 
         }
 
-        public bool Yaku_K_Judge(int yakuNum, AGARI_DATA ad, MENZ_DATA md)
+        public bool Yaku_K_Judge(int yakuNum, WinningHandData ad, HandDecomposition md)
         {
 
             if (yakuNum >= 10 && yakuNum <= 20) //役牌全般
@@ -2454,7 +2272,7 @@ namespace ConsoleApplication9
 
         }
 
-        public bool Yaku_K_Chitoi_Judge(int yakuNum, int[] info, AGARI_DATA ad)
+        public bool Yaku_K_Chitoi_Judge(int yakuNum, int[] info, WinningHandData ad)
         {
             //このメソッドを使用するのは、七対子が成立していることが前提となる。
             if (yakuNum == 22) return true;

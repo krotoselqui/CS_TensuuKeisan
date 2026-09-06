@@ -7,8 +7,8 @@
     <ProjectGuid>{2C91FF7E-BDEC-4DF2-A876-9B5E763AC841}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleApplication9</RootNamespace>
-    <AssemblyName>ConsoleApplication9</AssemblyName>
+    <RootNamespace>MahjongScoreTrainer</RootNamespace>
+    <AssemblyName>MahjongScoreTrainer</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -43,9 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="YAKU_HANTEI.cs" />
+    <Compile Include="TileUtilities.cs" />
+    <Compile Include="HandEvaluator.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="YakuDefinition.cs" />
+    <Compile Include="WinningHandData.cs" />
+    <Compile Include="ScoreResult.cs" />
+    <Compile Include="HandDecomposition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

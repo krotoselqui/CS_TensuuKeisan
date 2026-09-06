@@ -22,9 +22,9 @@ Visual Studio の開発者 PowerShell、または MSBuild が PATH にある Win
 
 ```powershell
 powershell -NoProfile -File scripts/Check-Repository.ps1
-msbuild ConsoleApplication9.sln /t:Rebuild /p:Configuration=Debug /nologo /verbosity:minimal
+msbuild MahjongScoreTrainer.sln /t:Rebuild /p:Configuration=Debug /nologo /verbosity:minimal
 powershell -NoProfile -File scripts/Test-Regression.ps1 -Configuration Debug
-msbuild ConsoleApplication9.sln /t:Rebuild /p:Configuration=Release /nologo /verbosity:minimal
+msbuild MahjongScoreTrainer.sln /t:Rebuild /p:Configuration=Release /nologo /verbosity:minimal
 powershell -NoProfile -File scripts/Test-Regression.ps1 -Configuration Release
 ```
 

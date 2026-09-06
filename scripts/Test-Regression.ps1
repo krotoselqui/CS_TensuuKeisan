@@ -11,11 +11,11 @@ if ($PSVersionTable.PSEdition -ne 'Desktop') {
     throw 'Run this script with Windows PowerShell (powershell.exe), not pwsh.'
 }
 $repoRoot = Split-Path $PSScriptRoot -Parent
-$assemblyPath = Join-Path $repoRoot "ConsoleApplication9/bin/$Configuration/ConsoleApplication9.exe"
+$assemblyPath = Join-Path $repoRoot "MahjongScoreTrainer/bin/$Configuration/MahjongScoreTrainer.exe"
 $assembly = [Reflection.Assembly]::LoadFrom($assemblyPath)
-$scoreType = $assembly.GetType('ConsoleApplication9.SCORE_DATA', $true)
+$scoreType = $assembly.GetType('MahjongScoreTrainer.ScoreResult', $true)
 $constructor = $scoreType.GetConstructor([type[]]@([int], [int], [bool], [bool]))
-if ($null -eq $constructor) { throw 'SCORE_DATA constructor not found.' }
+if ($null -eq $constructor) { throw 'ScoreResult constructor not found.' }
 
 function Assert-Equal($Actual, $Expected, [string]$Label) {
     if ($Actual -ne $Expected) { throw "${Label}: expected $Expected, got $Actual" }
@@ -40,7 +40,7 @@ foreach ($case in $scoreCases) {
 }
 
 # Access existing internal/private types without changing production visibility for CI.
-$programType = $assembly.GetType('ConsoleApplication9.Program', $true)
+$programType = $assembly.GetType('MahjongScoreTrainer.Program', $true)
 $conversion = $programType.GetMethod('XBtoXS', [Reflection.BindingFlags]'Static, NonPublic')
 if ($null -eq $conversion) { throw 'Tile ID conversion method not found.' }
 $tileCases = @(@(0, 1), @(3, 1), @(4, 2), @(135, 34), @(-1, 0), @(136, 0))

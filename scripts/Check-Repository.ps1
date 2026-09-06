@@ -2,8 +2,8 @@ $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 $repoRoot = Split-Path $PSScriptRoot -Parent
-$projectRoot = Join-Path $repoRoot 'ConsoleApplication9'
-[xml]$project = Get-Content (Join-Path $projectRoot 'ConsoleApplication9.csproj') -Raw
+$projectRoot = Join-Path $repoRoot 'MahjongScoreTrainer'
+[xml]$project = Get-Content (Join-Path $projectRoot 'MahjongScoreTrainer.csproj') -Raw
 $namespace = New-Object System.Xml.XmlNamespaceManager($project.NameTable)
 $namespace.AddNamespace('msb', 'http://schemas.microsoft.com/developer/msbuild/2003')
 $registered = @($project.SelectNodes('//msb:Compile', $namespace) | ForEach-Object {

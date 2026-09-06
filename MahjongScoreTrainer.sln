@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication9", "ConsoleApplication9\ConsoleApplication9.csproj", "{2C91FF7E-BDEC-4DF2-A876-9B5E763AC841}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MahjongScoreTrainer", "MahjongScoreTrainer\MahjongScoreTrainer.csproj", "{2C91FF7E-BDEC-4DF2-A876-9B5E763AC841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

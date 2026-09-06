@@ -1,4 +1,4 @@
-# CS_TensuuKeisan
+# MahjongScoreTrainer
 
 麻雀の点数計算を練習するための問題・解答を生成する C# 製コンソールアプリです。画面上の名称は「よい子のための点数計算」です。役の出現頻度に重みを付けて手牌を生成し、同じ手牌について親・子、ツモ・ロンの点数と成立役をテキストファイルに出力します。
 
@@ -41,11 +41,11 @@
 
 生成対象リストは 34 項目です。平和は重み 800、断幺九は 1000、多くの役満は 1～20 など、均等ではありません。四槓子はリストにありますが重みが 0 なので、生成対象としては抽選されません。狙って生成した役以外が複合することもあります。
 
-`YAKU_HANTEI.cs` は手牌の面子分解と和了位置を調べ、通常形・七対子・国士無双の判定、役の重複整理、飜数・符・点数の計算を行います。候補の比較には `scoresum` を使い、最大の候補を採用します。
+`HandEvaluator.cs` は手牌の面子分解と和了位置を調べ、通常形・七対子・国士無双の判定、役の重複整理、飜数・符・点数の計算を行います。候補の比較には `scoresum` を使い、最大の候補を採用します。
 
-- `AGARI_DATA`：手牌、副露、和了牌、場風、自風、ツモ／ロンの入力データ。
-- `MENZ_DATA`：面子分解、和了位置、面子種別、門前状態などの中間データ。
-- `SCORE_DATA`：符・飜、役満判定、合計点、親／子の支払額。
+- `WinningHandData`：手牌、副露、和了牌、場風、自風、ツモ／ロンの入力データ。
+- `HandDecomposition`：面子分解、和了位置、面子種別、門前状態などの中間データ。
+- `ScoreResult`：符・飜、役満判定、合計点、親／子の支払額。
 - 点数設定では `KIRIAGE = false`。13 飜以上を役満相当とする処理と、複数役満の計算があります。
 
 役名テーブルには立直・一発・ドラなどもありますが、問題生成の入力にはそれらの状況やドラ表示牌はありません。役名が定義されていることと、その役を出題・判定できることは別です。手牌を利用者が入力して採点する UI や、対局を進行する機能もありません。
@@ -53,9 +53,9 @@
 ## 技術構成
 
 - C# / .NET Framework 4.8。
-- ソリューション：`ConsoleApplication9.sln`。
-- プロジェクト：`ConsoleApplication9/ConsoleApplication9.csproj`。
-- 実行ファイル：`ConsoleApplication9.exe`。構成は Debug / Release、AnyCPU。
+- ソリューション：`MahjongScoreTrainer.sln`。
+- プロジェクト：`MahjongScoreTrainer/MahjongScoreTrainer.csproj`。
+- 実行ファイル：`MahjongScoreTrainer.exe`。構成は Debug / Release、AnyCPU。
 - SDK 形式ではない従来型の MSBuild プロジェクトで、ソースを `<Compile Include="..." />` に明示登録する方式です。
 - フレームワーク標準の参照を使用しています。NuGet パッケージ定義や自動テストプロジェクトは見当たりません。
 
@@ -64,8 +64,12 @@
 | ファイル | 内容 |
 | --- | --- |
 | `Program.cs` | エントリーポイント、入力、抽選、ファイル出力、役生成、面子生成 |
-| `YAKU_HANTEI.cs` | 役・符・点数の判定と関連データ型 |
-| `Class1.cs` | `HANYOU`。牌の色・数字・幺九牌判定 |
+| `HandEvaluator.cs` | 面子分解、役・符の判定、採点候補の比較 |
+| `TileUtilities.cs` | `TileUtilities`。牌の色・数字・幺九牌判定 |
+| `WinningHandData.cs` | 手牌、副露、和了牌、場風・自風・和了方法 |
+| `HandDecomposition.cs` | 面子分解と和了位置の中間データ |
+| `ScoreResult.cs` | 符・飜からの支払額計算と採点結果 |
+| `YakuDefinition.cs` | 役番号・名前・副露可否などの役の性質 |
 | `App.config` | .NET Framework 4.8 の実行設定 |
 
 ### 牌と面子の内部表現
@@ -81,8 +85,8 @@ Windows 上の .NET Framework 4.8 を対象にできる Visual Studio / MSBuild 
 Visual Studio の開発者コマンドプロンプトから次のようにビルド・実行できます。
 
 ```powershell
-msbuild ConsoleApplication9.sln /t:Build /p:Configuration=Debug
-.\ConsoleApplication9\bin\Debug\ConsoleApplication9.exe
+msbuild MahjongScoreTrainer.sln /t:Build /p:Configuration=Debug
+.\MahjongScoreTrainer\bin\Debug\MahjongScoreTrainer.exe
 ```
 
 入力例は、問題数 `10`、シード `12345`、出力形式 `1` です。指定したシードを `Program.r` に設定して問題を生成します。

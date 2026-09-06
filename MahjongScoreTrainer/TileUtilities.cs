@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication9
+namespace MahjongScoreTrainer
 {
-    class HANYOU
+    class TileUtilities
     {
 
         public int tileClr(int xs)

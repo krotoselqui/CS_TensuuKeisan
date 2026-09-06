@@ -6,36 +6,8 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace ConsoleApplication9
+namespace MahjongScoreTrainer
 {
-
-    //役が持つ性質
-    //●副露が可能かどうか
-    //●部分役か否か
-    //●標準形である必要があるか否か
-    //●待ちが限定されるか
-
-    class YAKU
-    {
-        public int number;
-        public string name;
-        public bool isAdopted, enableFuro, isBubun, needNormalForm, needSPForm, isRestrictedMachi;
-
-        public YAKU(int num, string name, bool isAdopted, bool enableFuro, bool isBubun, bool needNormalForm, bool needSPForm, bool isRestrictedMachi)
-        {
-
-            this.number = num;
-            this.name = name;
-            this.isAdopted = isAdopted;
-            this.enableFuro = enableFuro;
-            this.isBubun = isBubun;
-            this.needNormalForm = needNormalForm;
-            this.needSPForm = needSPForm;
-            this.isRestrictedMachi = isRestrictedMachi;
-
-        }
-
-    }
 
     class Program
     {
@@ -302,7 +274,7 @@ namespace ConsoleApplication9
 
 
 
-            var yaku = new YAKU[YAKU_STR.Length];
+            var yaku = new YakuDefinition[YAKU_STR.Length];
             int[] yaku_List = new int[34] {  7,  8,  9, 14, 18, 19, 20, 22, 
                                             23, 24, 25, 26, 27, 28, 29, 30, 
                                             31, 32, 33, 34, 35, 39, 40, 41, 
@@ -518,7 +490,7 @@ namespace ConsoleApplication9
                 const bool bool_RON = false;
 
 
-                AGARI_DATA[] ad = new AGARI_DATA[4];
+                WinningHandData[] ad = new WinningHandData[4];
                 string[] ac_str = new string[4]{
                  "東/東/ツモ","東/東/ロン",
                 "東/西/ツモ","東/西/ロン"};
@@ -529,10 +501,10 @@ namespace ConsoleApplication9
 
                 for (int j = 0; j < 4; j++)
                 {
-                    ad[j] = new AGARI_DATA(tmp_tehai, tmp_furotehai, tmp_furotype, tmp_machixs, agaricond_ba[j], agaricond_ie[j], agaricond_istm[j]);
+                    ad[j] = new WinningHandData(tmp_tehai, tmp_furotehai, tmp_furotype, tmp_machixs, agaricond_ba[j], agaricond_ie[j], agaricond_istm[j]);
                 }
 
-                YAKU_HANTEI yh = new YAKU_HANTEI();
+                HandEvaluator yh = new HandEvaluator();
 
                 string kaitou_str = "[" + (i + 1).ToString() + "] ";
                 string yaku_str = "";
@@ -545,7 +517,7 @@ namespace ConsoleApplication9
                     string yx = "" + ac_str[a_cond] + " ";
                     bool[] list;
                     int Fan, Fu;
-                    SCORE_DATA sd;
+                    ScoreResult sd;
 
                     int x = yh.Yaku_Keishiki(out list, out sd, ad[a_cond]);
 

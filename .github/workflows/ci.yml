@@ -33,7 +33,7 @@ jobs:
         run: ./scripts/Check-Repository.ps1
       - name: Build .NET Framework application
         run: |
-          msbuild ConsoleApplication9.sln /t:Rebuild /p:Configuration=${{ matrix.configuration }} /nologo /verbosity:minimal
+          msbuild MahjongScoreTrainer.sln /t:Rebuild /p:Configuration=${{ matrix.configuration }} /nologo /verbosity:minimal
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Run scoring and tile regression checks
         run: ./scripts/Test-Regression.ps1 -Configuration ${{ matrix.configuration }}
