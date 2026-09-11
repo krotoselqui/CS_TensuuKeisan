@@ -663,6 +663,65 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateShousangen(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            int pairHonor = Program.r.Next(3) + 5;
+            int[] tripletHonors = new int[2];
+            const int openRate = 2;
+            if (pairHonor == 5) { tripletHonors[0] = 6; tripletHonors[1] = 7; }
+            else if (pairHonor == 6) { tripletHonors[0] = 5; tripletHonors[1] = 7; }
+            else { tripletHonors[0] = 5; tripletHonors[1] = 6; }
+
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 2; i++)
+            {
+                if (Program.r.Next(20) == 0)
+                {
+                    MeldGenerator.MakeRandomKantsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated, 3, tripletHonors[i]);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKotsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated, 3, tripletHonors[i]);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                }
+                parts[i] = generated;
+            }
+
+            for (int i = 2; i < 4; i++)
+            {
+                int kind = Program.r.Next(20);
+                int color = Program.r.Next(3);
+                if (kind == 0)
+                {
+                    MeldGenerator.MakeRandomKotsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated, color);
+                    partTypes[i] = 2;
+                }
+                else if (kind == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated, color);
+                    partTypes[i] = 4;
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomShuntsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated);
+                    partTypes[i] = 5 + RandomSelection.RetOne(openRate);
+                }
+                parts[i] = generated;
+            }
+
+            MeldGenerator.MakeRandomAtama(YakuNumbers.Shousangen, ref remaining, out unused, out generated, 3, pairHonor);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            winningTile = -1;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateSanankou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             Program.r.Next(7); // preserve the original unused sansyokunum draw
