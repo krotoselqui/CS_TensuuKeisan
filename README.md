@@ -99,6 +99,53 @@ msbuild MahjongScoreTrainer.sln /t:Build /p:Configuration=Debug
 .\MahjongScoreTrainer\bin\Debug\MahjongScoreTrainer.exe
 ```
 
+### MSBuild の場所を指定する場合
+
+Visual Studio の開発者コマンドプロンプトを使わない場合は、.NET Framework の MSBuild を直接指定できます。標準的な 64 bit 環境では次のコマンドをリポジトリのルートで実行します。
+
+```powershell
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe MahjongScoreTrainer.sln /t:Build /p:Configuration=Debug
+```
+
+32 bit の MSBuild を使う場合は `Framework64` を `Framework` に置き換えてください。ターゲットが .NET Framework 4.8 のため、対応する開発者パックがインストールされている必要があります。
+
+### アプリケーションの実行
+
+実行ファイルはビルド構成ごとに次の場所へ出力されます。
+
+```text
+Debug:   MahjongScoreTrainer\bin\Debug\MahjongScoreTrainer.exe
+Release: MahjongScoreTrainer\bin\Release\MahjongScoreTrainer.exe
+```
+
+実行時のカレントディレクトリが出力先になるため、リポジトリルートで起動すると `question.txt`、`answer.txt`、`answer_yaku.txt` がルートに作成されます。既存ファイルは上書きされます。
+
+```powershell
+Push-Location .\MahjongScoreTrainer\bin\Debug
+.\MahjongScoreTrainer.exe
+Pop-Location
+```
+
+起動後は次の順に入力します。
+
+1. `問題数を入力`：1 以上の整数
+2. `シード値を入力`：ランダム生成は `-1`、再現可能な生成は `0` 以上の整数
+3. `出力形式を入力`：専用フォント向けは `0`、通常の牌記号は `1`
+
+たとえば、10問を同じ条件で再生成するには `10`、`12345`、`1` の順に入力します。生成が終わるとコンソールに役別集計が表示され、キー入力で終了します。
+
+### ローカル検証
+
+ビルド済みの Debug または Release を対象に、次の検査を実行できます。
+
+```powershell
+.\scripts\Test-Regression.ps1 -Configuration Debug
+.\scripts\Test-Generation.ps1 -Configuration Debug
+.\scripts\Check-Repository.ps1
+```
+
+Release 構成を確認する場合は、各コマンドの `Debug` を `Release` に置き換えます。回帰検査は固定手牌の採点、牌変換、固定シードの生成、入力エラー、進捗、例外時の後始末を確認します。テスト用の一時ファイルはシステムの一時ディレクトリに作成され、リポジトリの出力ファイルは変更しません。
+
 入力例は、問題数 `10`、シード `12345`、出力形式 `1` です。指定したシードを `Program.r` に設定して問題を生成します。
 
 `Main` は入力・ファイルの作成・生成処理の呼び出し・集計表示・終了待ちを担当します。生成本体の `GenerateProblems` は設定・乱数源・`TextWriter` を受け取り、コンソール入力なしで検証できます。手牌・面子の生成と採点内部は引き続き既存の処理を使います。
