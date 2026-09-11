@@ -492,48 +492,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == YakuNumbers.Ryanpeikou) //二盃口
             {
-
-                //はじめの4順子
-
-                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[0] = xsparts;
-                partsType[0] = 5;
-
-                int settledClr = TileUtilities.GetColor(xsparts[0]);
-                int settledNum = TileUtilities.GetNumber(xsparts[0]);
-
-                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, settledClr, settledNum);
-                partsXS[1] = xsparts;
-                partsType[1] = 5;
-
-
-                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[2] = xsparts;
-                partsType[2] = 5;
-
-                settledClr = TileUtilities.GetColor(xsparts[0]);
-                settledNum = TileUtilities.GetNumber(xsparts[0]);
-
-                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, settledClr, settledNum);
-                partsXS[3] = xsparts;
-                partsType[3] = 5;
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateRyanpeikou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == YakuNumbers.Junchantaiyaochuu) //純全帯幺九
+                        else if (yakuNum == YakuNumbers.Junchantaiyaochuu) //純全帯幺九
             {
 
                 for (int i = 0; i < 4; i++)
