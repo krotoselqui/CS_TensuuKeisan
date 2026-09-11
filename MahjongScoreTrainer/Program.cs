@@ -488,7 +488,7 @@ namespace MahjongScoreTrainer
                     partsXS[i] = xsparts;
                     partsType[i] = 5;
                 }
-                makeRandomAtama(7, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(7, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -539,7 +539,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(8, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(8, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -604,7 +604,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(8, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(8, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -672,7 +672,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(14, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(14, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -724,7 +724,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(23, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(23, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -801,7 +801,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -870,7 +870,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -947,7 +947,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1011,7 +1011,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1053,7 +1053,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1130,7 +1130,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1238,7 +1238,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 3, toitsuNum);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 3, toitsuNum);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1282,7 +1282,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1325,7 +1325,7 @@ namespace MahjongScoreTrainer
                 partsXS[3] = xsparts;
                 partsType[3] = 5;
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1377,7 +1377,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1439,7 +1439,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(8, ref maisu, out strparts, out xsparts, some_clr);
+                MeldGenerator.MakeRandomAtama(8, ref maisu, out strparts, out xsparts, some_clr);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1502,7 +1502,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(8, ref maisu, out strparts, out xsparts, some_clr);
+                MeldGenerator.MakeRandomAtama(8, ref maisu, out strparts, out xsparts, some_clr);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1578,7 +1578,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1617,7 +1617,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1658,7 +1658,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1692,7 +1692,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 3);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 3);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1768,7 +1768,7 @@ namespace MahjongScoreTrainer
                 }
 
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 2);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 2);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1809,7 +1809,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1850,7 +1850,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1966,7 +1966,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 3, toitsuNum);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 3, toitsuNum);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -1997,7 +1997,7 @@ namespace MahjongScoreTrainer
                     partsType[i] = 3 + retOne(furo_bairitsu);
                 }
 
-                makeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -2057,7 +2057,7 @@ namespace MahjongScoreTrainer
                 for (int i = 0; i < 7; i++)
                 {
 
-                    makeRandomAtama(22, ref maisu, out strparts, out xsparts);
+                    MeldGenerator.MakeRandomAtama(22, ref maisu, out strparts, out xsparts);
                     tehai[pos] = xsparts[0];
                     tehai[pos + 1] = xsparts[1];
 
@@ -2321,130 +2321,7 @@ namespace MahjongScoreTrainer
         //====================================================================================================================================================================
         //====================================================================================================================================================================
 
-        static void makeRandomAtama(int jouken, ref int[] maisu, out string str_atama, out int[] atama_xs, int setClr = -1, int setNum = -1)
-        {
 
-            string strhead = "";
-            const int size = 2;
-            atama_xs = new int[size] { 0, 0 };
-
-            bool maisuSufficient = false;
-
-            while (!maisuSufficient)
-            {
-
-                int clr = r.Next(4); //色 0-3
-                int num = r.Next(9) + 1; //数 1-9
-
-                int clr_back = clr;
-                int num_back = num;
-
-                if (setClr != -1) clr = setClr;
-                if (setNum != -1) num = setNum;
-
-                if ((clr == 3) && (num >= 8)) continue;
-
-                //条件設定　ここから====================================================
-
-                if (jouken == 7) //平和
-                {
-
-                    if (clr == 3)
-                    {
-
-                        if ((num == 1) || (num == 3) || (num == 5) || (num == 6) || (num == 7)) continue;
-
-                    }
-
-                }
-                else if (jouken == 8) //断幺九
-                {
-
-                    if (clr == 3)
-                    {
-                        continue;
-                    }
-                    else if (num == 1 || num == 9)
-                    {
-                        continue;
-                    }
-
-                }
-                else if (jouken == 23) //混全帯幺九
-                {
-                    if (clr != 3)
-                    {
-                        if (num != 1 && num != 9)
-                        {
-                            continue;
-                        }
-                    }
-                }
-                else if (jouken == 31) //混老頭
-                {
-                    if (clr != 3)
-                    {
-                        if (num != 1 && num != 9)
-                        {
-                            continue;
-                        }
-                    }
-                }
-                else if (jouken == 33) //純全帯幺九
-                {
-                    if (clr == 3) continue;
-                    if (num != 1 && num != 9)
-                    {
-                        continue;
-                    }
-                }
-                else if (jouken == 34) //混一色
-                {
-
-                    if (clr_back == 3) clr = 3;
-                    if (num >= 8) num = r.Next(7) + 1;
-
-                }
-                else if (jouken == 43) //緑一色
-                {
-
-                    if (num != 2 && num != 3 && num != 4 && num != 6 && num != 8) continue;
-
-                }
-                else if (jouken == 44) //清老頭
-                {
-                    if (clr == 3) continue;
-                    if (num != 1 && num != 9)
-                    {
-                        continue;
-                    }
-                }
-
-
-                //条件設定　ここまで====================================================
-
-                atama_xs[0] = clr * 9 + num;
-                atama_xs[1] = clr * 9 + num; //必要
-
-                if ((maisu[atama_xs[0]] >= 2))
-                {
-                    maisuSufficient = true;
-                }
-
-            }
-
-            for (int i = 0; i < atama_xs.Length; i++)
-            {
-
-                string s = "";//XS_PAI_STR[atama_xs[i]];
-                maisu[atama_xs[0]] -= 1;
-                strhead += s;
-
-            }
-
-            str_atama = strhead;
-
-        }
 
 
 
