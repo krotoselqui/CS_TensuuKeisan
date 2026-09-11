@@ -512,7 +512,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(8, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(8, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + furo;
                     }
@@ -577,7 +577,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(9, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(9, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1;
                     }
@@ -633,7 +633,7 @@ namespace MahjongScoreTrainer
                 }
                 else
                 {
-                    makeRandomKotsu(14, ref maisu, out strparts, out xsparts, 3, yakuxs_num);
+                    MeldGenerator.MakeRandomKotsu(14, ref maisu, out strparts, out xsparts, 3, yakuxs_num);
                     partsType[0] = 1 + furo;
                 }
                 partsXS[0] = xsparts;
@@ -645,7 +645,7 @@ namespace MahjongScoreTrainer
 
                     if (type == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(14, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(14, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + furo;
                     }
@@ -697,7 +697,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(23, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(23, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + furo;
                     }
@@ -774,7 +774,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + furo;
                     }
@@ -843,7 +843,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -899,7 +899,7 @@ namespace MahjongScoreTrainer
 
                     if (kan == 0)
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, i, sansyokunum);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, i, sansyokunum);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -920,7 +920,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -984,7 +984,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1045,7 +1045,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1089,7 +1089,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1;
                     }
@@ -1103,7 +1103,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 2;
                     }
@@ -1192,7 +1192,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, kotsuNum[i]);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, kotsuNum[i]);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1209,7 +1209,7 @@ namespace MahjongScoreTrainer
                     {
                         //三元牌が入るとまずいので避ける
 
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, tmpclr);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, tmpclr);
                         partsXS[i] = xsparts;
                         partsType[i] = 2;
                     }
@@ -1274,7 +1274,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1350,7 +1350,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1412,7 +1412,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, tmp_clr);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, tmp_clr);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1472,7 +1472,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1530,7 +1530,7 @@ namespace MahjongScoreTrainer
 
                     if (kan == 0)
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, i + 5);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, i + 5);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1551,7 +1551,7 @@ namespace MahjongScoreTrainer
 
                     if (shurui == 0) //暗刻・明刻
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1610,7 +1610,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1;
                     }
@@ -1651,7 +1651,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1;
                     }
@@ -1685,7 +1685,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1727,7 +1727,7 @@ namespace MahjongScoreTrainer
                 }
                 else  //刻子
                 {
-                    makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, 6);
+                    MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, 6);
                     partsXS[0] = xsparts;
                     partsType[0] = 1 + retOne(furo_bairitsu);
                 }
@@ -1742,7 +1742,7 @@ namespace MahjongScoreTrainer
                 }
                 else
                 {
-                    makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 2);
+                    MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 2);
                     partsXS[1] = xsparts;
                     partsType[1] = 1 + retOne(furo_bairitsu);
                 }
@@ -1760,7 +1760,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 2);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 2);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1801,7 +1801,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1837,7 +1837,7 @@ namespace MahjongScoreTrainer
 
                     if (kan == 0)
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, i + 1);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, i + 1);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1920,7 +1920,7 @@ namespace MahjongScoreTrainer
                     }
                     else  //刻子
                     {
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, kotsuNum[i]);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, kotsuNum[i]);
                         partsXS[i] = xsparts;
                         partsType[i] = 1 + retOne(furo_bairitsu);
                     }
@@ -1937,7 +1937,7 @@ namespace MahjongScoreTrainer
                     {
                         //風牌が入るとまずいので避ける
 
-                        makeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, tmpclr);
+                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, tmpclr);
                         partsXS[i] = xsparts;
                         partsType[i] = 2;
                     }
@@ -2320,120 +2320,6 @@ namespace MahjongScoreTrainer
         //==================================================================　　　　ランダム面子部品生成　　　　==============================================================
         //====================================================================================================================================================================
         //====================================================================================================================================================================
-
-        static void makeRandomKotsu(int jouken, ref int[] maisu, out string str_kotsu, out int[] kotsu_xs, int setClr = -1, int setNum = -1)
-        {
-
-            string str = "";
-            const int size = 3;
-            kotsu_xs = new int[size] { 0, 0, 0 };
-
-            bool maisuSufficient = false;
-
-            while (!maisuSufficient)
-            {
-
-                int clr = r.Next(4); //色 0-3
-                int num = r.Next(9) + 1; //数 1-9
-
-                int clr_back = clr;
-                int num_back = num;
-
-                if (setClr != -1) clr = setClr;
-                if (setNum != -1) num = setNum;
-
-                if ((clr == 3) && (num >= 8)) continue;
-
-                //条件設定　ここから====================================================
-
-                if (jouken == 8) //断幺九
-                {
-
-                    if (clr == 3)
-                    {
-                        continue;
-                    }
-                    else if (num == 1 || num == 9)
-                    {
-                        continue;
-                    }
-
-                }
-                else if (jouken == 23) //混全帯幺九
-                {
-                    if (clr != 3)
-                    {
-                        if (num != 1 && num != 9)
-                        {
-                            continue;
-                        }
-                    }
-                }
-                else if (jouken == 31) //混老頭
-                {
-                    if (clr != 3)
-                    {
-                        if (num != 1 && num != 9)
-                        {
-                            continue;
-                        }
-                    }
-                }
-                else if (jouken == 33) //純全帯幺九
-                {
-                    if (clr == 3) continue;
-                    if (num != 1 && num != 9)
-                    {
-                        continue;
-                    }
-                }
-                else if (jouken == 34) //混一色
-                {
-
-                    if (clr_back == 3) clr = 3;
-                    if (num >= 8) num = r.Next(7) + 1;
-
-                }
-                else if (jouken == 43) //緑一色
-                {
-
-                    if (num != 2 && num != 3 && num != 4 && num != 6 && num != 8) continue;
-
-                }
-                else if (jouken == 44) //清老頭
-                {
-                    if (clr == 3) continue;
-                    if (num != 1 && num != 9)
-                    {
-                        continue;
-                    }
-                }
-
-                //条件設定　ここまで====================================================
-
-                kotsu_xs[0] = clr * 9 + num;
-                kotsu_xs[1] = clr * 9 + num; //必要
-                kotsu_xs[2] = clr * 9 + num;
-
-                if ((maisu[kotsu_xs[0]] >= 3))
-                {
-                    maisuSufficient = true;
-                }
-
-            }
-
-            for (int i = 0; i < kotsu_xs.Length; i++)
-            {
-
-                string s = "";// XS_PAI_STR[kotsu_xs[i]];
-                maisu[kotsu_xs[0]] -= 1;
-                str += s;
-
-            }
-
-            str_kotsu = str;
-
-        }
 
         static void makeRandomKantsu(int jouken, ref int[] maisu, out string str_kan, out int[] kan_xs, int setClr = -1, int setNum = -1)
         {
