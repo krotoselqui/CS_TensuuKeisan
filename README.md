@@ -71,7 +71,7 @@
 | `YakuSelector.cs` | 役番号と重みの定義、従来と同じ重み付き役抽選 |
 | `RandomSelection.cs` | 役固有生成で共有する1/分母の抽選補助 |
 | `SpecialHandGenerator.cs` | 七対子・九蓮宝燈系・国士無双系の特殊形生成 |
-| `YakuMeldGenerator.cs` | 平和・断幺九・一盃口、大三元・四暗刻・四暗刻単騎・字一色・緑一色・清老頭・大四喜・小四喜・四槓子など役固有の面子生成 |
+| `YakuMeldGenerator.cs` | 平和・断幺九・一盃口・役牌、大三元・四暗刻・四暗刻単騎・字一色・緑一色・清老頭・大四喜・小四喜・四槓子など役固有の面子生成 |
 | `GenerationOptions.cs` | 問題数・シード・表示形式の設定と範囲チェック |
 | `ConsoleProgress.cs` | コンソールの進捗表示とカーソル位置の管理 |
 | `HandEvaluator.cs` | 面子分解、役・符の判定、採点候補の比較 |

@@ -108,6 +108,8 @@ Debug／Release の両構成で、採点7ケース、牌変換6ケース、生�
 
 一盃口の生成分岐を `YakuMeldGenerator.GenerateIipeikou` へ移した。最初の2順子を同じ色・数字で生成し、残り2面子、雀頭、待ち牌を従来と同じ乱数順で生成する。抽出後も Debug / Release の全回帰検査を通過した。
 
+役牌（場風・自風・三元牌）の生成分岐を `YakuMeldGenerator.GenerateYakuhai` へ移した。対象役牌の刻子・槓子、残り面子、雀頭、待ち牌の生成を専用メソッドへ集約し、面子種別と副露率、抽選順を維持している。抽出後も Debug / Release の全回帰検査を通過した。
+
 ## 残る課題
 
 - `makeYaku` と役別生成は、まだ `Program.cs` に残っている。

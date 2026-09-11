@@ -452,73 +452,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 14 || yakuNum == 18 || yakuNum == 19 || yakuNum == 20) //役牌
             {
-                int yakuxs_num = yakuNum - 13; //東-1 白-5 發-6 中-7
-
-                int type = r.Next(2);
-                int furo = r.Next(2);
-
-                if (type == 0)
-                {
-                    MeldGenerator.MakeRandomKantsu(14, ref maisu, out strparts, out xsparts, 3, yakuxs_num);
-                    partsType[0] = 3 + furo;
-                }
-                else
-                {
-                    MeldGenerator.MakeRandomKotsu(14, ref maisu, out strparts, out xsparts, 3, yakuxs_num);
-                    partsType[0] = 1 + furo;
-                }
-                partsXS[0] = xsparts;
-
-                for (int i = 1; i < 4; i++)
-                {
-                    type = r.Next(9); //弄るとフーロ率が変化(他は順子に。)
-                    furo = r.Next(2);
-
-                    if (type == 0) //暗刻・明刻
-                    {
-                        MeldGenerator.MakeRandomKotsu(14, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + furo;
-                    }
-                    else if (type == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(14, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + furo;
-
-                    }
-                    else if (type == 2) //順子・副露順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(14, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + furo;
-                    }
-                    else  //順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(14, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5;
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(14, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateYakuhai(yakuNum, ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 23) //混全帯幺九
+                        else if (yakuNum == 23) //混全帯幺九
             {
 
                 for (int i = 0; i < 4; i++)

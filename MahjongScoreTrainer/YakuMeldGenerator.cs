@@ -352,6 +352,60 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateYakuhai(int yakuNumber, ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            int honor = yakuNumber - 13;
+            string unused;
+            int[] generated;
+            int kind = Program.r.Next(2);
+            int open = Program.r.Next(2);
+            if (kind == 0)
+            {
+                MeldGenerator.MakeRandomKantsu(14, ref remaining, out unused, out generated, 3, honor);
+                partTypes[0] = 3 + open;
+            }
+            else
+            {
+                MeldGenerator.MakeRandomKotsu(14, ref remaining, out unused, out generated, 3, honor);
+                partTypes[0] = 1 + open;
+            }
+            parts[0] = generated;
+            for (int i = 1; i < 4; i++)
+            {
+                kind = Program.r.Next(9);
+                open = Program.r.Next(2);
+                if (kind == 0)
+                {
+                    MeldGenerator.MakeRandomKotsu(14, ref remaining, out unused, out generated);
+                    partTypes[i] = 1 + open;
+                }
+                else if (kind == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(14, ref remaining, out unused, out generated);
+                    partTypes[i] = 3 + open;
+                }
+                else if (kind == 2)
+                {
+                    MeldGenerator.MakeRandomShuntsu(14, ref remaining, out unused, out generated);
+                    partTypes[i] = 5 + open;
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomShuntsu(14, ref remaining, out unused, out generated);
+                    partTypes[i] = 5;
+                }
+                parts[i] = generated;
+            }
+            MeldGenerator.MakeRandomAtama(14, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateIipeikou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             string unused;
