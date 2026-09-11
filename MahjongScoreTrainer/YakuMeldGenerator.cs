@@ -352,5 +352,20 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GeneratePinfu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                MeldGenerator.MakeRandomShuntsu(-1, ref remaining, out unused, out generated);
+                parts[i] = generated;
+                partTypes[i] = 5;
+            }
+            MeldGenerator.MakeRandomAtama(7, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            winningTile = TileUtilities.GetNumber(parts[0][0]) == 7 ? parts[0][2] : parts[0][0];
+        }
     }
 }

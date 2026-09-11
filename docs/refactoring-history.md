@@ -102,6 +102,8 @@ Debug／Release の両構成で、採点7ケース、牌変換6ケース、生�
 
 面子生成で重複していた `retOne` を `RandomSelection.RetOne` に共通化した。`Program` と `YakuMeldGenerator` の両方が同じ `Program.r` を使うため、負数時の扱いと乱数呼び出し結果を保ったまま補助処理を一か所で管理できる。
 
+平和の生成分岐を `YakuMeldGenerator.GeneratePinfu` へ移した。4つの順子、雀頭、辺張・嵌張を避ける待ち牌の決定を専用メソッドへ集約し、従来の牌生成順と面子種別を維持している。抽出後も Debug / Release の全回帰検査を通過した。
+
 ## 残る課題
 
 - `makeYaku` と役別生成は、まだ `Program.cs` に残っている。

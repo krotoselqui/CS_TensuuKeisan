@@ -440,28 +440,9 @@ namespace MahjongScoreTrainer
 
             if (yakuNum == 7) //平和
             {
-
-                for (int i = 0; i < 4; i++)
-                {
-                    MeldGenerator.MakeRandomShuntsu(-1, ref maisu, out strparts, out xsparts);
-                    partsXS[i] = xsparts;
-                    partsType[i] = 5;
-                }
-                MeldGenerator.MakeRandomAtama(7, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                if (TileUtilities.GetNumber(partsXS[0][0]) == 7)
-                {
-                    machi_xs = partsXS[0][2];
-                }
-                else
-                {
-                    machi_xs = partsXS[0][0];
-                }
-
+                YakuMeldGenerator.GeneratePinfu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 8) //断幺九
+                        else if (yakuNum == 8) //断幺九
             {
 
                 for (int i = 0; i < 4; i++)
