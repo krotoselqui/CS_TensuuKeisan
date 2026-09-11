@@ -50,6 +50,7 @@
     <Compile Include="ConsoleProgress.cs" />
     <Compile Include="MeldGenerator.cs" />
     <Compile Include="YakuSelector.cs" />
+    <Compile Include="YakuNumbers.cs" />
     <Compile Include="SpecialHandGenerator.cs" />
     <Compile Include="YakuMeldGenerator.cs" />
     <Compile Include="RandomSelection.cs" />

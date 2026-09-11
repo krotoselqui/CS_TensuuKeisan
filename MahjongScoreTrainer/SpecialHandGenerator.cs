@@ -6,7 +6,7 @@ namespace MahjongScoreTrainer
     {
         internal static void Generate(int yakuNum, ref int[] remaining, ref int[] hand, ref int winningTile)
         {
-            if (yakuNum == 22)
+            if (yakuNum == YakuNumbers.Chiitoitsu)
             {
                 int position = 0;
                 int waitingPair = Program.r.Next(7);
@@ -15,7 +15,7 @@ namespace MahjongScoreTrainer
                 {
                     string unused;
                     int[] pair;
-                    MeldGenerator.MakeRandomAtama(22, ref remaining, out unused, out pair);
+                    MeldGenerator.MakeRandomAtama(YakuNumbers.Chiitoitsu, ref remaining, out unused, out pair);
                     hand[position] = pair[0];
                     hand[position + 1] = pair[1];
                     if (waitingPair == i) winningTile = hand[position];
@@ -24,7 +24,7 @@ namespace MahjongScoreTrainer
                 return;
             }
 
-            if (yakuNum == 45 || yakuNum == 46)
+            if (yakuNum == YakuNumbers.ChuurenPoutou || yakuNum == YakuNumbers.JunseiChuurenPoutou)
             {
                 int color = Program.r.Next(3);
                 int position = 0;
@@ -34,7 +34,7 @@ namespace MahjongScoreTrainer
                 int added = color * 9 + Program.r.Next(9) + 1;
                 hand[position] = added;
                 winningTile = added;
-                if (yakuNum == 45)
+                if (yakuNum == YakuNumbers.ChuurenPoutou)
                 {
                     while (added == winningTile) winningTile = color * 9 + Program.r.Next(9) + 1;
                 }
@@ -46,7 +46,7 @@ namespace MahjongScoreTrainer
             int addedTile = terminalsAndHonors[Program.r.Next(terminalsAndHonors.Length)];
             hand[13] = addedTile;
             winningTile = addedTile;
-            if (yakuNum == 47)
+            if (yakuNum == YakuNumbers.KokushiMusou)
             {
                 while (addedTile == winningTile) winningTile = terminalsAndHonors[Program.r.Next(terminalsAndHonors.Length)];
             }

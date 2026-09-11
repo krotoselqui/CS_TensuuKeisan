@@ -389,11 +389,11 @@ namespace MahjongScoreTrainer
             bool isChitoi = false;
             bool isKokushi = false;
 
-            if (yakuNum == 22) typeSP = true;
-            if (yakuNum == 45) typeSP = true;
-            if (yakuNum == 46) typeSP = true;
-            if (yakuNum == 47) typeSP = true;
-            if (yakuNum == 48) typeSP = true;
+            if (yakuNum == YakuNumbers.Chiitoitsu) typeSP = true;
+            if (yakuNum == YakuNumbers.ChuurenPoutou) typeSP = true;
+            if (yakuNum == YakuNumbers.JunseiChuurenPoutou) typeSP = true;
+            if (yakuNum == YakuNumbers.KokushiMusou) typeSP = true;
+            if (yakuNum == YakuNumbers.JunseiKokushiMusou) typeSP = true;
 
             int[] maisu = new int[35];
             for (int i = 0; i < maisu.Length; i++)
@@ -438,85 +438,47 @@ namespace MahjongScoreTrainer
 
 
 
-            if (yakuNum == 7) //平和
+            if (yakuNum == YakuNumbers.Pinfu) //平和
             {
                 YakuMeldGenerator.GeneratePinfu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 8) //断幺九
+                        else if (yakuNum == YakuNumbers.Tanyao) //断幺九
             {
                 YakuMeldGenerator.GenerateTanyao(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 9) //一盃口
+                        else if (yakuNum == YakuNumbers.Iipeikou) //一盃口
             {
                 YakuMeldGenerator.GenerateIipeikou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 14 || yakuNum == 18 || yakuNum == 19 || yakuNum == 20) //役牌
+            else if (yakuNum == YakuNumbers.Yakuhai || yakuNum == YakuNumbers.YakuhaiRoundWind || yakuNum == YakuNumbers.YakuhaiSeatWind || yakuNum == YakuNumbers.YakuhaiDragon) //役牌
             {
                 YakuMeldGenerator.GenerateYakuhai(yakuNum, ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 23) //混全帯幺九
+                        else if (yakuNum == YakuNumbers.Honchantaiyaochuu) //混全帯幺九
             {
                 YakuMeldGenerator.GenerateHonchantaiyaochuu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 24) //一気通貫
+                        else if (yakuNum == YakuNumbers.Ittsu) //一気通貫
             {
                 YakuMeldGenerator.GenerateIttsu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 25) //三色同順
+                        else if (yakuNum == YakuNumbers.SanshokuDoujun) //三色同順
             {
                 YakuMeldGenerator.GenerateSanshokuDoujun(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 26) //三色同刻
+                        else if (yakuNum == YakuNumbers.SanshokuDoukou) //三色同刻
             {
                 YakuMeldGenerator.GenerateSanshokuDoukou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 27) //三槓子
+                        else if (yakuNum == YakuNumbers.Sankantsu) //三槓子
             {
                 YakuMeldGenerator.GenerateSankantsu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 28) //対々和
+                        else if (yakuNum == YakuNumbers.Toitoi) //対々和
             {
-
-                int furo_bairitsu = 2; //でかいほど鳴かない
-
-                for (int i = 0; i < 4; i++)
-                {
-
-                    int shurui = r.Next(20); //弄るとフーロ率が変化(他は順子に。)
-
-
-                    if (shurui == 0) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-                    else  //刻子
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateToitoi(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 29) //三暗刻
+                        else if (yakuNum == YakuNumbers.Sanankou) //三暗刻
             {
 
                 //はじめの3刻子
@@ -596,7 +558,7 @@ namespace MahjongScoreTrainer
 
 
             }
-            else if (yakuNum == 30) //小三元
+            else if (yakuNum == YakuNumbers.Shousangen) //小三元
             {
 
                 //はじめの2刻子
@@ -703,7 +665,7 @@ namespace MahjongScoreTrainer
 
 
             }
-            else if (yakuNum == 31) //混老頭
+            else if (yakuNum == YakuNumbers.Honroutou) //混老頭
             {
 
                 int furo_bairitsu = 2; //でかいほど鳴かない
@@ -745,7 +707,7 @@ namespace MahjongScoreTrainer
 
 
             }
-            else if (yakuNum == 32) //二盃口
+            else if (yakuNum == YakuNumbers.Ryanpeikou) //二盃口
             {
 
                 //はじめの4順子
@@ -788,7 +750,7 @@ namespace MahjongScoreTrainer
 
 
             }
-            else if (yakuNum == 33) //純全帯幺九
+            else if (yakuNum == YakuNumbers.Junchantaiyaochuu) //純全帯幺九
             {
 
                 for (int i = 0; i < 4; i++)
@@ -840,7 +802,7 @@ namespace MahjongScoreTrainer
 
 
             }
-            else if (yakuNum == 34) //混一色
+            else if (yakuNum == YakuNumbers.Honitsu) //混一色
             {
 
                 int some_clr = r.Next(3);
@@ -887,7 +849,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                MeldGenerator.MakeRandomAtama(8, ref maisu, out strparts, out xsparts, some_clr);
+                MeldGenerator.MakeRandomAtama(YakuNumbers.Tanyao, ref maisu, out strparts, out xsparts, some_clr);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -902,7 +864,7 @@ namespace MahjongScoreTrainer
 
 
             }
-            else if (yakuNum == 35) //清一色
+            else if (yakuNum == YakuNumbers.Chinitsu) //清一色
             {
 
                 int some_clr = r.Next(3);
@@ -950,7 +912,7 @@ namespace MahjongScoreTrainer
 
                 }
 
-                MeldGenerator.MakeRandomAtama(8, ref maisu, out strparts, out xsparts, some_clr);
+                MeldGenerator.MakeRandomAtama(YakuNumbers.Tanyao, ref maisu, out strparts, out xsparts, some_clr);
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
@@ -965,39 +927,39 @@ namespace MahjongScoreTrainer
 
 
             }
-            else if (yakuNum == 39) //大三元
+            else if (yakuNum == YakuNumbers.Daisangen) //大三元
             {
                 YakuMeldGenerator.GenerateDaisangen(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 40) //四暗刻
+                        else if (yakuNum == YakuNumbers.Suuankou) //四暗刻
             {
                 YakuMeldGenerator.GenerateSuuankou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 41) //四暗刻単騎
+                        else if (yakuNum == YakuNumbers.SuuankouTanki) //四暗刻単騎
             {
                 YakuMeldGenerator.GenerateSuuankouTanki(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 42) //字一色
+                        else if (yakuNum == YakuNumbers.Tsuiisou) //字一色
             {
                 YakuMeldGenerator.GenerateTsuiisou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 43) //緑一色
+                        else if (yakuNum == YakuNumbers.Ryuuiisou) //緑一色
             {
                 YakuMeldGenerator.GenerateRyuuiisou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 44) //清老頭
+                        else if (yakuNum == YakuNumbers.Chinroutou) //清老頭
             {
                 YakuMeldGenerator.GenerateChinroutou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 49) //大四喜
+                        else if (yakuNum == YakuNumbers.Daisuushi) //大四喜
             {
                 YakuMeldGenerator.GenerateDaisuushi(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 50) //小四喜
+                        else if (yakuNum == YakuNumbers.Shousuushi) //小四喜
             {
                 YakuMeldGenerator.GenerateShousuushi(ref maisu, partsXS, partsType, ref machi_xs);
             }
-                        else if (yakuNum == 51) //四槓子
+                        else if (yakuNum == YakuNumbers.Suukantsu) //四槓子
             {
                 YakuMeldGenerator.GenerateSuukantsu(ref maisu, partsXS, partsType, ref machi_xs);
             }
