@@ -64,6 +64,8 @@
 | ファイル | 内容 |
 | --- | --- |
 | `Program.cs` | エントリーポイント、入力、抽選、ファイル出力、役生成、面子生成 |
+| `GenerationOptions.cs` | 問題数・シード・表示形式の設定と範囲チェック |
+| `ConsoleProgress.cs` | コンソールの進捗表示とカーソル位置の管理 |
 | `HandEvaluator.cs` | 面子分解、役・符の判定、採点候補の比較 |
 | `TileUtilities.cs` | `TileUtilities`。牌の色・数字・幺九牌判定 |
 | `WinningHandData.cs` | 手牌、副露、和了牌、場風・自風・和了方法 |
@@ -90,5 +92,7 @@ msbuild MahjongScoreTrainer.sln /t:Build /p:Configuration=Debug
 ```
 
 入力例は、問題数 `10`、シード `12345`、出力形式 `1` です。指定したシードを `Program.r` に設定して問題を生成します。
+
+`Main` は入力・ファイルの作成・生成処理の呼び出し・集計表示・終了待ちを担当します。生成本体の `GenerateProblems` は設定・乱数源・`TextWriter` を受け取り、コンソール入力なしで検証できます。手牌・面子の生成と採点内部は引き続き既存の処理を使います。
 
 `.vscode/launch.json` は実行ファイルのパスがプレースホルダーの .NET Core 用テンプレートで、そのまま使える起動設定ではありません。

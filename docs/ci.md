@@ -11,6 +11,8 @@
 | Debug / Release の Rebuild | 型・参照・構文・プロジェクト設定の整合 |
 | 採点 7 ケース | 親子、切り上げなし、満貫、数え役満、複数役満の具体的な支払額 |
 | 牌変換 6 ケース | 物理牌 ID と牌種の違い、先頭・末尾・範囲外 |
+| 生成結果 4 組 | 整理前の Main の 3 ファイルとコンソール出力に一致すること |
+| 生成と入力の境界 | 再実行、進捗、再入力、例外時の設定復元とファイル解放 |
 
 外部のテストパッケージは追加していない。ビルド済みアプリを Windows PowerShell の .NET Framework で読み込み、既存の非公開型・メソッドをリフレクションで呼び出す。CI のためだけにアプリの公開範囲やソリューション構成を変更しないための暫定的な方式である。型・メソッドを抽出する段階で、この呼び出しも更新する。
 
@@ -24,8 +26,10 @@ Visual Studio の開発者 PowerShell、または MSBuild が PATH にある Win
 powershell -NoProfile -File scripts/Check-Repository.ps1
 msbuild MahjongScoreTrainer.sln /t:Rebuild /p:Configuration=Debug /nologo /verbosity:minimal
 powershell -NoProfile -File scripts/Test-Regression.ps1 -Configuration Debug
+powershell -NoProfile -File scripts/Test-Generation.ps1 -Configuration Debug
 msbuild MahjongScoreTrainer.sln /t:Rebuild /p:Configuration=Release /nologo /verbosity:minimal
 powershell -NoProfile -File scripts/Test-Regression.ps1 -Configuration Release
+powershell -NoProfile -File scripts/Test-Generation.ps1 -Configuration Release
 ```
 
 各コマンドの終了コードを確認し、ビルド失敗時に以前の実行ファイルのテスト結果を採用しない。構成ごとに別の PowerShell プロセスでアセンブリを読み込む。
@@ -33,7 +37,7 @@ powershell -NoProfile -File scripts/Test-Regression.ps1 -Configuration Release
 ## 検証の限界と拡張
 
 - 点数ケースは符・飜から支払額への変換を確認する。手牌から役・符・飜を求める正しさを網羅しない。
-- 現在の `Main` はカーソル操作・キー入力を使うため、CI では起動しない。対話 UI、生成全体、Shift_JIS ファイル出力、固定シードの出力比較は未自動化。
+- 生成検査は `.csproj` のソースを別途コンパイルし、コンソール参照だけを置き換えて Main を実行する。Shift_JIS の 3 ファイルと固定シードの比較は自動化済みだが、実画面のカーソル位置や物理キー入力は検証しない。詳細と基準の由来は [回帰検査の説明](../tests/README.md) を参照。
 - `.editorconfig` はエディター設定であり、命名規則の検査器ではない。型検査の成功も仕様の正しさを保証しない。
 - リンク検査は本文の Markdown インラインリンクの相対ファイルを対象とし、外部 URL や見出しアンカーの到達性を検査しない。
 - 文書のみの変更でも現状は小規模な同じジョブを実行する。将来実行時間が増えたら、文書検査とアプリ検査の条件を分ける。

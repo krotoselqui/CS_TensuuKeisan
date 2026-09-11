@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -183,33 +183,220 @@ namespace MahjongScoreTrainer
 
         static void Main(string[] args)
         {
-
-            //Tedukuri_Test();
-
-            //for (int i = 0; i < YAKU_STR.Length; i++)
-            //{
-            //    string s = i.ToString("00") + " : ";
-            //    s += YAKU_STR[i];
-            //    Debug.Print(s);
-
-            //}
-
-
-
-            for (int i = 0; i < 15; i++)
+            ShowTitle();
+            GenerationOptions options = ReadOptions(Console.In, Console.Out);
+            Random random = options.Seed == -1 ? r : new Random(options.Seed);
+            int[] counts;
+            using (var questions = new System.IO.StreamWriter("question.txt", false, Encoding.GetEncoding("shift_jis")))
+            using (var answers = new System.IO.StreamWriter("answer.txt", false, Encoding.GetEncoding("shift_jis")))
+            using (var details = new System.IO.StreamWriter("answer_yaku.txt", false, Encoding.GetEncoding("shift_jis")))
             {
-                Debug.Print("役の数 = " + i.ToString());
-                Debug.Print(((int)((i + 1) / 2)).ToString());
-
-
+                var progress = new ConsoleProgress();
+                counts = GenerateProblems(options, random, questions, answers, details, progress.Report);
             }
+            ShowSummary(counts);
+            Console.ReadKey();
+        }
+
+        internal static GenerationOptions ReadOptions(System.IO.TextReader input, System.IO.TextWriter output)
+        {
+            int problemCount = ReadInteger(input, output, "問題数を入力 : ", value => value >= 1);
+            int seed = ReadInteger(input, output, "シード値を入力（ ランダムなら: -1 ）: ", value => value >= -1);
+            int displayMode = ReadInteger(input, output, "出力形式を入力（ 専用フォント: 0 通常の牌記号: 1 ）: ", value => value == 0 || value == 1);
+            return new GenerationOptions(problemCount, seed, displayMode);
+        }
+
+        private static int ReadInteger(System.IO.TextReader input, System.IO.TextWriter output, string prompt, Func<int, bool> isValid)
+        {
+            while (true)
+            {
+                output.Write(prompt);
+                int value;
+                // EOF still retries, matching the existing interactive input contract.
+                if (int.TryParse(input.ReadLine(), out value) && isValid(value)) return value;
+            }
+        }
+
+        private sealed class YakuWeight
+        {
+            internal readonly int Id;
+            internal readonly int Weight;
+
+            internal YakuWeight(int id, int weight)
+            {
+                Id = id;
+                Weight = weight;
+            }
+        }
+
+        private static readonly YakuWeight[] YakuWeights =
+        {
+            new YakuWeight(7, 800), new YakuWeight(8, 1000), new YakuWeight(9, 500),
+            new YakuWeight(14, 500), new YakuWeight(18, 500), new YakuWeight(19, 500),
+            new YakuWeight(20, 500), new YakuWeight(22, 200), new YakuWeight(23, 200),
+            new YakuWeight(24, 200), new YakuWeight(25, 200), new YakuWeight(26, 80),
+            new YakuWeight(27, 200), new YakuWeight(28, 200), new YakuWeight(29, 200),
+            new YakuWeight(30, 200), new YakuWeight(31, 200), new YakuWeight(32, 100),
+            new YakuWeight(33, 100), new YakuWeight(34, 100), new YakuWeight(35, 100),
+            new YakuWeight(39, 20), new YakuWeight(40, 20), new YakuWeight(41, 1),
+            new YakuWeight(42, 2), new YakuWeight(43, 1), new YakuWeight(44, 1),
+            new YakuWeight(45, 3), new YakuWeight(46, 1), new YakuWeight(47, 3),
+            new YakuWeight(48, 1), new YakuWeight(49, 1), new YakuWeight(50, 3),
+            new YakuWeight(51, 0)
+        };
+
+        private static int SelectYaku(Random random)
+        {
+            int totalWeight = 0;
+            foreach (YakuWeight entry in YakuWeights) totalWeight += entry.Weight;
+            int selected = random.Next(totalWeight);
+            foreach (YakuWeight entry in YakuWeights)
+            {
+                if (selected < entry.Weight) return entry.Id;
+                selected -= entry.Weight;
+            }
+            throw new InvalidOperationException("No yaku selected.");
+        }
+
+        private sealed class WinningCondition
+        {
+            internal readonly int RoundWind;
+            internal readonly int SeatWind;
+            internal readonly bool IsTsumo;
+            internal readonly string Label;
+
+            internal WinningCondition(int roundWind, int seatWind, bool isTsumo, string label)
+            {
+                RoundWind = roundWind;
+                SeatWind = seatWind;
+                IsTsumo = isTsumo;
+                Label = label;
+            }
+        }
+
+        private static readonly WinningCondition[] WinningConditions =
+        {
+            new WinningCondition(0, 0, true, "東/東/ツモ"),
+            new WinningCondition(0, 0, false, "東/東/ロン"),
+            new WinningCondition(0, 2, true, "東/西/ツモ"),
+            new WinningCondition(0, 2, false, "東/西/ロン")
+        };
+
+        private sealed class EvaluatedAnswer
+        {
+            internal readonly WinningCondition Condition;
+            internal readonly ScoreResult Score;
+            internal readonly bool[] Yaku;
+            internal readonly string YakuText;
+
+            internal EvaluatedAnswer(WinningCondition condition, ScoreResult score, bool[] yaku, string yakuText)
+            {
+                Condition = condition;
+                Score = score;
+                Yaku = yaku;
+                YakuText = yakuText;
+            }
+        }
+
+        private static EvaluatedAnswer[] EvaluateAnswers(int[] tiles, int[][] melds, int[] meldTypes, int winningTile)
+        {
+            var evaluator = new HandEvaluator();
+            var answers = new EvaluatedAnswer[WinningConditions.Length];
+            for (int i = 0; i < WinningConditions.Length; i++)
+            {
+                WinningCondition condition = WinningConditions[i];
+                var hand = new WinningHandData(tiles, melds, meldTypes, winningTile,
+                    condition.RoundWind, condition.SeatWind, condition.IsTsumo);
+                bool[] yaku;
+                ScoreResult score;
+                evaluator.Yaku_Keishiki(out yaku, out score, hand);
+                string yakuText;
+                evaluator.Yakulist_view(yaku, out yakuText);
+                answers[i] = new EvaluatedAnswer(condition, score, yaku, yakuText);
+            }
+            return answers;
+        }
+
+        private static string FormatPayment(EvaluatedAnswer answer)
+        {
+            if (!answer.Condition.IsTsumo) return answer.Score.scoresum.ToString();
+            if (answer.Condition.SeatWind == 0) return answer.Score.other_pay.ToString() + "∀";
+            return answer.Score.other_pay.ToString() + "-" + answer.Score.dealer_pay.ToString();
+        }
+
+        private static string FormatDetails(EvaluatedAnswer answer)
+        {
+            ScoreResult score = answer.Score;
+            string value = score.ykm
+                ? (score.fan == 1 ? "役満 " : score.fan.ToString() + "倍役満 ")
+                : score.fu.ToString() + "符" + score.fan.ToString() + "飜 ";
+            return answer.Condition.Label + " " + value + answer.YakuText;
+        }
+
+        private static void WriteAnswers(int number, EvaluatedAnswer[] results,
+            System.IO.TextWriter answers, System.IO.TextWriter details, int[] counts)
+        {
+            string prefix = "[" + number.ToString() + "] ";
+            details.WriteLine(prefix);
+            var payments = new string[results.Length];
+            for (int i = 0; i < results.Length; i++)
+            {
+                EvaluatedAnswer result = results[i];
+                payments[i] = FormatPayment(result);
+                details.WriteLine(FormatDetails(result));
+                for (int y = 0; y < YakuWeights.Length; y++)
+                {
+                    if (result.Yaku[YakuWeights[y].Id]) counts[y]++;
+                }
+            }
+            answers.WriteLine(prefix + string.Join(" / ", payments));
+        }
+
+        internal static int[] GenerateProblems(GenerationOptions options, Random random,
+            System.IO.TextWriter questions, System.IO.TextWriter answers, System.IO.TextWriter details,
+            Action<int, int> reportProgress = null)
+        {
+            if (options == null) throw new ArgumentNullException("options");
+            if (random == null) throw new ArgumentNullException("random");
+            if (questions == null) throw new ArgumentNullException("questions");
+            if (answers == null) throw new ArgumentNullException("answers");
+            if (details == null) throw new ArgumentNullException("details");
+
+            // Temporary bridge to the unchanged legacy hand generator. Sequential use only.
+            Random previousRandom = r;
+            int previousMode = PaiDisp_Mode;
+            r = random;
+            PaiDisp_Mode = options.DisplayMode;
+            try
+            {
+                var counts = new int[YakuWeights.Length];
+                for (int i = 0; i < options.ProblemCount; i++)
+                {
+                    if (reportProgress != null) reportProgress(i, options.ProblemCount);
+                    int yakuId = SelectYaku(random);
+                    int[] tiles;
+                    int[][] melds;
+                    int[] meldTypes;
+                    int winningTile;
+                    string question = makeYaku(yakuId, out tiles, out melds, out meldTypes, out winningTile);
+                    string prefix = options.DisplayMode == 1 ? "[" + (i + 1).ToString() + "]" : "";
+                    questions.WriteLine(prefix + question);
+                    Debug.Print(question);
+                    EvaluatedAnswer[] results = EvaluateAnswers(tiles, melds, meldTypes, winningTile);
+                    WriteAnswers(i + 1, results, answers, details, counts);
+                }
+                return counts;
+            }
+            finally
+            {
+                r = previousRandom;
+                PaiDisp_Mode = previousMode;
+            }
+        }
 
 
-            int mondai_suu = -1;
-            int seed = -2;
-
-
-
+        static void ShowTitle()
+        {
             Console.WriteLine("");
             Console.WriteLine("                        　　ﾜｧｲ                   ");
             Console.WriteLine("・゜・*:.｡..｡.:*・゜(n'∀')ηﾟ・*:.｡. .｡.:*・゜・*");
@@ -219,411 +406,22 @@ namespace MahjongScoreTrainer
             Console.WriteLine("                        　　                      ");
             Console.WriteLine("・゜・*:.｡..｡.:*・*:.｡. .｡.:*ﾟ・*:.｡. .｡.:*・゜・*");
             Console.WriteLine("");
+        }
 
-            #region ダイアログ
-
-            //mondai_suu = 1;
-            if (mondai_suu >= 1)
-            {
-                Console.WriteLine("問題数を入力 : " + mondai_suu.ToString());
-            }
-            while (mondai_suu < 1)
-            {
-                Console.Write("問題数を入力 : ");
-                try
-                { mondai_suu = int.Parse(Console.ReadLine()); }
-                catch { }
-            }
-
-            while (seed < -1)
-            {
-                Console.Write("シード値を入力（ ランダムなら: -1 ）: ");
-                try
-                { seed = int.Parse(Console.ReadLine()); }
-                catch { }
-            }
-
-            while (PaiDisp_Mode != 0 && PaiDisp_Mode != 1)
-            {
-                Console.Write("出力形式を入力（ 専用フォント: 0 通常の牌記号: 1 ）: ");
-                try
-                { PaiDisp_Mode = int.Parse(Console.ReadLine()); }
-                catch { }
-            }
-
-            #endregion
-
-            if (seed != -1)
-            {
-                r = new System.Random(seed);
-            }
-
-            System.IO.StreamWriter sw_q;
-            string datenow_str = DateTime.Now.ToString();
-            string stCurrentDir = System.IO.Directory.GetCurrentDirectory();
-            string filename_q = "question.txt";
-            sw_q = new System.IO.StreamWriter(filename_q, false, System.Text.Encoding.GetEncoding("shift_jis"));
-
-            System.IO.StreamWriter sw_a;
-            string filename_a = "answer.txt";
-            sw_a = new System.IO.StreamWriter(filename_a, false, System.Text.Encoding.GetEncoding("shift_jis"));
-
-            System.IO.StreamWriter sw_y;
-            string filename_y = "answer_yaku.txt";
-            sw_y = new System.IO.StreamWriter(filename_y, false, System.Text.Encoding.GetEncoding("shift_jis"));
-
-
-
-            var yaku = new YakuDefinition[YAKU_STR.Length];
-            int[] yaku_List = new int[34] {  7,  8,  9, 14, 18, 19, 20, 22, 
-                                            23, 24, 25, 26, 27, 28, 29, 30, 
-                                            31, 32, 33, 34, 35, 39, 40, 41, 
-                                            42, 43, 44, 45, 46, 47, 48, 49, 
-                                            50, 51 };
-
-            //普段
-            int[] yaku_AppearFreq = new int[34]{ 800,1000, 500, 500, 500, 500, 500, 200, 
-                                                 200, 200, 200,  80, 200, 200, 200, 200, 
-                                                 200, 100, 100, 100, 100,  20,  20,   1, 
-                                                   2,   1,   1,   3,   1,   3,   1,   1, 
-                                                   3,   0 };
-
-            string[] mirudake = new string[34] { "平和",       "断幺九",      "一盃口",       "場風 東",    "役牌 白",     "役牌 發",   "役牌 中",       "七対子",
-                                                "混全帯幺九",  "一気通貫",    "三色同順",     "三色同刻",   "三槓子",      "対々和",    "三暗刻",        "小三元",
-                                                "混老頭",      "二盃口",      "純全帯幺九",   "混一色",     "清一色",      "大三元",    "四暗刻",        "四暗刻単騎",
-                                                "字一色",      "緑一色",      "清老頭",       "九蓮宝燈",   "純正九蓮宝燈","国士無双",  "国士無双１３面","大四喜",
-                                                "小四喜",      "四槓子"};
-
-            ////まんべんなく調べる時用
-            //int[] yaku_AppearFreq = new int[34]{ 1, 1, 1, 1, 1, 1, 1, 1, 
-            //                                     1, 1, 1, 1, 1, 1, 1, 1, 
-            //                                     1, 1, 1, 1, 1, 1, 1, 1, 
-            //                                     1, 1, 1, 1, 1, 1, 1, 1, 
-            //                                     1, 1 };
-
-            int[] yaku_ResultCount = new int[34];
-            for (int y = 0; y < yaku_ResultCount.Length; y++)
-            {
-                yaku_ResultCount[y] = 0;
-            }
-
-            int[] yaku_startFreq = new int[34];
-            int[] yaku_endFreq = new int[34];
-
-            int Freq_pos = 0;
-            int Freq_MAX = 0;
-
-            for (int i = 0; i < yaku_AppearFreq.Length; i++)
-            {
-                //Debug.Print(yaku_AppearFreq[i].ToString());
-
-                string tmp_freq_view = i.ToString("00") + " : ";
-
-                yaku_startFreq[i] = Freq_pos;
-                tmp_freq_view += yaku_startFreq[i].ToString("0000");
-
-                tmp_freq_view += " to ";
-
-                Freq_pos += yaku_AppearFreq[i];
-
-                yaku_endFreq[i] = Freq_pos - 1;
-                tmp_freq_view += yaku_endFreq[i].ToString("0000");
-
-                //Console.WriteLine(tmp_freq_view);
-                //Debug.Print(tmp_freq_view);
-            }
-
-            Freq_MAX = Freq_pos;
-
-            Console.WriteLine("");
-            Console.WriteLine("                 |Start             |Fin");
-            Console.Write("Processing...    ");
-            int max_bar = 20;
-            int cur_bar = 0;
-
-            int cs_left = Console.CursorLeft;
-            int cs_top = Console.CursorTop;
-
-            for (int i = 0; i < mondai_suu; i++)
-            {
-
-                Console.SetCursorPosition(cs_left, cs_top);
-
-                while ((i * 100 / mondai_suu) >= (cur_bar * 100 / max_bar))
-                {
-                    Console.Write("|");
-                    cur_bar++;
-                }
-
-                cs_left = Console.CursorLeft;
-                cs_top = Console.CursorTop;
-                Console.SetCursorPosition(cs_left, cs_top);
-                Console.Write(" " + (i + 1).ToString() + " / " + mondai_suu.ToString());
-
-                //Console.SetCursorPosition(0, cs_top + 1);
-                //string paddin = "";
-                //for (int ff = 0; ff < i % 100; ff++)
-                //{
-                //    paddin += "";
-                //}
-                Console.Write("   +｡ﾟφ(ゝω・｀ )+｡ﾟ ｶｷｶｷ");
-
-
-
-                string tmp_rndFreq = "rndFreq = ";
-
-                int rndFreq = r.Next(Freq_MAX);
-                tmp_rndFreq += rndFreq.ToString("000");
-
-                int rndYaku = -1;
-
-                for (int y = 0; y < yaku_AppearFreq.Length; y++)
-                {
-
-                    if (yaku_startFreq[y] <= rndFreq && rndFreq <= yaku_endFreq[y])
-                    {
-                        rndYaku = yaku_List[y];
-                        break;
-                    }
-
-                }
-
-
-                //Console.WriteLine(i.ToString("0000000") + " yaku : " + rndYaku);
-                //Debug.Print(i.ToString("0000000") + " yaku : " + rndYaku);
-
-
-
-                //Debug.Print("◇ 問題 " + (i + 1).ToString("") + " ◇");
-                //Debug.Print("");
-                //Console.WriteLine("◇ 問題 " + (i + 1).ToString("") + " ◇");
-                //Console.WriteLine();
-
-
-                //【役rndYakuの条件を満たした手牌を作成】
-
-                int[] tmp_tehai;
-                int[][] tmp_furotehai;
-                int[] tmp_furotype;
-                int tmp_machixs;
-
-                //【任意の役の手牌を生成】
-                //rndYaku = 47;
-
-                string tmpstr = makeYaku(rndYaku, out tmp_tehai, out  tmp_furotehai, out tmp_furotype, out tmp_machixs);
-
-                #region 手牌を手動で作るとき
-                //tmpstr = "補正中!";
-                //tmp_tehai = new int[] { 1,1,3,3,5,5,6,6,7,7,8,8,9,9 };
-                //tmp_machixs = 9;
-                //tmp_furotehai = new int[4][];
-                //tmp_furotehai[0] = new int[2] { 0, 0 };
-                //tmp_furotehai[1] = new int[2] { 0, 0 };
-                //tmp_furotehai[2] = new int[2] { 0, 0 };
-                //tmp_furotehai[3] = new int[2] { 0, 0 };
-                //tmp_furotype = new int[4];
-                #endregion
-
-                //【手牌を表示】
-                string tx_q = "";
-                if (PaiDisp_Mode == 1) tx_q += "[" + (i + 1).ToString() + "]";
-                sw_q.WriteLine(tx_q + tmpstr);
-                //Console.WriteLine(tmpstr);
-                Debug.Print(tmpstr);
-
-                //Console.WriteLine();
-                //Debug.Print("");
-
-                //【詳細の手牌を表示】
-
-                #region 手牌詳細表示
-
-                string th_str = "";
-
-                for (int t = 0; t < tmp_tehai.Length; t++)
-                {
-                    if (tmp_tehai[t] == 0) break;
-                    th_str += XS_PAI_STR[PaiDisp_Mode][tmp_tehai[t]];
-                    th_str += "";
-                }
-
-                //Debug.Print("手牌 = " + th_str + "");
-                //Console.WriteLine("手牌 = " + th_str + "");
-
-                //Debug.Print("待ち = " + XS_PAI_STR[PaiDisp_Mode][tmp_machixs] + "");
-                //Console.WriteLine("待ち = " + XS_PAI_STR[PaiDisp_Mode][tmp_machixs] + "");
-
-                string fr_str = "";
-                string frtype_str = "";
-
-                for (int f = 0; f < tmp_furotehai.Length; f++)
-                {
-                    //if (tmp_furotype[f] == 0) break;
-
-                    for (int m = 0; m < tmp_furotehai[f].Length; m++)
-                    {
-                        if (tmp_furotehai[f][m] == 0) break;
-                        fr_str += XS_PAI_STR[PaiDisp_Mode][tmp_furotehai[f][m]];
-                        fr_str += "";
-                    }
-
-                    frtype_str = FUROTYPE_STR[tmp_furotype[f]];
-                    if (tmp_furotype[f] == 0) frtype_str = "----";
-
-                    //Debug.Print("副露[" + f.ToString() + "] = 【" + frtype_str + "】" + fr_str + "");
-                    //Console.WriteLine("副露[" + f.ToString() + "] = 【" + frtype_str + "】" + fr_str + "");
-
-                    fr_str = "";
-
-                }
-
-                #endregion
-
-                //【役の判定】
-
-                const int int_TON = 0;
-                const int int_NAN = 1;
-                const int int_XIA = 2;
-                const int int_PEI = 3;
-
-                const bool bool_TSUMO = true;
-                const bool bool_RON = false;
-
-
-                WinningHandData[] ad = new WinningHandData[4];
-                string[] ac_str = new string[4]{
-                 "東/東/ツモ","東/東/ロン",
-                "東/西/ツモ","東/西/ロン"};
-
-                int[] agaricond_ba = new int[4] { int_TON, int_TON, int_TON, int_TON };
-                int[] agaricond_ie = new int[4] { int_TON, int_TON, int_XIA, int_XIA };
-                bool[] agaricond_istm = new bool[4] { bool_TSUMO, bool_RON, bool_TSUMO, bool_RON };
-
-                for (int j = 0; j < 4; j++)
-                {
-                    ad[j] = new WinningHandData(tmp_tehai, tmp_furotehai, tmp_furotype, tmp_machixs, agaricond_ba[j], agaricond_ie[j], agaricond_istm[j]);
-                }
-
-                HandEvaluator yh = new HandEvaluator();
-
-                string kaitou_str = "[" + (i + 1).ToString() + "] ";
-                string yaku_str = "";
-                sw_y.WriteLine("[" + (i + 1).ToString() + "] ");
-
-
-                //アガリ状態だけループして調査
-                for (int a_cond = 0; a_cond < 4; a_cond++)
-                {
-                    string yx = "" + ac_str[a_cond] + " ";
-                    bool[] list;
-                    int Fan, Fu;
-                    ScoreResult sd;
-
-                    int x = yh.Yaku_Keishiki(out list, out sd, ad[a_cond]);
-
-                    //Debug.Print("");
-                    //Debug.Print("●" + ac_str[a_cond]);
-                    //Debug.Print("");
-
-                    #region 飜・符の文字列操作
-
-                    string result_str = "                     ";
-                    if (sd.ykm)
-                    {
-                        if (sd.fan != 1)
-                        {
-                            result_str += sd.fan.ToString() + "倍役満";
-                            yx += sd.fan.ToString() + "倍役満 ";
-                        }
-                        else
-                        {
-                            result_str += "役満";
-                            yx += "役満 ";
-                        }
-                    }
-                    else
-                    {
-                        result_str += sd.fu.ToString() + "符 " + sd.fan.ToString() + "飜";
-                        yx += sd.fu.ToString() + "符" + sd.fan.ToString() + "飜 ";
-                    }
-
-                    result_str += "   ";
-
-                    if (ad[a_cond].istsumoagari)
-                    {
-                        if (ad[a_cond].jikaze == 0)
-                        {
-                            result_str += sd.other_pay.ToString() + " ∀ ";
-                            kaitou_str += sd.other_pay.ToString() + "∀";
-                        }
-                        else
-                        {
-                            result_str += sd.other_pay.ToString() + " - " + sd.dealer_pay.ToString();
-                            kaitou_str += sd.other_pay.ToString() + "-" + sd.dealer_pay.ToString();
-                        }
-                    }
-                    else
-                    {
-                        result_str += sd.scoresum.ToString();
-                        kaitou_str += sd.scoresum.ToString();
-                    }
-
-                    #endregion
-
-                    string yl_str = "";
-                    yh.Yakulist_view(list, out yl_str);
-
-                    for (int y = 0; y < yaku_List.Length; y++)
-                    {
-                        if (list[yaku_List[y]])
-                        {
-                            yaku_ResultCount[y]++;
-                        }
-                    }
-
-                    sw_y.WriteLine(yx + yl_str);
-                    //Debug.Print(result_str);
-                    if (a_cond != 3)
-                    {
-                        kaitou_str += " / ";
-                    }
-
-                }
-
-
-
-                sw_a.WriteLine(kaitou_str);
-                //Console.WriteLine(kaitou_str);
-                //Console.WriteLine();
-                //Debug.Print("------------------------------------------------------------------------------");
-
-                //Console.WriteLine(tmp_rndFreq + " " + tmpstr);
-                //Debug.Print(tmp_rndFreq + " " + tmpstr);
-
-
-
-            }
-
-            sw_q.Close();
-            sw_a.Close();
-            sw_y.Close();
-
+        static void ShowSummary(int[] yakuResultCount)
+        {
             Console.WriteLine();
             Console.WriteLine(" Finished.");
 
             Console.WriteLine();
-            for (int y = 0; y < yaku_List.Length; y++)
+            for (int y = 0; y < YakuWeights.Length; y++)
             {
-                string yakuname = YAKU_STR[yaku_List[y]];
-                Console.WriteLine(yakuname + " : " + yaku_ResultCount[y].ToString() + " 回");
+                string yakuname = YAKU_STR[YakuWeights[y].Id];
+                Console.WriteLine(yakuname + " : " + yakuResultCount[y].ToString() + " 回");
             }
 
             Console.WriteLine("何かキーを押すと終了します...");
-            Console.ReadKey();
-
-
         }
-
 
         static string makeYaku(int yakuNum, out int[] out_tehai, out int[][] out_furotehai, out int[] out_furotype, out int out_machi_xs)
         {

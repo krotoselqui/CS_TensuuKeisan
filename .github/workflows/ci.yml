@@ -37,3 +37,5 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Run scoring and tile regression checks
         run: ./scripts/Test-Regression.ps1 -Configuration ${{ matrix.configuration }}
+      - name: Compare Main and generation with legacy fixtures
+        run: ./scripts/Test-Generation.ps1 -Configuration ${{ matrix.configuration }}
