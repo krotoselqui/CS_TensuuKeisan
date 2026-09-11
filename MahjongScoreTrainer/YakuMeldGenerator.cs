@@ -329,6 +329,29 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateSuukantsu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            // Retain the legacy random draw even though the value is not otherwise used.
+            Program.r.Next(7);
+            const int openRate = 2;
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                MeldGenerator.MakeRandomKantsu(51, ref remaining, out unused, out generated);
+                parts[i] = generated;
+                partTypes[i] = 3 + RetOne(openRate);
+            }
+            MeldGenerator.MakeRandomAtama(51, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         private static int RetOne(int divisor)
         {
             if (divisor < 0) return 0;

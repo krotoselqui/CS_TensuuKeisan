@@ -70,7 +70,7 @@
 | `MeldGenerator.cs` | 順子・刻子・槓子・雀頭の生成。既存の乱数源と残り牌配列を使う |
 | `YakuSelector.cs` | 役番号と重みの定義、従来と同じ重み付き役抽選 |
 | `SpecialHandGenerator.cs` | 七対子・九蓮宝燈系・国士無双系の特殊形生成 |
-| `YakuMeldGenerator.cs` | 大三元・四暗刻・四暗刻単騎・字一色・緑一色・清老頭・大四喜・小四喜など役固有の面子生成 |
+| `YakuMeldGenerator.cs` | 大三元・四暗刻・四暗刻単騎・字一色・緑一色・清老頭・大四喜・小四喜・四槓子など役固有の面子生成 |
 | `GenerationOptions.cs` | 問題数・シード・表示形式の設定と範囲チェック |
 | `ConsoleProgress.cs` | コンソールの進捗表示とカーソル位置の管理 |
 | `HandEvaluator.cs` | 面子分解、役・符の判定、採点候補の比較 |

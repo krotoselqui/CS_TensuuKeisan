@@ -1510,34 +1510,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 51) //四槓子
             {
-
-                //はじめの3槓子
-                int sansyokunum = r.Next(7) + 1;
-                int furo_bairitsu = 2; //でかいほど鳴かない
-
-                for (int i = 0; i < 4; i++)
-                {
-                    MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                    partsXS[i] = xsparts;
-                    partsType[i] = 3 + retOne(furo_bairitsu);
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateSuukantsu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else
+                        else
             {
 
             }
