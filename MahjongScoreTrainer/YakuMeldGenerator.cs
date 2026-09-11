@@ -154,6 +154,60 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateRyuuiisou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            const int openRate = 2;
+            string unused;
+            int[] generated;
+            if (RetOne(10) == 1)
+            {
+                MeldGenerator.MakeRandomKantsu(43, ref remaining, out unused, out generated, 3, 6);
+                parts[0] = generated;
+                partTypes[0] = 3 + RetOne(openRate);
+            }
+            else
+            {
+                MeldGenerator.MakeRandomKotsu(43, ref remaining, out unused, out generated, 3, 6);
+                parts[0] = generated;
+                partTypes[0] = 1 + RetOne(openRate);
+            }
+            if (RetOne(2) == 1)
+            {
+                MeldGenerator.MakeRandomShuntsu(43, ref remaining, out unused, out generated, 2, 2);
+                parts[1] = generated;
+                partTypes[1] = 5 + RetOne(openRate);
+            }
+            else
+            {
+                MeldGenerator.MakeRandomKotsu(43, ref remaining, out unused, out generated, 2);
+                parts[1] = generated;
+                partTypes[1] = 1 + RetOne(openRate);
+            }
+            for (int i = 2; i < 4; i++)
+            {
+                if (RetOne(20) == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(43, ref remaining, out unused, out generated, 2);
+                    parts[i] = generated;
+                    partTypes[i] = 3 + RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKotsu(43, ref remaining, out unused, out generated, 2);
+                    parts[i] = generated;
+                    partTypes[i] = 1 + RetOne(openRate);
+                }
+            }
+            MeldGenerator.MakeRandomAtama(43, ref remaining, out unused, out generated, 2);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         private static int RetOne(int divisor)
         {
             if (divisor < 0) return 0;

@@ -90,6 +90,8 @@ Debug／Release の両構成で、採点7ケース、牌変換6ケース、生�
 
 字一色の生成分岐を `YakuMeldGenerator.GenerateTsuiisou` へ移した。字牌だけを対象に4面子と雀頭を生成し、暗槓・暗刻の選択確率、副露率、待ち牌の決定を維持している。抽出後も Debug / Release の全回帰検査を通過した。
 
+緑一色の生成分岐を `YakuMeldGenerator.GenerateRyuuiisou` へ移した。發の刻子・槓子、緑一色の順子または刻子、索子の追加面子と雀頭を生成し、各抽選率、副露率、待ち牌の決定を維持している。抽出後も Debug / Release の全回帰検査を通過した。
+
 ## 残る課題
 
 - `makeYaku` と役別生成は、まだ `Program.cs` に残っている。
