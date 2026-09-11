@@ -104,6 +104,8 @@ Debug／Release の両構成で、採点7ケース、牌変換6ケース、生�
 
 平和の生成分岐を `YakuMeldGenerator.GeneratePinfu` へ移した。4つの順子、雀頭、辺張・嵌張を避ける待ち牌の決定を専用メソッドへ集約し、従来の牌生成順と面子種別を維持している。抽出後も Debug / Release の全回帰検査を通過した。
 
+断幺九の生成分岐を `YakuMeldGenerator.GenerateTanyao` へ移した。面子種別の抽選、順子・刻子・槓子の生成、断幺九条件の適用、雀頭と待ち牌の決定を専用メソッドへ集約し、抽選順と副露率を維持している。抽出後も Debug / Release の全回帰検査を通過した。
+
 ## 残る課題
 
 - `makeYaku` と役別生成は、まだ `Program.cs` に残っている。

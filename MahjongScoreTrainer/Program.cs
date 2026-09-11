@@ -444,57 +444,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 8) //断幺九
             {
-
-                for (int i = 0; i < 4; i++)
-                {
-                    int shurui = r.Next(9); //弄るとフーロ率が変化(他は順子に。)
-                    int furo = r.Next(2);
-
-                    if (shurui == 0) //暗刻・明刻
-                    {
-                        MeldGenerator.MakeRandomKotsu(8, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + furo;
-                    }
-                    else if (shurui == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(8, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + furo;
-
-                    }
-                    else if (shurui == 2) //順子・副露順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(8, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + furo;
-                    }
-                    else  //順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(8, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5;
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(8, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateTanyao(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 9) //一盃口
+                        else if (yakuNum == 9) //一盃口
             {
 
                 //はじめの2順子
