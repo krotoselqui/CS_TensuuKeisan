@@ -352,6 +352,50 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateIipeikou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            string unused;
+            int[] generated;
+            MeldGenerator.MakeRandomShuntsu(9, ref remaining, out unused, out generated);
+            parts[0] = generated;
+            partTypes[0] = 5;
+            int color = TileUtilities.GetColor(generated[0]);
+            int number = TileUtilities.GetNumber(generated[0]);
+            MeldGenerator.MakeRandomShuntsu(9, ref remaining, out unused, out generated, color, number);
+            parts[1] = generated;
+            partTypes[1] = 5;
+            for (int i = 2; i < 4; i++)
+            {
+                int kind = Program.r.Next(9);
+                if (kind == 0)
+                {
+                    MeldGenerator.MakeRandomKotsu(9, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 1;
+                }
+                else if (kind == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(9, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 3;
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomShuntsu(9, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 5;
+                }
+            }
+            MeldGenerator.MakeRandomAtama(8, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateTanyao(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             string unused;

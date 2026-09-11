@@ -448,70 +448,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 9) //一盃口
             {
-
-                //はじめの2順子
-
-                MeldGenerator.MakeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
-                partsXS[0] = xsparts;
-                partsType[0] = 5;
-
-                int settledClr = TileUtilities.GetColor(xsparts[0]);
-                int settledNum = TileUtilities.GetNumber(xsparts[0]);
-
-                MeldGenerator.MakeRandomShuntsu(9, ref maisu, out strparts, out xsparts, settledClr, settledNum);
-                partsXS[1] = xsparts;
-                partsType[1] = 5;
-
-
-                for (int i = 2; i < 4; i++)
-                {
-                    int shurui = r.Next(9); //弄るとフーロ率が変化(他は順子に。)
-
-                    if (shurui == 0) //暗刻・明刻
-                    {
-                        MeldGenerator.MakeRandomKotsu(9, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1;
-                    }
-                    else if (shurui == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(9, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3;
-
-                    }
-                    else if (shurui == 2) //順子・副露順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5;
-                    }
-                    else  //順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5;
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(8, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateIipeikou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 14 || yakuNum == 18 || yakuNum == 19 || yakuNum == 20) //役牌
+                        else if (yakuNum == 14 || yakuNum == 18 || yakuNum == 19 || yakuNum == 20) //役牌
             {
                 int yakuxs_num = yakuNum - 13; //東-1 白-5 發-6 中-7
 
