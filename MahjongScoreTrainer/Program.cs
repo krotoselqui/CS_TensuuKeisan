@@ -456,57 +456,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 23) //混全帯幺九
             {
-
-                for (int i = 0; i < 4; i++)
-                {
-                    int shurui = r.Next(9); //弄るとフーロ率が変化(他は順子に。)
-                    int furo = r.Next(2);
-
-                    if (shurui == 0) //暗刻・明刻
-                    {
-                        MeldGenerator.MakeRandomKotsu(23, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + furo;
-                    }
-                    else if (shurui == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(23, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + furo;
-
-                    }
-                    else if (shurui == 2) //順子・副露順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(23, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + furo;
-                    }
-                    else  //順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(23, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5;
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(23, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateHonchantaiyaochuu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 24) //一気通貫
+                        else if (yakuNum == 24) //一気通貫
             {
 
                 //はじめの3順子

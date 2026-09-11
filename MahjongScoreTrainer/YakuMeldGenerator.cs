@@ -352,6 +352,49 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateHonchantaiyaochuu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                int kind = Program.r.Next(9);
+                int open = Program.r.Next(2);
+                if (kind == 0)
+                {
+                    MeldGenerator.MakeRandomKotsu(23, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 1 + open;
+                }
+                else if (kind == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(23, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 3 + open;
+                }
+                else if (kind == 2)
+                {
+                    MeldGenerator.MakeRandomShuntsu(23, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 5 + open;
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomShuntsu(23, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 5;
+                }
+            }
+            MeldGenerator.MakeRandomAtama(23, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateYakuhai(int yakuNumber, ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             int honor = yakuNumber - 13;
