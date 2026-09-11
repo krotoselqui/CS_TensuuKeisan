@@ -48,6 +48,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="GenerationOptions.cs" />
     <Compile Include="ConsoleProgress.cs" />
+    <Compile Include="MeldGenerator.cs" />
     <Compile Include="YakuDefinition.cs" />
     <Compile Include="WinningHandData.cs" />
     <Compile Include="ScoreResult.cs" />

@@ -484,7 +484,7 @@ namespace MahjongScoreTrainer
 
                 for (int i = 0; i < 4; i++)
                 {
-                    makeRandomShuntsu(-1, ref maisu, out strparts, out xsparts);
+                    MeldGenerator.MakeRandomShuntsu(-1, ref maisu, out strparts, out xsparts);
                     partsXS[i] = xsparts;
                     partsType[i] = 5;
                 }
@@ -525,13 +525,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(8, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(8, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + furo;
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(8, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(8, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5;
                     }
@@ -559,14 +559,14 @@ namespace MahjongScoreTrainer
 
                 //はじめの2順子
 
-                makeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
                 partsXS[0] = xsparts;
                 partsType[0] = 5;
 
                 int settledClr = TileUtilities.GetColor(xsparts[0]);
                 int settledNum = TileUtilities.GetNumber(xsparts[0]);
 
-                makeRandomShuntsu(9, ref maisu, out strparts, out xsparts, settledClr, settledNum);
+                MeldGenerator.MakeRandomShuntsu(9, ref maisu, out strparts, out xsparts, settledClr, settledNum);
                 partsXS[1] = xsparts;
                 partsType[1] = 5;
 
@@ -590,13 +590,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5;
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(9, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5;
                     }
@@ -658,13 +658,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (type == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(14, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(14, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + furo;
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(14, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(14, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5;
                     }
@@ -710,13 +710,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(23, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(23, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + furo;
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(23, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(23, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5;
                     }
@@ -746,15 +746,15 @@ namespace MahjongScoreTrainer
                 int ittsuclr = r.Next(3);
 
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, ittsuclr, 1);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, ittsuclr, 1);
                 partsXS[0] = xsparts;
                 partsType[0] = 5 + r.Next(2);
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, ittsuclr, 4);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, ittsuclr, 4);
                 partsXS[1] = xsparts;
                 partsType[1] = 5 + r.Next(2);
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, ittsuclr, 7);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, ittsuclr, 7);
                 partsXS[2] = xsparts;
                 partsType[2] = 5 + r.Next(2);
 
@@ -787,13 +787,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + furo;
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + furo;
                     }
@@ -823,15 +823,15 @@ namespace MahjongScoreTrainer
                 int sansyokunum = r.Next(7) + 1;
                 int furo_bairitsu = 10; //でかいほど面前
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 0, sansyokunum);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 0, sansyokunum);
                 partsXS[0] = xsparts;
                 partsType[0] = 5 + retOne(furo_bairitsu);
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 1, sansyokunum);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 1, sansyokunum);
                 partsXS[1] = xsparts;
                 partsType[1] = 5 + retOne(furo_bairitsu);
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 2, sansyokunum);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 2, sansyokunum);
                 partsXS[2] = xsparts;
                 partsType[2] = 5 + retOne(furo_bairitsu);
 
@@ -856,13 +856,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
@@ -933,13 +933,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
@@ -997,13 +997,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
@@ -1116,13 +1116,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
@@ -1224,13 +1224,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
@@ -1302,26 +1302,26 @@ namespace MahjongScoreTrainer
 
                 //はじめの4順子
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[0] = xsparts;
                 partsType[0] = 5;
 
                 int settledClr = TileUtilities.GetColor(xsparts[0]);
                 int settledNum = TileUtilities.GetNumber(xsparts[0]);
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, settledClr, settledNum);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, settledClr, settledNum);
                 partsXS[1] = xsparts;
                 partsType[1] = 5;
 
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                 partsXS[2] = xsparts;
                 partsType[2] = 5;
 
                 settledClr = TileUtilities.GetColor(xsparts[0]);
                 settledNum = TileUtilities.GetNumber(xsparts[0]);
 
-                makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, settledClr, settledNum);
+                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, settledClr, settledNum);
                 partsXS[3] = xsparts;
                 partsType[3] = 5;
 
@@ -1363,13 +1363,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5;
                     }
@@ -1425,13 +1425,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
                         partsType[i] = 5;
                     }
@@ -1485,13 +1485,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
                         partsType[i] = 5;
                     }
@@ -1564,13 +1564,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
@@ -1736,7 +1736,7 @@ namespace MahjongScoreTrainer
 
                 if (shuntsuoccur == 1)
                 {
-                    makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 2, 2);
+                    MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 2, 2);
                     partsXS[1] = xsparts;
                     partsType[1] = 5 + retOne(furo_bairitsu);
                 }
@@ -1952,13 +1952,13 @@ namespace MahjongScoreTrainer
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
                     else  //順子
                     {
-                        makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
+                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
                         partsType[i] = 5 + retOne(furo_bairitsu);
                     }
@@ -2320,95 +2320,6 @@ namespace MahjongScoreTrainer
         //==================================================================　　　　ランダム面子部品生成　　　　==============================================================
         //====================================================================================================================================================================
         //====================================================================================================================================================================
-
-        static void makeRandomShuntsu(int jouken, ref int[] maisu, out string str_shuntsu, out int[] shuntsu_xs, int setClr = -1, int setNum = -1)
-        {
-
-
-
-            string strmenz = "";
-            const int sizeOfMenz = 3;
-            shuntsu_xs = new int[sizeOfMenz] { 0, 0, 0 };
-
-
-            bool maisuSufficient = false;
-
-            //string tbl = "";
-            //for (int ptclr = 0; ptclr < 3; ptclr++)
-            //{
-            //    for (int ptnum = 1; ptnum <= 9; ptnum++)
-            //    {
-
-            //        tbl += maisu[(ptclr * 9 + ptnum)].ToString();
-
-            //    }
-            //    Debug.WriteLine(tbl);
-            //    tbl = "";
-            //}
-
-            while (!maisuSufficient)
-            {
-
-                int clr = r.Next(3); //色 0-2
-                int num = r.Next(7) + 1; //数 1-7
-
-                if (setClr != -1) clr = setClr;
-                if (setNum != -1) num = setNum;
-
-                //条件設定　ここから====================================================
-
-                if (jouken == 8) //断幺九
-                {
-                    if (num == 1 || num == 7) { continue; }
-                }
-                else if (jouken == 23) //混全帯幺九
-                {
-                    if (num != 1 && num != 7) { continue; }
-                }
-                else if (jouken == 33) //純全帯幺九
-                {
-                    if (num != 1 && num != 7) { continue; }
-                }
-                else if (jouken == 34) //混一色
-                {
-
-                }
-                else if (jouken == 43) //緑一色
-                {
-                    num = 2;
-                }
-
-
-                //条件設定　ここまで====================================================
-
-                for (int i = 0; i < shuntsu_xs.Length; i++)
-                {
-                    shuntsu_xs[i] = clr * 9 + num + i;
-                    if (maisu[shuntsu_xs[i]] <= 0)
-                    {
-                        continue;
-                    }
-                }
-
-                if ((maisu[shuntsu_xs[0]] >= 1) && (maisu[shuntsu_xs[1]] >= 1) && (maisu[shuntsu_xs[2]] >= 1))
-                {
-                    maisuSufficient = true;
-                }
-
-            }
-
-            for (int i = 0; i < shuntsu_xs.Length; i++)
-            {
-
-                string s = "";// XS_PAI_STR[shuntsu_xs[i]];
-                maisu[shuntsu_xs[i]] -= 1;
-                strmenz += s;
-
-            }
-
-            str_shuntsu = strmenz;
-
-        }
 
         static void makeRandomKotsu(int jouken, ref int[] maisu, out string str_kotsu, out int[] kotsu_xs, int setClr = -1, int setNum = -1)
         {
