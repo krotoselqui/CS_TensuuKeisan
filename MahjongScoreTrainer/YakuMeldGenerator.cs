@@ -393,6 +393,53 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateSanshokuDoukou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            const int openRate = 10;
+            string unused;
+            int[] generated;
+            int number = Program.r.Next(7) + 1;
+            for (int color = 0; color < 3; color++)
+            {
+                if (RandomSelection.RetOne(10) == 0)
+                {
+                    MeldGenerator.MakeRandomKotsu(26, ref remaining, out unused, out generated, color, number);
+                    partTypes[color] = 1 + RandomSelection.RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKantsu(26, ref remaining, out unused, out generated, color, number);
+                    partTypes[color] = 3 + RandomSelection.RetOne(openRate);
+                }
+                parts[color] = generated;
+            }
+            int kind = Program.r.Next(20);
+            if (kind == 0)
+            {
+                MeldGenerator.MakeRandomKotsu(26, ref remaining, out unused, out generated);
+                partTypes[3] = 1 + RandomSelection.RetOne(openRate);
+            }
+            else if (kind == 1)
+            {
+                MeldGenerator.MakeRandomKantsu(26, ref remaining, out unused, out generated);
+                partTypes[3] = 3 + RandomSelection.RetOne(openRate);
+            }
+            else
+            {
+                MeldGenerator.MakeRandomShuntsu(26, ref remaining, out unused, out generated);
+                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+            }
+            parts[3] = generated;
+            MeldGenerator.MakeRandomAtama(26, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateSanshokuDoujun(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             const int openRate = 10;
