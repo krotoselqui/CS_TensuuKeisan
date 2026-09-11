@@ -1486,36 +1486,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 41) //四暗刻単騎
             {
-
-                //はじめの4刻子
-                int kan_bairitsu = 10;
-
-                for (int i = 0; i < 4; i++)
-                {
-                    int kanoccur = retOne(10);
-                    if (kanoccur == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3;
-                    }
-                    else  //刻子
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1;
-                    }
-
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                machi_xs = partsXS[4][1];
-
+                YakuMeldGenerator.GenerateSuuankouTanki(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 42) //字一色
+                        else if (yakuNum == 42) //字一色
             {
 
                 //はじめの4刻子
