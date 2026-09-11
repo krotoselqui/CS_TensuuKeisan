@@ -1490,46 +1490,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 42) //字一色
             {
-
-                //はじめの4刻子
-                int kan_bairitsu = 10;
-                int furo_bairitsu = 2;
-
-                for (int i = 0; i < 4; i++)
-                {
-                    int kanoccur = retOne(10);
-
-
-                    if (kanoccur == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts, 3);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
-                    }
-                    else  //刻子
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
-                    }
-
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts, 3);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
+                YakuMeldGenerator.GenerateTsuiisou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 43) //緑一色
+                        else if (yakuNum == 43) //緑一色
             {
 
                 int hatsu_bairitsu = 2;

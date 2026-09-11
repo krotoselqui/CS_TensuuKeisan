@@ -120,6 +120,40 @@ namespace MahjongScoreTrainer
             winningTile = parts[4][1];
         }
 
+        internal static void GenerateTsuiisou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            const int openRate = 2;
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                if (RetOne(10) == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(42, ref remaining, out unused, out generated, 3);
+                    parts[i] = generated;
+                    partTypes[i] = 3 + RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKotsu(42, ref remaining, out unused, out generated, 3);
+                    parts[i] = generated;
+                    partTypes[i] = 1 + RetOne(openRate);
+                }
+            }
+
+            MeldGenerator.MakeRandomAtama(42, ref remaining, out unused, out generated, 3);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5))
+                {
+                    winningTile = parts[i][1];
+                }
+            }
+        }
+
         private static int RetOne(int divisor)
         {
             if (divisor < 0) return 0;

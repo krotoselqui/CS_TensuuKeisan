@@ -88,6 +88,8 @@ Debug／Release の両構成で、採点7ケース、牌変換6ケース、生�
 
 続いて四暗刻単騎を `YakuMeldGenerator.GenerateSuuankouTanki` へ移した。4つの暗刻・暗槓を同じ確率で生成し、雀頭そのものを待ち牌に設定する元の仕様を維持している。Debug / Release の全回帰検査とリポジトリ検査を通過した。
 
+字一色の生成分岐を `YakuMeldGenerator.GenerateTsuiisou` へ移した。字牌だけを対象に4面子と雀頭を生成し、暗槓・暗刻の選択確率、副露率、待ち牌の決定を維持している。抽出後も Debug / Release の全回帰検査を通過した。
+
 ## 残る課題
 
 - `makeYaku` と役別生成は、まだ `Program.cs` に残っている。
