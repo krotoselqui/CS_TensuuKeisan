@@ -42,6 +42,6 @@ powershell -NoProfile -File scripts/Test-Generation.ps1 -Configuration Release
 - リンク検査は本文の Markdown インラインリンクの相対ファイルを対象とし、外部 URL や見出しアンカーの到達性を検査しない。
 - 文書のみの変更でも現状は小規模な同じジョブを実行する。将来実行時間が増えたら、文書検査とアプリ検査の条件を分ける。
 
-生成・採点の抽出に合わせて [リファクタリング方針](refactoring-plan.md) の回帰ケースを追加する。GitHub 上の実行結果とローカルで同じスクリプトを実行した結果は区別する。ブランチ保護による必須チェックの指定は、このワークフロー追加とは別のリポジトリ設定である。
+生成・採点の抽出に合わせて [リファクタリング方針](refactoring-plan.md) の回帰ケースを追加する。今回の実施内容は [リファクタリング記録](refactoring-history.md) にまとめている。GitHub 上の実行結果とローカルで同じスクリプトを実行した結果は区別する。ブランチ保護による必須チェックの指定は、このワークフロー追加とは別のリポジトリ設定である。
 
 環境・アクションの参考: [Windows 2022 イメージ](https://github.com/actions/runner-images/blob/main/images/windows/Windows2022-Readme.md)、[setup-msbuild](https://github.com/microsoft/setup-msbuild)、[checkout](https://github.com/actions/checkout)。
