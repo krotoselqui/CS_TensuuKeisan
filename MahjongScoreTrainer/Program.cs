@@ -784,15 +784,15 @@ namespace MahjongScoreTrainer
 
                 MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 0, sansyokunum);
                 partsXS[0] = xsparts;
-                partsType[0] = 5 + retOne(furo_bairitsu);
+                partsType[0] = 5 + RandomSelection.RetOne(furo_bairitsu);
 
                 MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 1, sansyokunum);
                 partsXS[1] = xsparts;
-                partsType[1] = 5 + retOne(furo_bairitsu);
+                partsType[1] = 5 + RandomSelection.RetOne(furo_bairitsu);
 
                 MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 2, sansyokunum);
                 partsXS[2] = xsparts;
-                partsType[2] = 5 + retOne(furo_bairitsu);
+                partsType[2] = 5 + RandomSelection.RetOne(furo_bairitsu);
 
 
                 for (int i = 3; i < 4; i++)
@@ -804,26 +804,26 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else if (shurui == 1) //暗槓・暗槓
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
 
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
 
@@ -854,19 +854,19 @@ namespace MahjongScoreTrainer
 
                 for (int i = 0; i < 3; i++)
                 {
-                    int kan = retOne(kan_bairitsu);
+                    int kan = RandomSelection.RetOne(kan_bairitsu);
 
                     if (kan == 0)
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, i, sansyokunum);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts, i, sansyokunum);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
                 }
@@ -881,26 +881,26 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else if (shurui == 1) //暗槓・暗槓
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
 
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
 
@@ -932,7 +932,7 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
                     partsXS[i] = xsparts;
-                    partsType[i] = 3 + retOne(furo_bairitsu);
+                    partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
                 }
 
 
@@ -945,26 +945,26 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else if (shurui == 1) //暗槓・暗槓
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
 
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
 
@@ -1000,13 +1000,13 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //刻子
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
 
@@ -1077,13 +1077,13 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
 
@@ -1147,13 +1147,13 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts, 3, kotsuNum[i]);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //刻子
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, 3, kotsuNum[i]);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
                 }
@@ -1185,13 +1185,13 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
 
@@ -1229,13 +1229,13 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //刻子
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
 
 
@@ -1311,20 +1311,20 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else if (shurui == 1) //暗槓・暗槓
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
 
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
@@ -1373,20 +1373,20 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, tmp_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else if (shurui == 1) //暗槓・暗槓
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts, tmp_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
                         kanoccurCount++;
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
@@ -1433,20 +1433,20 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
+                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else if (shurui == 1) //暗槓・暗槓
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
+                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
                         kanoccurCount++;
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + retOne(furo_bairitsu);
+                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
@@ -1741,23 +1741,6 @@ namespace MahjongScoreTrainer
 
 
 
-
-        static int retOne(int d)
-        {
-            if (d < 0) return 0;
-
-            int rnd = r.Next(d);
-            if (rnd != 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return 1;
-            }
-
-
-        }
 
         #endregion
 

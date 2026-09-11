@@ -13,17 +13,17 @@ namespace MahjongScoreTrainer
 
             for (int i = 0; i < 3; i++)
             {
-                if (RetOne(kanRate) == 0)
+                if (RandomSelection.RetOne(kanRate) == 0)
                 {
                     MeldGenerator.MakeRandomKotsu(39, ref remaining, out unused, out generated, 3, i + 5);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RetOne(openRate);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKantsu(39, ref remaining, out unused, out generated, 3, i + 5);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RetOne(openRate);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
                 }
             }
 
@@ -32,19 +32,19 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKotsu(39, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 1 + RetOne(openRate);
+                partTypes[3] = 1 + RandomSelection.RetOne(openRate);
             }
             else if (kind == 1)
             {
                 MeldGenerator.MakeRandomKantsu(39, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 3 + RetOne(openRate);
+                partTypes[3] = 3 + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomShuntsu(39, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 5 + RetOne(openRate);
+                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
             }
 
             MeldGenerator.MakeRandomAtama(39, ref remaining, out unused, out generated);
@@ -67,7 +67,7 @@ namespace MahjongScoreTrainer
             int[] generated;
             for (int i = 0; i < 4; i++)
             {
-                if (RetOne(10) == 1)
+                if (RandomSelection.RetOne(10) == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(40, ref remaining, out unused, out generated);
                     parts[i] = generated;
@@ -101,7 +101,7 @@ namespace MahjongScoreTrainer
             int[] generated;
             for (int i = 0; i < 4; i++)
             {
-                if (RetOne(10) == 1)
+                if (RandomSelection.RetOne(10) == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(41, ref remaining, out unused, out generated);
                     parts[i] = generated;
@@ -127,17 +127,17 @@ namespace MahjongScoreTrainer
             int[] generated;
             for (int i = 0; i < 4; i++)
             {
-                if (RetOne(10) == 1)
+                if (RandomSelection.RetOne(10) == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(42, ref remaining, out unused, out generated, 3);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RetOne(openRate);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(42, ref remaining, out unused, out generated, 3);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RetOne(openRate);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
                 }
             }
 
@@ -159,43 +159,43 @@ namespace MahjongScoreTrainer
             const int openRate = 2;
             string unused;
             int[] generated;
-            if (RetOne(10) == 1)
+            if (RandomSelection.RetOne(10) == 1)
             {
                 MeldGenerator.MakeRandomKantsu(43, ref remaining, out unused, out generated, 3, 6);
                 parts[0] = generated;
-                partTypes[0] = 3 + RetOne(openRate);
+                partTypes[0] = 3 + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomKotsu(43, ref remaining, out unused, out generated, 3, 6);
                 parts[0] = generated;
-                partTypes[0] = 1 + RetOne(openRate);
+                partTypes[0] = 1 + RandomSelection.RetOne(openRate);
             }
-            if (RetOne(2) == 1)
+            if (RandomSelection.RetOne(2) == 1)
             {
                 MeldGenerator.MakeRandomShuntsu(43, ref remaining, out unused, out generated, 2, 2);
                 parts[1] = generated;
-                partTypes[1] = 5 + RetOne(openRate);
+                partTypes[1] = 5 + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomKotsu(43, ref remaining, out unused, out generated, 2);
                 parts[1] = generated;
-                partTypes[1] = 1 + RetOne(openRate);
+                partTypes[1] = 1 + RandomSelection.RetOne(openRate);
             }
             for (int i = 2; i < 4; i++)
             {
-                if (RetOne(20) == 1)
+                if (RandomSelection.RetOne(20) == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(43, ref remaining, out unused, out generated, 2);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RetOne(openRate);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(43, ref remaining, out unused, out generated, 2);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RetOne(openRate);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
                 }
             }
             MeldGenerator.MakeRandomAtama(43, ref remaining, out unused, out generated, 2);
@@ -219,13 +219,13 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(44, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RetOne(openRate);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(44, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RetOne(openRate);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
                 }
             }
             MeldGenerator.MakeRandomAtama(44, ref remaining, out unused, out generated);
@@ -245,17 +245,17 @@ namespace MahjongScoreTrainer
             int[] generated;
             for (int i = 0; i < 4; i++)
             {
-                if (RetOne(10) == 0)
+                if (RandomSelection.RetOne(10) == 0)
                 {
                     MeldGenerator.MakeRandomKotsu(49, ref remaining, out unused, out generated, 3, i + 1);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RetOne(openRate);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKantsu(49, ref remaining, out unused, out generated, 3, i + 1);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RetOne(openRate);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
                 }
             }
             MeldGenerator.MakeRandomAtama(49, ref remaining, out unused, out generated);
@@ -287,13 +287,13 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(50, ref remaining, out unused, out generated, 3, winds[i]);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RetOne(openRate);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(50, ref remaining, out unused, out generated, 3, winds[i]);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RetOne(openRate);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
                 }
             }
 
@@ -315,7 +315,7 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomShuntsu(50, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 5 + RetOne(openRate);
+                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
             }
 
             MeldGenerator.MakeRandomAtama(50, ref remaining, out unused, out generated, 3, pairWind);
@@ -340,7 +340,7 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKantsu(51, ref remaining, out unused, out generated);
                 parts[i] = generated;
-                partTypes[i] = 3 + RetOne(openRate);
+                partTypes[i] = 3 + RandomSelection.RetOne(openRate);
             }
             MeldGenerator.MakeRandomAtama(51, ref remaining, out unused, out generated);
             parts[4] = generated;
@@ -352,10 +352,5 @@ namespace MahjongScoreTrainer
             }
         }
 
-        private static int RetOne(int divisor)
-        {
-            if (divisor < 0) return 0;
-            return Program.r.Next(divisor) == 0 ? 1 : 0;
-        }
     }
 }

@@ -100,6 +100,8 @@ Debug／Release の両構成で、採点7ケース、牌変換6ケース、生�
 
 四槓子の生成分岐を `YakuMeldGenerator.GenerateSuukantsu` へ移した。4つの槓子と雀頭を生成し、従来存在した未使用の乱数取得も含めて乱数呼び出し順を維持している。抽出後も Debug / Release の全回帰検査を通過した。
 
+面子生成で重複していた `retOne` を `RandomSelection.RetOne` に共通化した。`Program` と `YakuMeldGenerator` の両方が同じ `Program.r` を使うため、負数時の扱いと乱数呼び出し結果を保ったまま補助処理を一か所で管理できる。
+
 ## 残る課題
 
 - `makeYaku` と役別生成は、まだ `Program.cs` に残っている。
