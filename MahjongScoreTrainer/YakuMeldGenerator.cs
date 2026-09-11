@@ -663,6 +663,50 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateSankantsu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            // Keep the original draw for the unused sansyokunum variable.
+            Program.r.Next(7);
+            const int openRate = 2;
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 3; i++)
+            {
+                MeldGenerator.MakeRandomKantsu(27, ref remaining, out unused, out generated);
+                parts[i] = generated;
+                partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+            }
+
+            int kind = Program.r.Next(20);
+            if (kind == 0)
+            {
+                MeldGenerator.MakeRandomKotsu(27, ref remaining, out unused, out generated);
+                parts[3] = generated;
+                partTypes[3] = 1 + RandomSelection.RetOne(openRate);
+            }
+            else if (kind == 1)
+            {
+                MeldGenerator.MakeRandomKantsu(27, ref remaining, out unused, out generated);
+                parts[3] = generated;
+                partTypes[3] = 3 + RandomSelection.RetOne(openRate);
+            }
+            else
+            {
+                MeldGenerator.MakeRandomShuntsu(27, ref remaining, out unused, out generated);
+                parts[3] = generated;
+                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+            }
+
+            MeldGenerator.MakeRandomAtama(27, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GeneratePinfu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             string unused;

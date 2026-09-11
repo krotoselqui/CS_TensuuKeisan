@@ -472,69 +472,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 27) //三槓子
             {
-
-                //はじめの3槓子
-                int sansyokunum = r.Next(7) + 1;
-                int furo_bairitsu = 2; //でかいほど鳴かない
-
-                for (int i = 0; i < 3; i++)
-                {
-                    MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                    partsXS[i] = xsparts;
-                    partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
-                }
-
-
-                for (int i = 3; i < 4; i++)
-                {
-                    int shurui = r.Next(20); //弄るとフーロ率が変化(他は順子に。)
-
-
-                    if (shurui == 0) //暗刻・明刻
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-                    else if (shurui == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
-
-                    }
-                    else if (shurui == 2) //順子・副露順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-                    else  //順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateSankantsu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 28) //対々和
+                        else if (yakuNum == 28) //対々和
             {
 
                 int furo_bairitsu = 2; //でかいほど鳴かない

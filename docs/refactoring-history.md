@@ -118,6 +118,8 @@ Debug／Release の両構成で、採点7ケース、牌変換6ケース、生�
 
 三色同刻の生成分岐を `YakuMeldGenerator.GenerateSanshokuDoukou` へ移した。3色・同じ数字の刻子または槓子を固定生成し、残り面子、雀頭、待ち牌、副露率、抽選順を維持している。抽出後も Debug / Release の全回帰検査を通過した。
 
+三槓子の生成分岐を `YakuMeldGenerator.GenerateSankantsu` へ移した。3つの槓子、残り1面子、雀頭、待ち牌を生成し、未使用の `sansyokunum` による乱数取得も含めて乱数呼び出し順と副露率を維持している。抽出後も Debug / Release の全回帰検査を通過した。
+
 ## 残る課題
 
 - `makeYaku` と役別生成は、まだ `Program.cs` に残っている。
