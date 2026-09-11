@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -129,14 +129,12 @@ namespace MahjongScoreTrainer
 
         //◎ 役リスト
         //◎ 面子分けされた手牌（ジャグ配列）？　七対子とか国士はどうするのか
-        TileUtilities hy = new TileUtilities();
-
 	private void InitializeTileTable(int[,] tileTable, int[] tiles) {
     		Array.Clear(tileTable, 0, tileTable.Length);
     		foreach (var tile in tiles) {
     		    if (tile == 0) break;
-    		    int color = hy.tileClr(tile);
-    		    int number = hy.tileNum(tile);
+            int color = TileUtilities.GetColor(tile);
+            int number = TileUtilities.GetNumber(tile);
      	　　　　　　tileTable[color, number]++;
   		}
 	}
@@ -187,8 +185,8 @@ namespace MahjongScoreTrainer
             for (int i = 0; i < ad.tehai.Length; i++)
             {
                 if (ad.tehai[i] == 0) break;
-                int tmpclr = hy.tileClr(ad.tehai[i]);
-                int tmpnum = hy.tileNum(ad.tehai[i]);
+                int tmpclr = TileUtilities.GetColor(ad.tehai[i]);
+                int tmpnum = TileUtilities.GetNumber(ad.tehai[i]);
 
                 pai_table[tmpclr, tmpnum]++;
                 tehai_maisu++;
@@ -517,7 +515,7 @@ namespace MahjongScoreTrainer
                         cur_Fu += 2;
                         fu_str += " + 場風雀頭 2 ";
                     }
-                    if (hy.tileClr(atama_xs) == 3 && hy.tileNum(atama_xs) >= 5)
+                    if (TileUtilities.GetColor(atama_xs) == 3 && TileUtilities.GetNumber(atama_xs) >= 5)
                     {
                         cur_Fu += 2;
                         fu_str += " + 三元雀頭 2 ";
@@ -532,7 +530,7 @@ namespace MahjongScoreTrainer
                         for (int idx = 0; idx < tmp_typecnt[type]; idx++)
                         {
                             int tmp_xs = tmp_info[type, idx];
-                            bool yaoc_xs = hy.isYaochuXS(tmp_xs);
+                            bool yaoc_xs = TileUtilities.IsTerminalOrHonor(tmp_xs);
                             bool agari_menz = (ag_type == type && ag_index == idx);
 
                             //ロンアガリ該当メンツ(暗槓は待ちとならないので暗刻の場合しかない)
@@ -573,7 +571,7 @@ namespace MahjongScoreTrainer
                     {
                         int tmp_xs = ad.furotehai[f][0];
                         if (tmp_xs == 0) continue;
-                        bool yaoc_xs = hy.isYaochuXS(tmp_xs);
+                        bool yaoc_xs = TileUtilities.IsTerminalOrHonor(tmp_xs);
                         int type = ad.furotype[f];
 
                         if (type != TYPE_MINKO && type != TYPE_ANKAN && type != TYPE_MINKAN) continue;
@@ -597,12 +595,12 @@ namespace MahjongScoreTrainer
                         cur_Fu += 2;
                         fu_str += " + 嵌張 2 ";
                     }
-                    else if (ag_type == TYPE_SHUNTSU && hy.tileNum(tmp_info[ag_type, ag_index]) == 7 && ag_nbm == 0) //辺張
+                    else if (ag_type == TYPE_SHUNTSU && TileUtilities.GetNumber(tmp_info[ag_type, ag_index]) == 7 && ag_nbm == 0) //辺張
                     {
                         cur_Fu += 2;
                         fu_str += " + 辺張 2 ";
                     }
-                    else if (ag_type == TYPE_SHUNTSU && hy.tileNum(tmp_info[ag_type, ag_index]) == 1 && ag_nbm == 2)//辺張
+                    else if (ag_type == TYPE_SHUNTSU && TileUtilities.GetNumber(tmp_info[ag_type, ag_index]) == 1 && ag_nbm == 2)//辺張
                     {
                         cur_Fu += 2;
                         fu_str += " + 辺張 2 ";
@@ -850,8 +848,8 @@ namespace MahjongScoreTrainer
                 //【ヤオ九牌の枚数を確認】
                 for (int i = 0; i < yaochu_xs.Length; i++)
                 {
-                    int tmp_clr = hy.tileClr(yaochu_xs[i]);
-                    int tmp_num = hy.tileNum(yaochu_xs[i]);
+                    int tmp_clr = TileUtilities.GetColor(yaochu_xs[i]);
+                    int tmp_num = TileUtilities.GetNumber(yaochu_xs[i]);
                     int tmp_maisu = pai_table[tmp_clr, tmp_num];
                     if (tmp_maisu == 0)
                     {
@@ -1101,10 +1099,10 @@ namespace MahjongScoreTrainer
                             break;
                         case TYPE_SHUNTSU:
                             int cur_xs = info[type, idx];
-                            int cur_num = hy.tileNum(cur_xs);
-                            int xs_num = hy.tileNum(xs);
+                            int cur_num = TileUtilities.GetNumber(cur_xs);
+                            int xs_num = TileUtilities.GetNumber(xs);
 
-                            if (hy.tileClr(cur_xs) == hy.tileClr(xs) &&
+                            if (TileUtilities.GetColor(cur_xs) == TileUtilities.GetColor(xs) &&
                                 cur_num <= xs_num &&
                                 cur_num + 2 >= xs_num)
                             {
@@ -1231,7 +1229,7 @@ namespace MahjongScoreTrainer
                     for (int idx = 0; idx < md.th_typecount[type]; idx++)
                     {
                         int tmp_xs = md.th_info[type, idx];
-                        int tmp_clr = hy.tileClr(tmp_xs);
+                        int tmp_clr = TileUtilities.GetColor(tmp_xs);
                         if (tmp_clr == 3) some_tupai_contain = true;
 
                         if (tmp_clr != some_clr && tmp_clr != 3 && some_clr != 3)
@@ -1251,7 +1249,7 @@ namespace MahjongScoreTrainer
                     int tmp_xs = ad.furotehai[f][0];
                     if (tmp_xs == 0) break;
 
-                    int tmp_clr = hy.tileClr(tmp_xs);
+                    int tmp_clr = TileUtilities.GetColor(tmp_xs);
                     if (tmp_clr == 3) some_tupai_contain = true;
 
                     if (tmp_clr != some_clr && tmp_clr != 3 && some_clr != 3)
@@ -1323,8 +1321,8 @@ namespace MahjongScoreTrainer
 
                 //雀頭検査
                 int head_xs = md.th_info[TYPE_ATAMA, 0];
-                int head_num = hy.tileNum(head_xs);
-                int churen_clr = hy.tileClr(head_xs);
+                int head_num = TileUtilities.GetNumber(head_xs);
+                int churen_clr = TileUtilities.GetColor(head_xs);
                 if (churen_clr == 3) return false;
                 if (head_num != 9 && head_num != 1 &&
                     head_num != 2 && head_num != 5 && head_num != 8) return false;
@@ -1335,17 +1333,17 @@ namespace MahjongScoreTrainer
                     for (int idx = 0; idx < md.th_typecount[type]; idx++)
                     {
                         int tmp_xs = md.th_info[type, idx];
-                        int tmp_num = hy.tileNum(tmp_xs);
+                        int tmp_num = TileUtilities.GetNumber(tmp_xs);
 
                         if (type != TYPE_SHUNTSU) //刻子
                         {
-                            if (hy.tileClr(tmp_xs) != churen_clr) return false;
+                            if (TileUtilities.GetColor(tmp_xs) != churen_clr) return false;
                             churen_KotsuAcc[tmp_num] = true;
 
                         }
                         else //順子
                         {
-                            if (hy.tileClr(tmp_xs) != churen_clr) return false;
+                            if (TileUtilities.GetColor(tmp_xs) != churen_clr) return false;
                             churen_ShuntsuAcc[tmp_num] = true;
                         }
                     }
@@ -1372,7 +1370,7 @@ namespace MahjongScoreTrainer
 
                 //純正の吟味
                 bool isJunsei = false;
-                int agari_num = hy.tileNum(ad.agarixs);
+                int agari_num = TileUtilities.GetNumber(ad.agarixs);
 
                 if (head_num == 2 || head_num == 5 || head_num == 8)
                 {
@@ -1432,7 +1430,7 @@ namespace MahjongScoreTrainer
 
                     //雀頭判定
                     int atama_xs = md.th_info[TYPE_ATAMA, 0];
-                    if (hy.tileClr(atama_xs) == 3 && hy.tileNum(atama_xs) >= 5)
+                    if (TileUtilities.GetColor(atama_xs) == 3 && TileUtilities.GetNumber(atama_xs) >= 5)
                     {
                         return false;
                     }
@@ -1447,12 +1445,12 @@ namespace MahjongScoreTrainer
                         //カンチャン
                         return false;
                     }
-                    else if (md.ag_nbm == 0 && hy.tileNum(md.th_info[TYPE_SHUNTSU, md.ag_index]) == 7)
+                    else if (md.ag_nbm == 0 && TileUtilities.GetNumber(md.th_info[TYPE_SHUNTSU, md.ag_index]) == 7)
                     {
                         //ペンチャン 789 の7
                         return false;
                     }
-                    else if (md.ag_nbm == 2 && hy.tileNum(md.th_info[TYPE_SHUNTSU, md.ag_index]) == 1)
+                    else if (md.ag_nbm == 2 && TileUtilities.GetNumber(md.th_info[TYPE_SHUNTSU, md.ag_index]) == 1)
                     {
                         //ペンチャン 123 の3
                         return false;
@@ -1473,11 +1471,11 @@ namespace MahjongScoreTrainer
 
                             if (type != TYPE_SHUNTSU) //対子系
                             {
-                                if (hy.isYaochuXS(tmp_xs)) return false;
+                                if (TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
                             }
                             else //副露順子
                             {
-                                if (hy.tileNum(tmp_xs) == 1 || hy.tileNum(tmp_xs) == 7) return false;
+                                if (TileUtilities.GetNumber(tmp_xs) == 1 || TileUtilities.GetNumber(tmp_xs) == 7) return false;
                             }
 
                         }
@@ -1491,11 +1489,11 @@ namespace MahjongScoreTrainer
 
                         if (ad.furotype[f] != TYPE_FSHUNTSU) //対子系
                         {
-                            if (hy.isYaochuXS(tmp_xs)) return false;
+                            if (TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
                         }
                         else //副露順子
                         {
-                            if (hy.tileNum(tmp_xs) == 1 || hy.tileNum(tmp_xs) == 7) return false;
+                            if (TileUtilities.GetNumber(tmp_xs) == 1 || TileUtilities.GetNumber(tmp_xs) == 7) return false;
                         }
                     }
 
@@ -1552,12 +1550,12 @@ namespace MahjongScoreTrainer
 
                             if (type != TYPE_SHUNTSU) //対子系
                             {
-                                if (!hy.isYaochuXS(tmp_xs)) return false;
-                                if (hy.tileClr(tmp_xs) == 3) chanta_tupai_contain = true;
+                                if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
+                                if (TileUtilities.GetColor(tmp_xs) == 3) chanta_tupai_contain = true;
                             }
                             else //順子
                             {
-                                if (hy.tileNum(tmp_xs) != 1 && hy.tileNum(tmp_xs) != 7) return false;
+                                if (TileUtilities.GetNumber(tmp_xs) != 1 && TileUtilities.GetNumber(tmp_xs) != 7) return false;
                                 shuntsu_count++;
                             }
 
@@ -1572,12 +1570,12 @@ namespace MahjongScoreTrainer
 
                         if (ad.furotype[f] != TYPE_FSHUNTSU) //対子系
                         {
-                            if (!hy.isYaochuXS(tmp_xs)) return false;
-                            if (hy.tileClr(tmp_xs) == 3) chanta_tupai_contain = true;
+                            if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
+                            if (TileUtilities.GetColor(tmp_xs) == 3) chanta_tupai_contain = true;
                         }
                         else //副露順子
                         {
-                            if (hy.tileNum(tmp_xs) != 1 && hy.tileNum(tmp_xs) != 7) return false;
+                            if (TileUtilities.GetNumber(tmp_xs) != 1 && TileUtilities.GetNumber(tmp_xs) != 7) return false;
                             shuntsu_count++;
                         }
                     }
@@ -1597,10 +1595,10 @@ namespace MahjongScoreTrainer
                     for (int idx = 0; idx < md.th_typecount[TYPE_SHUNTSU]; idx++)
                     {
                         int tmp_xs = md.th_info[TYPE_SHUNTSU, idx];
-                        int tmp_num = hy.tileNum(tmp_xs);
+                        int tmp_num = TileUtilities.GetNumber(tmp_xs);
                         if (tmp_num != 1 && tmp_num != 4 && tmp_num != 7) continue;
                         int numtoIndex = (int)((tmp_num - 1) / 3);
-                        ittsu_elm[hy.tileClr(tmp_xs), numtoIndex] = 1;
+                        ittsu_elm[TileUtilities.GetColor(tmp_xs), numtoIndex] = 1;
                     }
 
                     //副露した牌について
@@ -1608,13 +1606,13 @@ namespace MahjongScoreTrainer
                     {
                         int tmp_xs = ad.furotehai[f][0];
                         if (tmp_xs == 0) break;
-                        int tmp_num = hy.tileNum(tmp_xs);
+                        int tmp_num = TileUtilities.GetNumber(tmp_xs);
 
                         if (ad.furotype[f] == TYPE_FSHUNTSU)
                         {
                             if (tmp_num != 1 && tmp_num != 4 && tmp_num != 7) continue;
                             int numtoIndex = (int)((tmp_num - 1) / 3);
-                            ittsu_elm[hy.tileClr(tmp_xs), numtoIndex] = 1;
+                            ittsu_elm[TileUtilities.GetColor(tmp_xs), numtoIndex] = 1;
                         }
                     }
 
@@ -1637,7 +1635,7 @@ namespace MahjongScoreTrainer
                     for (int idx = 0; idx < md.th_typecount[TYPE_SHUNTSU]; idx++)
                     {
                         int tmp_xs = md.th_info[TYPE_SHUNTSU, idx];
-                        sanshoku_elm[hy.tileClr(tmp_xs), hy.tileNum(tmp_xs)] = 1;
+                        sanshoku_elm[TileUtilities.GetColor(tmp_xs), TileUtilities.GetNumber(tmp_xs)] = 1;
                     }
 
                     //副露した牌について
@@ -1648,7 +1646,7 @@ namespace MahjongScoreTrainer
 
                         if (ad.furotype[f] == TYPE_FSHUNTSU)
                         {
-                            sanshoku_elm[hy.tileClr(tmp_xs), hy.tileNum(tmp_xs)] = 1;
+                            sanshoku_elm[TileUtilities.GetColor(tmp_xs), TileUtilities.GetNumber(tmp_xs)] = 1;
                         }
                     }
 
@@ -1678,9 +1676,9 @@ namespace MahjongScoreTrainer
                         {
 
                             int tmp_xs = md.th_info[type, idx];
-                            if (hy.tileClr(tmp_xs) == 3) continue;
+                            if (TileUtilities.GetColor(tmp_xs) == 3) continue;
 
-                            doukou_elm[hy.tileClr(tmp_xs), hy.tileNum(tmp_xs)] = 1;
+                            doukou_elm[TileUtilities.GetColor(tmp_xs), TileUtilities.GetNumber(tmp_xs)] = 1;
 
                         }
                     }
@@ -1690,11 +1688,11 @@ namespace MahjongScoreTrainer
                     {
                         int tmp_xs = ad.furotehai[f][0];
                         if (tmp_xs == 0) break;
-                        if (hy.tileClr(tmp_xs) == 3) continue;
+                        if (TileUtilities.GetColor(tmp_xs) == 3) continue;
 
                         if (ad.furotype[f] != TYPE_FSHUNTSU)
                         {
-                            doukou_elm[hy.tileClr(tmp_xs), hy.tileNum(tmp_xs)] = 1;
+                            doukou_elm[TileUtilities.GetColor(tmp_xs), TileUtilities.GetNumber(tmp_xs)] = 1;
                         }
                     }
 
@@ -1834,8 +1832,8 @@ namespace MahjongScoreTrainer
                         {
                             int tmp_xs = md.th_info[type, idx];
 
-                            if (!hy.isYaochuXS(tmp_xs)) return false;
-                            if (hy.tileClr(tmp_xs) == 3) honro_tupai_contain = true;
+                            if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
+                            if (TileUtilities.GetColor(tmp_xs) == 3) honro_tupai_contain = true;
                         }
                     }
 
@@ -1847,8 +1845,8 @@ namespace MahjongScoreTrainer
 
                         if (ad.furotype[f] != TYPE_FSHUNTSU) //対子系
                         {
-                            if (!hy.isYaochuXS(tmp_xs)) return false;
-                            if (hy.tileClr(tmp_xs) == 3) honro_tupai_contain = true;
+                            if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
+                            if (TileUtilities.GetColor(tmp_xs) == 3) honro_tupai_contain = true;
                         }
                         else //副露順子
                         {
@@ -1907,12 +1905,12 @@ namespace MahjongScoreTrainer
 
                             if (type != TYPE_SHUNTSU) //対子系
                             {
-                                if (!hy.isYaochuXS(tmp_xs)) return false;
-                                if (hy.tileClr(tmp_xs) == 3) return false;
+                                if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
+                                if (TileUtilities.GetColor(tmp_xs) == 3) return false;
                             }
                             else //順子
                             {
-                                if (hy.tileNum(tmp_xs) != 1 && hy.tileNum(tmp_xs) != 7) return false;
+                                if (TileUtilities.GetNumber(tmp_xs) != 1 && TileUtilities.GetNumber(tmp_xs) != 7) return false;
                                 shuntsu_count++;
                             }
 
@@ -1927,12 +1925,12 @@ namespace MahjongScoreTrainer
 
                         if (ad.furotype[f] != TYPE_FSHUNTSU) //対子系
                         {
-                            if (!hy.isYaochuXS(tmp_xs)) return false;
-                            if (hy.tileClr(tmp_xs) == 3) return false;
+                            if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
+                            if (TileUtilities.GetColor(tmp_xs) == 3) return false;
                         }
                         else //副露順子
                         {
-                            if (hy.tileNum(tmp_xs) != 1 && hy.tileNum(tmp_xs) != 7) return false;
+                            if (TileUtilities.GetNumber(tmp_xs) != 1 && TileUtilities.GetNumber(tmp_xs) != 7) return false;
                             shuntsu_count++;
                         }
                     }
@@ -2045,7 +2043,7 @@ namespace MahjongScoreTrainer
                         {
                             int tmp_xs = md.th_info[type, idx];
 
-                            if (hy.tileClr(tmp_xs) != 3) return false;
+                            if (TileUtilities.GetColor(tmp_xs) != 3) return false;
                         }
                     }
 
@@ -2057,7 +2055,7 @@ namespace MahjongScoreTrainer
 
                         if (ad.furotype[f] != TYPE_FSHUNTSU) //対子系
                         {
-                            if (hy.tileClr(tmp_xs) != 3) return false;
+                            if (TileUtilities.GetColor(tmp_xs) != 3) return false;
                         }
                         else //副露順子
                         {
@@ -2135,8 +2133,8 @@ namespace MahjongScoreTrainer
                         for (int idx = 0; idx < md.th_typecount[type]; idx++)
                         {
                             int tmp_xs = md.th_info[type, idx];
-                            if (!hy.isYaochuXS(tmp_xs)) return false;
-                            if (hy.tileClr(tmp_xs) == 3) return false;
+                            if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
+                            if (TileUtilities.GetColor(tmp_xs) == 3) return false;
                         }
                     }
 
@@ -2148,8 +2146,8 @@ namespace MahjongScoreTrainer
 
                         if (ad.furotype[f] != TYPE_FSHUNTSU) //対子系
                         {
-                            if (!hy.isYaochuXS(tmp_xs)) return false;
-                            if (hy.tileClr(tmp_xs) == 3) return false;
+                            if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
+                            if (TileUtilities.GetColor(tmp_xs) == 3) return false;
                         }
                         else //副露順子
                         {
@@ -2293,7 +2291,7 @@ namespace MahjongScoreTrainer
                     for (int i = 0; i < info.Length; i++)
                     {
                         int tmp_xs = info[i];
-                        if (hy.isYaochuXS(tmp_xs)) return false;
+                        if (TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
                     }
                     //Debug.Print("断幺九");
                     return true;
@@ -2304,7 +2302,7 @@ namespace MahjongScoreTrainer
                     for (int i = 0; i < info.Length; i++)
                     {
                         int tmp_xs = info[i];
-                        if (!hy.isYaochuXS(tmp_xs)) return false;
+                        if (!TileUtilities.IsTerminalOrHonor(tmp_xs)) return false;
                     }
                     //Debug.Print("混老頭");
                     return true;
@@ -2317,7 +2315,7 @@ namespace MahjongScoreTrainer
                     for (int i = 0; i < info.Length; i++)
                     {
                         int tmp_xs = info[i];
-                        int tmp_clr = hy.tileClr(tmp_xs);
+                        int tmp_clr = TileUtilities.GetColor(tmp_xs);
                         if (tmp_clr == 3) tupai_contain = true;
                         if (honitsu_clr != tmp_clr && tmp_clr != 3 && honitsu_clr != 3)
                         {
@@ -2340,7 +2338,7 @@ namespace MahjongScoreTrainer
                     for (int i = 0; i < info.Length; i++)
                     {
                         int tmp_xs = info[i];
-                        int tmp_clr = hy.tileClr(tmp_xs);
+                        int tmp_clr = TileUtilities.GetColor(tmp_xs);
                         if (tmp_clr == 3) return false;
                         if (chin_clr != tmp_clr && chin_clr != -1)
                         {
@@ -2360,7 +2358,7 @@ namespace MahjongScoreTrainer
                     for (int i = 0; i < info.Length; i++)
                     {
                         int tmp_xs = info[i];
-                        int tmp_clr = hy.tileClr(tmp_xs);
+                        int tmp_clr = TileUtilities.GetColor(tmp_xs);
                         if (tmp_clr != 3) return false;
                     }
                     //Debug.Print("字一色");

@@ -492,7 +492,7 @@ namespace MahjongScoreTrainer
                 partsXS[4] = xsparts;
                 partsType[4] = 0;
 
-                if (tileNum(partsXS[0][0]) == 7)
+                if (TileUtilities.GetNumber(partsXS[0][0]) == 7)
                 {
                     machi_xs = partsXS[0][2];
                 }
@@ -563,8 +563,8 @@ namespace MahjongScoreTrainer
                 partsXS[0] = xsparts;
                 partsType[0] = 5;
 
-                int settledClr = tileClr(xsparts[0]);
-                int settledNum = tileNum(xsparts[0]);
+                int settledClr = TileUtilities.GetColor(xsparts[0]);
+                int settledNum = TileUtilities.GetNumber(xsparts[0]);
 
                 makeRandomShuntsu(9, ref maisu, out strparts, out xsparts, settledClr, settledNum);
                 partsXS[1] = xsparts;
@@ -1306,8 +1306,8 @@ namespace MahjongScoreTrainer
                 partsXS[0] = xsparts;
                 partsType[0] = 5;
 
-                int settledClr = tileClr(xsparts[0]);
-                int settledNum = tileNum(xsparts[0]);
+                int settledClr = TileUtilities.GetColor(xsparts[0]);
+                int settledNum = TileUtilities.GetNumber(xsparts[0]);
 
                 makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, settledClr, settledNum);
                 partsXS[1] = xsparts;
@@ -1318,8 +1318,8 @@ namespace MahjongScoreTrainer
                 partsXS[2] = xsparts;
                 partsType[2] = 5;
 
-                settledClr = tileClr(xsparts[0]);
-                settledNum = tileNum(xsparts[0]);
+                settledClr = TileUtilities.GetColor(xsparts[0]);
+                settledNum = TileUtilities.GetNumber(xsparts[0]);
 
                 makeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, settledClr, settledNum);
                 partsXS[3] = xsparts;
@@ -2766,22 +2766,6 @@ namespace MahjongScoreTrainer
 
 
 
-
-        static int tileClr(int xs)
-        {
-            int i = -1;
-            if ((xs > 34) || (xs <= 0)) return -1;
-            i = (int)((xs - 1) / 9);
-            return i;
-        }
-
-        static int tileNum(int xs)
-        {
-            int i = -1;
-            if ((xs > 34) || (xs <= 0)) return -1;
-            i = ((xs - 1) % 9) + 1;
-            return i;
-        }
 
         static int retOne(int d)
         {

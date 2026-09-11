@@ -67,7 +67,7 @@
 | `GenerationOptions.cs` | 問題数・シード・表示形式の設定と範囲チェック |
 | `ConsoleProgress.cs` | コンソールの進捗表示とカーソル位置の管理 |
 | `HandEvaluator.cs` | 面子分解、役・符の判定、採点候補の比較 |
-| `TileUtilities.cs` | `TileUtilities`。牌の色・数字・幺九牌判定 |
+| `TileUtilities.cs` | 牌の色・数字・幺九牌判定を提供する共通静的クラス |
 | `WinningHandData.cs` | 手牌、副露、和了牌、場風・自風・和了方法 |
 | `HandDecomposition.cs` | 面子分解と和了位置の中間データ |
 | `ScoreResult.cs` | 符・飜からの支払額計算と採点結果 |

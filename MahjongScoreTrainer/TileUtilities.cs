@@ -1,39 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace MahjongScoreTrainer
 {
-    class TileUtilities
+    static class TileUtilities
     {
-
-        public int tileClr(int xs)
+        public static int GetColor(int tileType)
         {
             int i = -1;
-            if ((xs > 34) || (xs <= 0)) return -1;
-            i = (int)((xs - 1) / 9);
+            if ((tileType > 34) || (tileType <= 0)) return -1;
+            i = (int)((tileType - 1) / 9);
             return i;
         }
 
-        public int tileNum(int xs)
+        public static int GetNumber(int tileType)
         {
             int i = -1;
-            if ((xs > 34) || (xs <= 0)) return -1;
-            i = ((xs - 1) % 9) + 1;
+            if ((tileType > 34) || (tileType <= 0)) return -1;
+            i = ((tileType - 1) % 9) + 1;
             return i;
         }
 
-        public bool isYaochuXS(int xs) 
+        public static bool IsTerminalOrHonor(int tileType)
         {
-
-            if (tileClr(xs) == 3) return true;
-            if (tileNum(xs) == 1 || tileNum(xs) == 9) return true;
-
-            return false;
-        
+            if (GetColor(tileType) == 3) return true;
+            return GetNumber(tileType) == 1 || GetNumber(tileType) == 9;
         }
-
     }
 }
