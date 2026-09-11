@@ -51,6 +51,7 @@
     <Compile Include="MeldGenerator.cs" />
     <Compile Include="YakuSelector.cs" />
     <Compile Include="SpecialHandGenerator.cs" />
+    <Compile Include="YakuMeldGenerator.cs" />
     <Compile Include="YakuDefinition.cs" />
     <Compile Include="WinningHandData.cs" />
     <Compile Include="ScoreResult.cs" />
