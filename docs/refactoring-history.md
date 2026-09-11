@@ -114,6 +114,8 @@ Debug／Release の両構成で、採点7ケース、牌変換6ケース、生�
 
 一気通貫の生成分岐を `YakuMeldGenerator.GenerateIttsu` へ移した。同一色の1・4・7開始順子を固定順で生成し、残り面子の抽選、雀頭、待ち牌の決定を維持している。抽出後も Debug / Release の全回帰検査を通過した。
 
+三色同順の生成分岐を `YakuMeldGenerator.GenerateSanshokuDoujun` へ移した。3色・同じ数字の順子を固定生成し、残り面子の抽選、雀頭、待ち牌、副露率を維持している。抽出後も Debug / Release の全回帰検査を通過した。
+
 ## 残る課題
 
 - `makeYaku` と役別生成は、まだ `Program.cs` に残っている。

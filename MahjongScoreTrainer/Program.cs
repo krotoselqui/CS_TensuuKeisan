@@ -464,74 +464,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 25) //三色同順
             {
-
-                //はじめの3順子
-                int sansyokunum = r.Next(7) + 1;
-                int furo_bairitsu = 10; //でかいほど面前
-
-                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 0, sansyokunum);
-                partsXS[0] = xsparts;
-                partsType[0] = 5 + RandomSelection.RetOne(furo_bairitsu);
-
-                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 1, sansyokunum);
-                partsXS[1] = xsparts;
-                partsType[1] = 5 + RandomSelection.RetOne(furo_bairitsu);
-
-                MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, 2, sansyokunum);
-                partsXS[2] = xsparts;
-                partsType[2] = 5 + RandomSelection.RetOne(furo_bairitsu);
-
-
-                for (int i = 3; i < 4; i++)
-                {
-                    int shurui = r.Next(9); //弄るとフーロ率が変化(他は順子に。)
-
-
-                    if (shurui == 0) //暗刻・明刻
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-                    else if (shurui == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
-
-                    }
-                    else if (shurui == 2) //順子・副露順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-                    else  //順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateSanshokuDoujun(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 26) //三色同刻
+                        else if (yakuNum == 26) //三色同刻
             {
 
                 //はじめの3刻子

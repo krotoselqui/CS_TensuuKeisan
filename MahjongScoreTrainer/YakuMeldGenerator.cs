@@ -393,6 +393,45 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateSanshokuDoujun(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            const int openRate = 10;
+            string unused;
+            int[] generated;
+            int start = Program.r.Next(7) + 1;
+            for (int color = 0; color < 3; color++)
+            {
+                MeldGenerator.MakeRandomShuntsu(25, ref remaining, out unused, out generated, color, start);
+                parts[color] = generated;
+                partTypes[color] = 5 + RandomSelection.RetOne(openRate);
+            }
+            int kind = Program.r.Next(9);
+            if (kind == 0)
+            {
+                MeldGenerator.MakeRandomKotsu(25, ref remaining, out unused, out generated);
+                partTypes[3] = 1 + RandomSelection.RetOne(openRate);
+            }
+            else if (kind == 1)
+            {
+                MeldGenerator.MakeRandomKantsu(25, ref remaining, out unused, out generated);
+                partTypes[3] = 3 + RandomSelection.RetOne(openRate);
+            }
+            else
+            {
+                MeldGenerator.MakeRandomShuntsu(25, ref remaining, out unused, out generated);
+                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+            }
+            parts[3] = generated;
+            MeldGenerator.MakeRandomAtama(25, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateHonchantaiyaochuu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             string unused;
