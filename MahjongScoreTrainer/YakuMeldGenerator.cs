@@ -208,6 +208,36 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateChinroutou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            const int openRate = 2;
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                if (Program.r.Next(20) == 0)
+                {
+                    MeldGenerator.MakeRandomKantsu(44, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 3 + RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKotsu(44, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 1 + RetOne(openRate);
+                }
+            }
+            MeldGenerator.MakeRandomAtama(44, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         private static int RetOne(int divisor)
         {
             if (divisor < 0) return 0;

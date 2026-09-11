@@ -1498,47 +1498,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == 44) //清老頭
             {
-
-                int furo_bairitsu = 2; //でかいほど鳴かない
-
-                for (int i = 0; i < 4; i++)
-                {
-
-                    int shurui = r.Next(20); //弄るとフーロ率が変化(他は順子に。)
-
-
-                    if (shurui == 0) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + retOne(furo_bairitsu);
-                    }
-                    else  //刻子
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + retOne(furo_bairitsu);
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateChinroutou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == 49) //大四喜
+                        else if (yakuNum == 49) //大四喜
             {
 
                 //はじめの4刻子
