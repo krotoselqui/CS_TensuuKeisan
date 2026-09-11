@@ -2002,95 +2002,10 @@ namespace MahjongScoreTrainer
 
 
             }
-            else if (yakuNum == 22) //七対子
+            else
             {
-                int pos = 0;
-                int machitoitsu = r.Next(7);
-
-                //すべての牌を強制的に二枚減らす
-                for (int i = 0; i < maisu.Length; i++)
-                {
-                    maisu[i] -= 2;
-                }
-
-                for (int i = 0; i < 7; i++)
-                {
-
-                    MeldGenerator.MakeRandomAtama(22, ref maisu, out strparts, out xsparts);
-                    tehai[pos] = xsparts[0];
-                    tehai[pos + 1] = xsparts[1];
-
-                    if (machitoitsu == i) machi_xs = tehai[pos];
-                    pos += 2;
-
-                }
+                SpecialHandGenerator.Generate(yakuNum, ref maisu, ref tehai, ref machi_xs);
             }
-            else if (yakuNum == 45 || yakuNum == 46) //チュウレン
-            {
-                int churenclr = r.Next(3);
-                int pos = 0;
-
-                for (int i = 0; i < 3; i++)
-                {
-                    tehai[pos] = churenclr * 9 + 1;
-                    pos++;
-                }
-
-                for (int i = 2; i <= 8; i++)
-                {
-                    tehai[pos] = churenclr * 9 + i;
-                    pos++;
-                }
-
-                for (int i = 0; i < 3; i++)
-                {
-                    tehai[pos] = churenclr * 9 + 9;
-                    pos++;
-                }
-
-                int add_num = r.Next(9) + 1;
-                int add_xs = churenclr * 9 + add_num;
-                tehai[pos] = add_xs;
-
-                machi_xs = add_xs;
-
-                if (yakuNum == 45)
-                {
-
-                    while (add_xs == machi_xs)
-                    {
-                        machi_xs = (churenclr * 9) + r.Next(9) + 1;
-                    }
-
-                }
-
-            }
-            else if (yakuNum == 47 || yakuNum == 48)  //国士
-            {
-
-                int[] yaoChuArray = new int[13] { 1, 9, 10, 18, 19, 27, 28, 29, 30, 31, 32, 33, 34 };
-                for (int i = 0; i < 13; i++)
-                {
-
-                    tehai[i] = yaoChuArray[i];
-
-                }
-
-                int add_pai = yaoChuArray[r.Next(13)];
-                tehai[13] = add_pai;
-
-                machi_xs = add_pai;
-
-                if (yakuNum == 47)
-                {
-                    while (add_pai == machi_xs)
-                    {
-                        machi_xs = yaoChuArray[r.Next(13)];
-                    }
-                }
-
-            }
-
 
 
             //Debug.Print(machi_xs.ToString());
