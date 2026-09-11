@@ -480,85 +480,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == YakuNumbers.Sanankou) //三暗刻
             {
-
-                //はじめの3刻子
-                int sansyokunum = r.Next(7) + 1;
-                int furo_bairitsu = 2; //でかいほど鳴かない
-
-                for (int i = 0; i < 3; i++)
-                {
-
-                    int shurui = r.Next(20); //弄るとフーロ率が変化(他は順子に。)
-
-
-                    if (shurui == 0) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3;
-                    }
-                    else  //刻子
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1;
-                    }
-                }
-
-
-                for (int i = 3; i < 4; i++)
-                {
-                    int shurui = r.Next(20); //弄るとフーロ率が変化(他は順子に。)
-
-
-                    if (shurui == 0) //暗刻・明刻
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 2;
-                    }
-                    else if (shurui == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 4;
-
-                    }
-                    else if (shurui == 2) //順子・副露順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-                    else  //順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                machi_xs = -1;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int m = 4 - i;
-                    int tmptype = partsType[m];
-                    if ((tmptype == 0))
-                    {
-                        machi_xs = partsXS[m][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateSanankou(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == YakuNumbers.Shousangen) //小三元
+                        else if (yakuNum == YakuNumbers.Shousangen) //小三元
             {
 
                 //はじめの2刻子

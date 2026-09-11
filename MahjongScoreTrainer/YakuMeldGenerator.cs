@@ -663,6 +663,59 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateSanankou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            Program.r.Next(7); // preserve the original unused sansyokunum draw
+            const int openRate = 2;
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 3; i++)
+            {
+                if (Program.r.Next(20) == 0)
+                {
+                    MeldGenerator.MakeRandomKantsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 3;
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKotsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 1;
+                }
+            }
+
+            int kind = Program.r.Next(20);
+            if (kind == 0)
+            {
+                MeldGenerator.MakeRandomKotsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
+                parts[3] = generated;
+                partTypes[3] = 2;
+            }
+            else if (kind == 1)
+            {
+                MeldGenerator.MakeRandomKantsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
+                parts[3] = generated;
+                partTypes[3] = 4;
+            }
+            else
+            {
+                MeldGenerator.MakeRandomShuntsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
+                parts[3] = generated;
+                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+            }
+
+            MeldGenerator.MakeRandomAtama(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            winningTile = -1;
+            for (int i = 0; i < 5; i++)
+            {
+                int partIndex = 4 - i;
+                if (partTypes[partIndex] == 0) winningTile = parts[partIndex][1];
+            }
+        }
+
         internal static void GenerateToitoi(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             const int openRate = 2;
