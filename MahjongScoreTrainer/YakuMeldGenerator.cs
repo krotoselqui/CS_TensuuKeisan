@@ -663,6 +663,37 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateHonroutou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            const int openRate = 2;
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                if (Program.r.Next(20) == 0)
+                {
+                    MeldGenerator.MakeRandomKantsu(YakuNumbers.Honroutou, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKotsu(YakuNumbers.Honroutou, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                }
+            }
+
+            MeldGenerator.MakeRandomAtama(YakuNumbers.Honroutou, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateShousangen(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             int pairHonor = Program.r.Next(3) + 5;
