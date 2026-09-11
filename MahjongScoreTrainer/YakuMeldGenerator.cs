@@ -61,6 +61,40 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateSuuankou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                if (RetOne(10) == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(40, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 3;
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKotsu(40, ref remaining, out unused, out generated);
+                    parts[i] = generated;
+                    partTypes[i] = 1;
+                }
+            }
+
+            MeldGenerator.MakeRandomAtama(40, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            winningTile = -1;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5))
+                {
+                    winningTile = parts[i][1];
+                }
+            }
+        }
+
         private static int RetOne(int divisor)
         {
             if (divisor < 0) return 0;
