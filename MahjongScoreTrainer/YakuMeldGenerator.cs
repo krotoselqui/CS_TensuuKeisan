@@ -268,6 +268,67 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateShousuushi(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            const int openRate = 2;
+            int pairWind = Program.r.Next(4) + 1;
+            int[] winds = new int[3];
+            int index = 0;
+            for (int wind = 1; wind <= 4; wind++)
+            {
+                if (wind != pairWind) winds[index++] = wind;
+            }
+
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 3; i++)
+            {
+                if (Program.r.Next(20) == 0)
+                {
+                    MeldGenerator.MakeRandomKantsu(50, ref remaining, out unused, out generated, 3, winds[i]);
+                    parts[i] = generated;
+                    partTypes[i] = 3 + RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomKotsu(50, ref remaining, out unused, out generated, 3, winds[i]);
+                    parts[i] = generated;
+                    partTypes[i] = 1 + RetOne(openRate);
+                }
+            }
+
+            int kind = Program.r.Next(20);
+            int color = Program.r.Next(3);
+            if (kind == 0)
+            {
+                MeldGenerator.MakeRandomKotsu(50, ref remaining, out unused, out generated, color);
+                parts[3] = generated;
+                partTypes[3] = 2;
+            }
+            else if (kind == 1)
+            {
+                MeldGenerator.MakeRandomKantsu(50, ref remaining, out unused, out generated, color);
+                parts[3] = generated;
+                partTypes[3] = 4;
+            }
+            else
+            {
+                MeldGenerator.MakeRandomShuntsu(50, ref remaining, out unused, out generated);
+                parts[3] = generated;
+                partTypes[3] = 5 + RetOne(openRate);
+            }
+
+            MeldGenerator.MakeRandomAtama(50, ref remaining, out unused, out generated, 3, pairWind);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            winningTile = -1;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         private static int RetOne(int divisor)
         {
             if (divisor < 0) return 0;
