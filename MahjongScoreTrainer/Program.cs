@@ -217,47 +217,6 @@ namespace MahjongScoreTrainer
             }
         }
 
-        private sealed class YakuWeight
-        {
-            internal readonly int Id;
-            internal readonly int Weight;
-
-            internal YakuWeight(int id, int weight)
-            {
-                Id = id;
-                Weight = weight;
-            }
-        }
-
-        private static readonly YakuWeight[] YakuWeights =
-        {
-            new YakuWeight(7, 800), new YakuWeight(8, 1000), new YakuWeight(9, 500),
-            new YakuWeight(14, 500), new YakuWeight(18, 500), new YakuWeight(19, 500),
-            new YakuWeight(20, 500), new YakuWeight(22, 200), new YakuWeight(23, 200),
-            new YakuWeight(24, 200), new YakuWeight(25, 200), new YakuWeight(26, 80),
-            new YakuWeight(27, 200), new YakuWeight(28, 200), new YakuWeight(29, 200),
-            new YakuWeight(30, 200), new YakuWeight(31, 200), new YakuWeight(32, 100),
-            new YakuWeight(33, 100), new YakuWeight(34, 100), new YakuWeight(35, 100),
-            new YakuWeight(39, 20), new YakuWeight(40, 20), new YakuWeight(41, 1),
-            new YakuWeight(42, 2), new YakuWeight(43, 1), new YakuWeight(44, 1),
-            new YakuWeight(45, 3), new YakuWeight(46, 1), new YakuWeight(47, 3),
-            new YakuWeight(48, 1), new YakuWeight(49, 1), new YakuWeight(50, 3),
-            new YakuWeight(51, 0)
-        };
-
-        private static int SelectYaku(Random random)
-        {
-            int totalWeight = 0;
-            foreach (YakuWeight entry in YakuWeights) totalWeight += entry.Weight;
-            int selected = random.Next(totalWeight);
-            foreach (YakuWeight entry in YakuWeights)
-            {
-                if (selected < entry.Weight) return entry.Id;
-                selected -= entry.Weight;
-            }
-            throw new InvalidOperationException("No yaku selected.");
-        }
-
         private sealed class WinningCondition
         {
             internal readonly int RoundWind;
@@ -344,9 +303,9 @@ namespace MahjongScoreTrainer
                 EvaluatedAnswer result = results[i];
                 payments[i] = FormatPayment(result);
                 details.WriteLine(FormatDetails(result));
-                for (int y = 0; y < YakuWeights.Length; y++)
+                for (int y = 0; y < YakuSelector.Entries.Length; y++)
                 {
-                    if (result.Yaku[YakuWeights[y].Id]) counts[y]++;
+                    if (result.Yaku[YakuSelector.Entries[y].Id]) counts[y]++;
                 }
             }
             answers.WriteLine(prefix + string.Join(" / ", payments));
@@ -369,11 +328,11 @@ namespace MahjongScoreTrainer
             PaiDisp_Mode = options.DisplayMode;
             try
             {
-                var counts = new int[YakuWeights.Length];
+                var counts = new int[YakuSelector.Entries.Length];
                 for (int i = 0; i < options.ProblemCount; i++)
                 {
                     if (reportProgress != null) reportProgress(i, options.ProblemCount);
-                    int yakuId = SelectYaku(random);
+                    int yakuId = YakuSelector.Select(random);
                     int[] tiles;
                     int[][] melds;
                     int[] meldTypes;
@@ -414,9 +373,9 @@ namespace MahjongScoreTrainer
             Console.WriteLine(" Finished.");
 
             Console.WriteLine();
-            for (int y = 0; y < YakuWeights.Length; y++)
+            for (int y = 0; y < YakuSelector.Entries.Length; y++)
             {
-                string yakuname = YAKU_STR[YakuWeights[y].Id];
+                string yakuname = YAKU_STR[YakuSelector.Entries[y].Id];
                 Console.WriteLine(yakuname + " : " + yakuResultCount[y].ToString() + " 回");
             }
 
