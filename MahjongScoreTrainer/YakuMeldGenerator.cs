@@ -663,6 +663,54 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateHonitsu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            int selectedColor = Program.r.Next(3);
+            int kanCount = 0;
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                int kind = Program.r.Next(4);
+                int color = selectedColor;
+                if (Program.r.Next(2) == 1) color = 3;
+                const int openRate = 2;
+                if (color != 3 && kind == 1 && kanCount >= 2) kind = 5;
+                if (color != 3 && kind == 1 && i == 3) kind = 5;
+                if (kind == 0)
+                {
+                    MeldGenerator.MakeRandomKotsu(YakuNumbers.Honitsu, ref remaining, out unused, out generated, color);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                }
+                else if (kind == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(YakuNumbers.Honitsu, ref remaining, out unused, out generated, color);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    kanCount++;
+                }
+                else if (kind == 2)
+                {
+                    MeldGenerator.MakeRandomShuntsu(YakuNumbers.Honitsu, ref remaining, out unused, out generated, selectedColor);
+                    partTypes[i] = 5 + RandomSelection.RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomShuntsu(YakuNumbers.Honitsu, ref remaining, out unused, out generated, selectedColor);
+                    partTypes[i] = 5;
+                }
+                parts[i] = generated;
+            }
+            // Preserve the original constraint identifier used for this pair.
+            MeldGenerator.MakeRandomAtama(YakuNumbers.Tanyao, ref remaining, out unused, out generated, selectedColor);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateJunchantaiyaochuu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             const int openRate = 3;
