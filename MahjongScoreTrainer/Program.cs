@@ -496,57 +496,9 @@ namespace MahjongScoreTrainer
             }
                         else if (yakuNum == YakuNumbers.Junchantaiyaochuu) //純全帯幺九
             {
-
-                for (int i = 0; i < 4; i++)
-                {
-                    int shurui = r.Next(12); //弄るとフーロ率が変化(他は順子に。)
-                    int furo_bairitsu = 3;
-
-                    if (shurui == 0) //暗刻・明刻
-                    {
-                        MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-                    else if (shurui == 1) //暗槓・暗槓
-                    {
-                        MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
-
-                    }
-                    else if (shurui == 2) //順子・副露順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
-                    }
-                    else  //順子
-                    {
-                        MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts);
-                        partsXS[i] = xsparts;
-                        partsType[i] = 5;
-                    }
-
-
-                }
-
-                MeldGenerator.MakeRandomAtama(yakuNum, ref maisu, out strparts, out xsparts);
-                partsXS[4] = xsparts;
-                partsType[4] = 0;
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
-                    {
-                        machi_xs = partsXS[i][1];
-                    }
-                }
-
-
+                YakuMeldGenerator.GenerateJunchantaiyaochuu(ref maisu, partsXS, partsType, ref machi_xs);
             }
-            else if (yakuNum == YakuNumbers.Honitsu) //混一色
+                        else if (yakuNum == YakuNumbers.Honitsu) //混一色
             {
 
                 int some_clr = r.Next(3);

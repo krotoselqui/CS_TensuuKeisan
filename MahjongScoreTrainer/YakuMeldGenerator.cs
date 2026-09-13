@@ -663,6 +663,47 @@ namespace MahjongScoreTrainer
             }
         }
 
+        internal static void GenerateJunchantaiyaochuu(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
+        {
+            const int openRate = 3;
+            string unused;
+            int[] generated;
+            for (int i = 0; i < 4; i++)
+            {
+                int kind = Program.r.Next(12);
+                if (kind == 0)
+                {
+                    MeldGenerator.MakeRandomKotsu(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
+                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                }
+                else if (kind == 1)
+                {
+                    MeldGenerator.MakeRandomKantsu(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
+                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                }
+                else if (kind == 2)
+                {
+                    MeldGenerator.MakeRandomShuntsu(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
+                    partTypes[i] = 5 + RandomSelection.RetOne(openRate);
+                }
+                else
+                {
+                    MeldGenerator.MakeRandomShuntsu(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
+                    partTypes[i] = 5;
+                }
+                parts[i] = generated;
+            }
+
+            MeldGenerator.MakeRandomAtama(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
+            parts[4] = generated;
+            partTypes[4] = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                int type = partTypes[i];
+                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+            }
+        }
+
         internal static void GenerateRyanpeikou(ref int[] remaining, int[][] parts, int[] partTypes, ref int winningTile)
         {
             string unused;
