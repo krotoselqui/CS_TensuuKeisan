@@ -17,13 +17,13 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Daisangen, ref remaining, out unused, out generated, 3, i + 5);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Daisangen, ref remaining, out unused, out generated, 3, i + 5);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
             }
 
@@ -32,29 +32,29 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.Daisangen, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 1 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
             }
             else if (kind == 1)
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Daisangen, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 3 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.Daisangen, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Daisangen, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
 
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5))
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence))
                 {
                     winningTile = parts[i][1];
                 }
@@ -71,24 +71,24 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Suuankou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3;
+                    partTypes[i] = MeldType.ConcealedQuad;
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Suuankou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1;
+                    partTypes[i] = MeldType.ConcealedTriplet;
                 }
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Suuankou, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             winningTile = -1;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5))
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence))
                 {
                     winningTile = parts[i][1];
                 }
@@ -105,18 +105,18 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.SuuankouTanki, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3;
+                    partTypes[i] = MeldType.ConcealedQuad;
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.SuuankouTanki, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1;
+                    partTypes[i] = MeldType.ConcealedTriplet;
                 }
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.SuuankouTanki, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             winningTile = parts[4][1];
         }
 
@@ -131,23 +131,23 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Tsuiisou, ref remaining, out unused, out generated, 3);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Tsuiisou, ref remaining, out unused, out generated, 3);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Tsuiisou, ref remaining, out unused, out generated, 3);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5))
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence))
                 {
                     winningTile = parts[i][1];
                 }
@@ -163,25 +163,25 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Ryuuiisou, ref remaining, out unused, out generated, 3, 6);
                 parts[0] = generated;
-                partTypes[0] = 3 + RandomSelection.RetOne(openRate);
+                partTypes[0] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.Ryuuiisou, ref remaining, out unused, out generated, 3, 6);
                 parts[0] = generated;
-                partTypes[0] = 1 + RandomSelection.RetOne(openRate);
+                partTypes[0] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
             }
             if (RandomSelection.RetOne(2) == 1)
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.Ryuuiisou, ref remaining, out unused, out generated, 2, 2);
                 parts[1] = generated;
-                partTypes[1] = 5 + RandomSelection.RetOne(openRate);
+                partTypes[1] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.Ryuuiisou, ref remaining, out unused, out generated, 2);
                 parts[1] = generated;
-                partTypes[1] = 1 + RandomSelection.RetOne(openRate);
+                partTypes[1] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
             }
             for (int i = 2; i < 4; i++)
             {
@@ -189,22 +189,22 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Ryuuiisou, ref remaining, out unused, out generated, 2);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Ryuuiisou, ref remaining, out unused, out generated, 2);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Ryuuiisou, ref remaining, out unused, out generated, 2);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -219,22 +219,22 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Chinroutou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Chinroutou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Chinroutou, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -249,22 +249,22 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Daisuushi, ref remaining, out unused, out generated, 3, i + 1);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Daisuushi, ref remaining, out unused, out generated, 3, i + 1);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Daisuushi, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -287,13 +287,13 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Shousuushi, ref remaining, out unused, out generated, 3, winds[i]);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Shousuushi, ref remaining, out unused, out generated, 3, winds[i]);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
             }
 
@@ -303,29 +303,29 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.Shousuushi, ref remaining, out unused, out generated, color);
                 parts[3] = generated;
-                partTypes[3] = 2;
+                partTypes[3] = MeldType.OpenTriplet;
             }
             else if (kind == 1)
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Shousuushi, ref remaining, out unused, out generated, color);
                 parts[3] = generated;
-                partTypes[3] = 4;
+                partTypes[3] = MeldType.OpenQuad;
             }
             else
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.Shousuushi, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Shousuushi, ref remaining, out unused, out generated, 3, pairWind);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             winningTile = -1;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -340,15 +340,15 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Suukantsu, ref remaining, out unused, out generated);
                 parts[i] = generated;
-                partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Suukantsu, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -362,7 +362,7 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.Ittsu, ref remaining, out unused, out generated, color, starts[i]);
                 parts[i] = generated;
-                partTypes[i] = 5 + Program.r.Next(2);
+                partTypes[i] = MeldType.ConcealedSequence + Program.r.Next(2);
             }
             int kind = Program.r.Next(9);
             int open = Program.r.Next(4);
@@ -370,26 +370,26 @@ namespace MahjongScoreTrainer
             if (kind == 0)
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.Ittsu, ref remaining, out unused, out generated);
-                partTypes[3] = 1 + open;
+                partTypes[3] = MeldType.ConcealedTriplet + open;
             }
             else if (kind == 1)
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Ittsu, ref remaining, out unused, out generated);
-                partTypes[3] = 3 + open;
+                partTypes[3] = MeldType.ConcealedQuad + open;
             }
             else
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.Ittsu, ref remaining, out unused, out generated);
-                partTypes[3] = 5 + open;
+                partTypes[3] = MeldType.ConcealedSequence + open;
             }
             parts[3] = generated;
             MeldGenerator.MakeRandomAtama(YakuNumbers.Ittsu, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -404,12 +404,12 @@ namespace MahjongScoreTrainer
                 if (RandomSelection.RetOne(10) == 0)
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.SanshokuDoukou, ref remaining, out unused, out generated, color, number);
-                    partTypes[color] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[color] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.SanshokuDoukou, ref remaining, out unused, out generated, color, number);
-                    partTypes[color] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[color] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 parts[color] = generated;
             }
@@ -417,26 +417,26 @@ namespace MahjongScoreTrainer
             if (kind == 0)
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.SanshokuDoukou, ref remaining, out unused, out generated);
-                partTypes[3] = 1 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
             }
             else if (kind == 1)
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.SanshokuDoukou, ref remaining, out unused, out generated);
-                partTypes[3] = 3 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.SanshokuDoukou, ref remaining, out unused, out generated);
-                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
             }
             parts[3] = generated;
             MeldGenerator.MakeRandomAtama(YakuNumbers.SanshokuDoukou, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -450,32 +450,32 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.SanshokuDoujun, ref remaining, out unused, out generated, color, start);
                 parts[color] = generated;
-                partTypes[color] = 5 + RandomSelection.RetOne(openRate);
+                partTypes[color] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
             }
             int kind = Program.r.Next(9);
             if (kind == 0)
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.SanshokuDoujun, ref remaining, out unused, out generated);
-                partTypes[3] = 1 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
             }
             else if (kind == 1)
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.SanshokuDoujun, ref remaining, out unused, out generated);
-                partTypes[3] = 3 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.SanshokuDoujun, ref remaining, out unused, out generated);
-                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
             }
             parts[3] = generated;
             MeldGenerator.MakeRandomAtama(YakuNumbers.SanshokuDoujun, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -491,34 +491,34 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Honchantaiyaochuu, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1 + open;
+                    partTypes[i] = MeldType.ConcealedTriplet + open;
                 }
                 else if (kind == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Honchantaiyaochuu, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3 + open;
+                    partTypes[i] = MeldType.ConcealedQuad + open;
                 }
                 else if (kind == 2)
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Honchantaiyaochuu, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 5 + open;
+                    partTypes[i] = MeldType.ConcealedSequence + open;
                 }
                 else
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Honchantaiyaochuu, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 5;
+                    partTypes[i] = MeldType.ConcealedSequence;
                 }
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Honchantaiyaochuu, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -532,12 +532,12 @@ namespace MahjongScoreTrainer
             if (kind == 0)
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Yakuhai, ref remaining, out unused, out generated, 3, honor);
-                partTypes[0] = 3 + open;
+                partTypes[0] = MeldType.ConcealedQuad + open;
             }
             else
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.Yakuhai, ref remaining, out unused, out generated, 3, honor);
-                partTypes[0] = 1 + open;
+                partTypes[0] = MeldType.ConcealedTriplet + open;
             }
             parts[0] = generated;
             for (int i = 1; i < 4; i++)
@@ -547,32 +547,32 @@ namespace MahjongScoreTrainer
                 if (kind == 0)
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Yakuhai, ref remaining, out unused, out generated);
-                    partTypes[i] = 1 + open;
+                    partTypes[i] = MeldType.ConcealedTriplet + open;
                 }
                 else if (kind == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Yakuhai, ref remaining, out unused, out generated);
-                    partTypes[i] = 3 + open;
+                    partTypes[i] = MeldType.ConcealedQuad + open;
                 }
                 else if (kind == 2)
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Yakuhai, ref remaining, out unused, out generated);
-                    partTypes[i] = 5 + open;
+                    partTypes[i] = MeldType.ConcealedSequence + open;
                 }
                 else
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Yakuhai, ref remaining, out unused, out generated);
-                    partTypes[i] = 5;
+                    partTypes[i] = MeldType.ConcealedSequence;
                 }
                 parts[i] = generated;
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Yakuhai, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -582,12 +582,12 @@ namespace MahjongScoreTrainer
             int[] generated;
             MeldGenerator.MakeRandomShuntsu(YakuNumbers.Iipeikou, ref remaining, out unused, out generated);
             parts[0] = generated;
-            partTypes[0] = 5;
+            partTypes[0] = MeldType.ConcealedSequence;
             int color = TileUtilities.GetColor(generated[0]);
             int number = TileUtilities.GetNumber(generated[0]);
             MeldGenerator.MakeRandomShuntsu(YakuNumbers.Iipeikou, ref remaining, out unused, out generated, color, number);
             parts[1] = generated;
-            partTypes[1] = 5;
+            partTypes[1] = MeldType.ConcealedSequence;
             for (int i = 2; i < 4; i++)
             {
                 int kind = Program.r.Next(9);
@@ -595,28 +595,28 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Iipeikou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1;
+                    partTypes[i] = MeldType.ConcealedTriplet;
                 }
                 else if (kind == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Iipeikou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3;
+                    partTypes[i] = MeldType.ConcealedQuad;
                 }
                 else
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Iipeikou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 5;
+                    partTypes[i] = MeldType.ConcealedSequence;
                 }
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Tanyao, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -632,34 +632,34 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Tanyao, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1 + open;
+                    partTypes[i] = MeldType.ConcealedTriplet + open;
                 }
                 else if (kind == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Tanyao, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3 + open;
+                    partTypes[i] = MeldType.ConcealedQuad + open;
                 }
                 else if (kind == 2)
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Tanyao, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 5 + open;
+                    partTypes[i] = MeldType.ConcealedSequence + open;
                 }
                 else
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Tanyao, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 5;
+                    partTypes[i] = MeldType.ConcealedSequence;
                 }
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Tanyao, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -680,34 +680,34 @@ namespace MahjongScoreTrainer
                 if (kind == 0)
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Honitsu, ref remaining, out unused, out generated, color);
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
                 else if (kind == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Honitsu, ref remaining, out unused, out generated, color);
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                     kanCount++;
                 }
                 else if (kind == 2)
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Honitsu, ref remaining, out unused, out generated, selectedColor);
-                    partTypes[i] = 5 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Honitsu, ref remaining, out unused, out generated, selectedColor);
-                    partTypes[i] = 5;
+                    partTypes[i] = MeldType.ConcealedSequence;
                 }
                 parts[i] = generated;
             }
             // Preserve the original constraint identifier used for this pair.
             MeldGenerator.MakeRandomAtama(YakuNumbers.Tanyao, ref remaining, out unused, out generated, selectedColor);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -722,33 +722,33 @@ namespace MahjongScoreTrainer
                 if (kind == 0)
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
                 else if (kind == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 else if (kind == 2)
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
-                    partTypes[i] = 5 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
-                    partTypes[i] = 5;
+                    partTypes[i] = MeldType.ConcealedSequence;
                 }
                 parts[i] = generated;
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Junchantaiyaochuu, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -758,29 +758,29 @@ namespace MahjongScoreTrainer
             int[] generated;
             MeldGenerator.MakeRandomShuntsu(YakuNumbers.Ryanpeikou, ref remaining, out unused, out generated);
             parts[0] = generated;
-            partTypes[0] = 5;
+            partTypes[0] = MeldType.ConcealedSequence;
             int color = TileUtilities.GetColor(generated[0]);
             int number = TileUtilities.GetNumber(generated[0]);
             MeldGenerator.MakeRandomShuntsu(YakuNumbers.Ryanpeikou, ref remaining, out unused, out generated, color, number);
             parts[1] = generated;
-            partTypes[1] = 5;
+            partTypes[1] = MeldType.ConcealedSequence;
 
             MeldGenerator.MakeRandomShuntsu(YakuNumbers.Ryanpeikou, ref remaining, out unused, out generated);
             parts[2] = generated;
-            partTypes[2] = 5;
+            partTypes[2] = MeldType.ConcealedSequence;
             color = TileUtilities.GetColor(generated[0]);
             number = TileUtilities.GetNumber(generated[0]);
             MeldGenerator.MakeRandomShuntsu(YakuNumbers.Ryanpeikou, ref remaining, out unused, out generated, color, number);
             parts[3] = generated;
-            partTypes[3] = 5;
+            partTypes[3] = MeldType.ConcealedSequence;
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Ryanpeikou, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -795,23 +795,23 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Honroutou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Honroutou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Honroutou, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -831,12 +831,12 @@ namespace MahjongScoreTrainer
                 if (Program.r.Next(20) == 0)
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated, 3, tripletHonors[i]);
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated, 3, tripletHonors[i]);
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
                 parts[i] = generated;
             }
@@ -848,29 +848,29 @@ namespace MahjongScoreTrainer
                 if (kind == 0)
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated, color);
-                    partTypes[i] = 2;
+                    partTypes[i] = MeldType.OpenTriplet;
                 }
                 else if (kind == 1)
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated, color);
-                    partTypes[i] = 4;
+                    partTypes[i] = MeldType.OpenQuad;
                 }
                 else
                 {
                     MeldGenerator.MakeRandomShuntsu(YakuNumbers.Shousangen, ref remaining, out unused, out generated);
-                    partTypes[i] = 5 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
                 }
                 parts[i] = generated;
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Shousangen, ref remaining, out unused, out generated, 3, pairHonor);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             winningTile = -1;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -886,13 +886,13 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3;
+                    partTypes[i] = MeldType.ConcealedQuad;
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1;
+                    partTypes[i] = MeldType.ConcealedTriplet;
                 }
             }
 
@@ -901,29 +901,29 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 2;
+                partTypes[3] = MeldType.OpenTriplet;
             }
             else if (kind == 1)
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 4;
+                partTypes[3] = MeldType.OpenQuad;
             }
             else
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Sanankou, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             winningTile = -1;
             for (int i = 0; i < 5; i++)
             {
                 int partIndex = 4 - i;
-                if (partTypes[partIndex] == 0) winningTile = parts[partIndex][1];
+                if (partTypes[partIndex] == MeldType.Pair) winningTile = parts[partIndex][1];
             }
         }
 
@@ -938,23 +938,23 @@ namespace MahjongScoreTrainer
                 {
                     MeldGenerator.MakeRandomKantsu(YakuNumbers.Toitoi, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
                 }
                 else
                 {
                     MeldGenerator.MakeRandomKotsu(YakuNumbers.Toitoi, ref remaining, out unused, out generated);
                     parts[i] = generated;
-                    partTypes[i] = 1 + RandomSelection.RetOne(openRate);
+                    partTypes[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
                 }
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Toitoi, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -969,7 +969,7 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Sankantsu, ref remaining, out unused, out generated);
                 parts[i] = generated;
-                partTypes[i] = 3 + RandomSelection.RetOne(openRate);
+                partTypes[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
             }
 
             int kind = Program.r.Next(20);
@@ -977,28 +977,28 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomKotsu(YakuNumbers.Sankantsu, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 1 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedTriplet + RandomSelection.RetOne(openRate);
             }
             else if (kind == 1)
             {
                 MeldGenerator.MakeRandomKantsu(YakuNumbers.Sankantsu, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 3 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedQuad + RandomSelection.RetOne(openRate);
             }
             else
             {
                 MeldGenerator.MakeRandomShuntsu(YakuNumbers.Sankantsu, ref remaining, out unused, out generated);
                 parts[3] = generated;
-                partTypes[3] = 5 + RandomSelection.RetOne(openRate);
+                partTypes[3] = MeldType.ConcealedSequence + RandomSelection.RetOne(openRate);
             }
 
             MeldGenerator.MakeRandomAtama(YakuNumbers.Sankantsu, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             for (int i = 0; i < 5; i++)
             {
                 int type = partTypes[i];
-                if (winningTile == -1 && (type == 0 || type == 1 || type == 5)) winningTile = parts[i][1];
+                if (winningTile == -1 && (type == MeldType.Pair || type == MeldType.ConcealedTriplet || type == MeldType.ConcealedSequence)) winningTile = parts[i][1];
             }
         }
 
@@ -1010,11 +1010,11 @@ namespace MahjongScoreTrainer
             {
                 MeldGenerator.MakeRandomShuntsu(-1, ref remaining, out unused, out generated);
                 parts[i] = generated;
-                partTypes[i] = 5;
+                partTypes[i] = MeldType.ConcealedSequence;
             }
             MeldGenerator.MakeRandomAtama(YakuNumbers.Pinfu, ref remaining, out unused, out generated);
             parts[4] = generated;
-            partTypes[4] = 0;
+            partTypes[4] = MeldType.Pair;
             winningTile = TileUtilities.GetNumber(parts[0][0]) == 7 ? parts[0][2] : parts[0][0];
         }
     }

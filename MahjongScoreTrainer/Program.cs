@@ -522,26 +522,26 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 1 + RandomSelection.RetOne(furo_bairitsu);
+                        partsType[i] = MeldType.ConcealedTriplet + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else if (shurui == 1) //暗槓・暗槓
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 3 + RandomSelection.RetOne(furo_bairitsu);
+                        partsType[i] = MeldType.ConcealedQuad + RandomSelection.RetOne(furo_bairitsu);
                         kanoccurCount++;
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5 + RandomSelection.RetOne(furo_bairitsu);
+                        partsType[i] = MeldType.ConcealedSequence + RandomSelection.RetOne(furo_bairitsu);
                     }
                     else  //順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = 5;
+                        partsType[i] = MeldType.ConcealedSequence;
                     }
 
                     //Debug.Print("i = " + i.ToString() + " -> type" + partsType[i].ToString() + " >> " + xsparts[0].ToString());
@@ -552,12 +552,12 @@ namespace MahjongScoreTrainer
 
                 MeldGenerator.MakeRandomAtama(YakuNumbers.Tanyao, ref maisu, out strparts, out xsparts, some_clr);
                 partsXS[4] = xsparts;
-                partsType[4] = 0;
+                partsType[4] = MeldType.Pair;
 
                 for (int i = 0; i < 5; i++)
                 {
                     int tmptype = partsType[i];
-                    if (machi_xs == -1 && (tmptype == 0 || tmptype == 1 || tmptype == 5))
+                    if (machi_xs == -1 && (tmptype == MeldType.Pair || tmptype == MeldType.ConcealedTriplet || tmptype == MeldType.ConcealedSequence))
                     {
                         machi_xs = partsXS[i][1];
                     }
@@ -614,7 +614,7 @@ namespace MahjongScoreTrainer
                 {
                     for (int k = 0; k < partsXS[i].Length; k++)
                     {
-                        if (partsType[i] == 0 || partsType[i] == 1 || partsType[i] == 5)
+                        if (partsType[i] == MeldType.Pair || partsType[i] == MeldType.ConcealedTriplet || partsType[i] == MeldType.ConcealedSequence)
                         {
 
                             tehai[count] = partsXS[i][k];
@@ -670,7 +670,7 @@ namespace MahjongScoreTrainer
             {
                 int basyo = r.Next(3); //チー以外の副露者
 
-                if (partsType[i] == 2) //明刻
+                if (partsType[i] == MeldType.OpenTriplet) //明刻
                 {
 
                     tehaistr += " ";
@@ -694,7 +694,7 @@ namespace MahjongScoreTrainer
                     furocount++;
 
                 }
-                else if (partsType[i] == 3) //暗槓
+                else if (partsType[i] == MeldType.ConcealedQuad) //暗槓
                 {
 
                     tehaistr += " ";
@@ -718,7 +718,7 @@ namespace MahjongScoreTrainer
                     furocount++;
 
                 }
-                else if (partsType[i] == 4) //明槓
+                else if (partsType[i] == MeldType.OpenQuad) //明槓
                 {
 
                     tehaistr += " ";
@@ -750,7 +750,7 @@ namespace MahjongScoreTrainer
                     furocount++;
 
                 }
-                else if (partsType[i] == 6) //副露順子
+                else if (partsType[i] == MeldType.OpenSequence) //副露順子
                 {
 
                     int[] shuntsu_sorted = new int[3] { -1, -1, -1 };
