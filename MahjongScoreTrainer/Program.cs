@@ -522,20 +522,20 @@ namespace MahjongScoreTrainer
                     {
                         MeldGenerator.MakeRandomKotsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = MeldType.ApplyExposure(MeldType.ConcealedTriplet, RandomSelection.RetOne(furo_bairitsu));
+                        partsType[i] = MeldType.ApplyExposure(MeldType.ConcealedTriplet, RandomSelection.OneIn(furo_bairitsu));
                     }
                     else if (shurui == 1) //暗槓・暗槓
                     {
                         MeldGenerator.MakeRandomKantsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = MeldType.ApplyExposure(MeldType.ConcealedQuad, RandomSelection.RetOne(furo_bairitsu));
+                        partsType[i] = MeldType.ApplyExposure(MeldType.ConcealedQuad, RandomSelection.OneIn(furo_bairitsu));
                         kanoccurCount++;
                     }
                     else if (shurui == 2) //順子・副露順子
                     {
                         MeldGenerator.MakeRandomShuntsu(yakuNum, ref maisu, out strparts, out xsparts, some_clr);
                         partsXS[i] = xsparts;
-                        partsType[i] = MeldType.ApplyExposure(MeldType.ConcealedSequence, RandomSelection.RetOne(furo_bairitsu));
+                        partsType[i] = MeldType.ApplyExposure(MeldType.ConcealedSequence, RandomSelection.OneIn(furo_bairitsu));
                     }
                     else  //順子
                     {
