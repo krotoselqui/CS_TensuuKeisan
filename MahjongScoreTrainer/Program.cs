@@ -403,21 +403,21 @@ namespace MahjongScoreTrainer
 
             int[] tehai = new int[GameLimits.MaxHandTiles];
             int[][] furotehai = new int[GameLimits.MaxOpenMelds][];
-            furotehai[0] = new int[4];
-            furotehai[1] = new int[4];
-            furotehai[2] = new int[4];
-            furotehai[3] = new int[4];
+            furotehai[0] = new int[GameLimits.MeldTileSlotCount];
+            furotehai[1] = new int[GameLimits.MeldTileSlotCount];
+            furotehai[2] = new int[GameLimits.MeldTileSlotCount];
+            furotehai[3] = new int[GameLimits.MeldTileSlotCount];
 
             int[] furotype = new int[GameLimits.MaxOpenMelds];
 
             int count = 0;
 
             int[][] partsXS = new int[GameLimits.HandPartCount][];
-            partsXS[0] = new int[4];
-            partsXS[1] = new int[4];
-            partsXS[2] = new int[4];
-            partsXS[3] = new int[4];
-            partsXS[4] = new int[4];
+            partsXS[0] = new int[GameLimits.MeldTileSlotCount];
+            partsXS[1] = new int[GameLimits.MeldTileSlotCount];
+            partsXS[2] = new int[GameLimits.MeldTileSlotCount];
+            partsXS[3] = new int[GameLimits.MeldTileSlotCount];
+            partsXS[4] = new int[GameLimits.MeldTileSlotCount];
 
             int[] partsType = new int[GameLimits.HandPartCount];
 

@@ -155,3 +155,5 @@ partType ‚Ì”’l‚ð MeldType ‚Ì–¼‘O•t‚«’è”‚Ö’u‚«Š·‚¦‚½B“ªEˆÃE–¾EˆÃžÈE–
 Šm—¦’Š‘Iƒwƒ‹ƒp[ RandomSelection.RetOne ‚ð RandomSelection.OneIn ‚É‰ü–¼‚µA1/N ’Š‘I‚Å‚ ‚é—p“r‚ð–¼‘O‚©‚ç–¾Šm‚É‚µ‚½BŽÀ‘•‚Æ—”ŒÄ‚Ño‚µ‚Í•ÏX‚µ‚Ä‚¢‚È‚¢B
 
 ”vŽí”A”v1Ží‚ ‚½‚è‚Ì–‡”AŽè”vãŒÀA•›˜IãŒÀA–ÊŽq”AŽè”v•”•i”‚ð GameLimits ‚Ì–¼‘O•t‚«’è”‚ÖW–ñ‚µ‚½B
+
+Še–ÊŽq‚Ì”vƒXƒƒbƒg”‚ð GameLimits.MeldTileSlotCount ‚Æ‚µ‚Ä’è‹`‚µA•›˜I–ÊŽq‚ÆŽè”v•”•i‚Ì”z—ñŠm•Û‚É“K—p‚µ‚½B

@@ -8,5 +8,6 @@ namespace MahjongScoreTrainer
         internal const int MaxOpenMelds = 4;
         internal const int MaxMelds = 4;
         internal const int HandPartCount = 5;
+        internal const int MeldTileSlotCount = 4;
     }
 }
