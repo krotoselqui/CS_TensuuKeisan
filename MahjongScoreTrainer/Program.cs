@@ -91,9 +91,9 @@ namespace MahjongScoreTrainer
 
             int count = 0;
 
-            for (int i = 1; i < 35; i++)
+            for (int i = 1; i <= GameLimits.TileKindCount; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < GameLimits.CopiesPerTile; j++)
                 {
                     for (int k = 0; k < tehai.Length; k++)
                     {
@@ -395,31 +395,31 @@ namespace MahjongScoreTrainer
             if (yakuNum == YakuNumbers.KokushiMusou) typeSP = true;
             if (yakuNum == YakuNumbers.JunseiKokushiMusou) typeSP = true;
 
-            int[] maisu = new int[35];
+            int[] maisu = new int[GameLimits.TileKindCount + 1];
             for (int i = 0; i < maisu.Length; i++)
             {
-                maisu[i] = 4;
+                maisu[i] = GameLimits.CopiesPerTile;
             }
 
-            int[] tehai = new int[20];
-            int[][] furotehai = new int[4][];
+            int[] tehai = new int[GameLimits.MaxHandTiles];
+            int[][] furotehai = new int[GameLimits.MaxOpenMelds][];
             furotehai[0] = new int[4];
             furotehai[1] = new int[4];
             furotehai[2] = new int[4];
             furotehai[3] = new int[4];
 
-            int[] furotype = new int[4];
+            int[] furotype = new int[GameLimits.MaxOpenMelds];
 
             int count = 0;
 
-            int[][] partsXS = new int[5][];
+            int[][] partsXS = new int[GameLimits.HandPartCount][];
             partsXS[0] = new int[4];
             partsXS[1] = new int[4];
             partsXS[2] = new int[4];
             partsXS[3] = new int[4];
             partsXS[4] = new int[4];
 
-            int[] partsType = new int[5];
+            int[] partsType = new int[GameLimits.HandPartCount];
 
             const int MENZ_ATAMA = 0;
             const int MENZ_ANKO = 1;
